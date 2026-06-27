@@ -1,1 +1,0 @@
-# ramana-maharshi-learning-coach
