@@ -1,330 +1,465 @@
-# Wiki Index
-Last updated: 2026-06-29 | Pages: 289 | Sources: 558
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAE Wiki: 學習教練互動式儀表板空間</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #0a0b10;
+            --bg-sidebar: #101118;
+            --bg-card: #161722;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.2);
+            --border: #222533;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #4b5563;
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-## Concepts
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-sidebar: #ffffff;
+            --bg-card: #f8fafc;
+            --accent: #4f46e5;
+            --accent-glow: rgba(79, 70, 229, 0.1);
+            --border: #cbd5e1;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+        }
 
-| Page | Summary | Updated |
-|------|---------|---------|
-| [[wiki/concepts/7-habits-circle-of-influence]] | 影響圈與關注圈 (Circle of Influence and Circle of Concern) | 2026-05-26 |
-| [[wiki/concepts/7-habits-maturity-continuum]] | 成熟模式圖 (Maturity Continuum) | 2026-05-26 |
-| [[wiki/concepts/7-habits-stimulus-response]] | 刺激與反應：選擇的自由 (Stimulus and Response: Freedom to Choose) | 2026-05-26 |
-| [[wiki/concepts/abaqus-cae-workflow]] | Abaqus/CAE Workflow | 2026-05-12 |
-| [[wiki/concepts/abaqus-dload-subroutine]] | Abaqus DLOAD, VDLOAD, and UTRACLOAD | 2026-06-01 |
-| [[wiki/concepts/abaqus-element-selection]] | Abaqus Element Selection | 2026-05-21 |
-| [[wiki/concepts/abaqus-gui-development]] | Abaqus GUI Development | 2026-05-29 |
-| [[wiki/concepts/abaqus-mdb-scripting-template]] | Abaqus MDB Scripting Template | 2026-05-21 |
-| [[wiki/concepts/abaqus-odb-postprocessing-template]] | Abaqus ODB Postprocessing Template | 2026-05-21 |
-| [[wiki/concepts/abaqus-plugin-development]] | Abaqus Plug-in Development | 2026-05-21 |
-| [[wiki/concepts/abaqus-python-scripting]] | Abaqus Python Scripting | 2026-06-01 |
-| [[wiki/concepts/abaqus-troubleshooting]] | Abaqus Troubleshooting Guide | 2026-05-19 |
-| [[wiki/concepts/abaqus-umat-vumat-subroutine]] | Abaqus UMAT and VUMAT | 2026-06-02 |
-| [[wiki/concepts/abaqus-umeshmotion-subroutine]] | Abaqus UMESHMOTION | 2026-06-01 |
-| [[wiki/concepts/abaqus-usdfld-subroutine]] | Abaqus USDFLD and VUSDFLD | 2026-06-01 |
-| [[wiki/concepts/abaqus-user-subroutines]] | Abaqus User Subroutines | 2026-06-02 |
-| [[wiki/concepts/acceptance-vs-agreement]] | Acceptance vs Agreement | 2026-05-29 |
-| [[wiki/concepts/anthropic-claude]] | Anthropic Claude | 2026-05-29 |
-| [[wiki/concepts/antigravity-ide]] | Antigravity IDE — 架構、Antigravity CLI 與 Multi-Brain Agent 策略 | 2026-06-04 |
-| [[wiki/concepts/automotive-vision-processors-comparison]] | Automotive Vision Processors: Ambarella CV72AX86 vs. Mobileye EyeQ6H | 2026-06-12 |
-| [[wiki/concepts/buddhist-right-view-and-awakening]] | 佛教正見與覺悟 | 2026-06-02 |
-| [[wiki/concepts/chaboche-parameter-fitting]] | Chaboche Parameter Fitting | 2026-06-02 |
-| [[wiki/concepts/character-focus]] | Character: Focus | 2026-05-21 |
-| [[wiki/concepts/character-gratitude]] | Character: Gratitude | 2026-05-21 |
-| [[wiki/concepts/character-integrity]] | Character: Integrity | 2026-05-21 |
-| [[wiki/concepts/character-positive-thinking]] | Character: Positive Thinking | 2026-05-21 |
-| [[wiki/concepts/character-respect]] | Character: Respect | 2026-05-21 |
-| [[wiki/concepts/character-responsibility]] | Character: Responsibility | 2026-05-21 |
-| [[wiki/concepts/character-self-confidence]] | Character: Self-Confidence | 2026-05-21 |
-| [[wiki/concepts/character-self-control]] | Character: Self-Control | 2026-05-21 |
-| [[wiki/concepts/character-self-love]] | Character: Self-Love | 2026-05-21 |
-| [[wiki/concepts/childhood-trauma]] | 童年創傷與成人行為模式 | 2026-05-17 |
-| [[wiki/concepts/cholesterol-myth]] | Cholesterol Myth (膽固醇迷思與斑塊科學) | 2026-06-29 |
-| [[wiki/concepts/co-packaged-optics]] | Co-Packaged Optics | 2026-05-22 |
-| [[wiki/concepts/cohesive-behavior]] | 凝聚力行為與黏結單元 (Cohesive Behavior) | 2026-05-19 |
-| [[wiki/concepts/cohesive-zone-modeling]] | Cohesive Zone Modeling (CZM) | 2026-06-01 |
-| [[wiki/concepts/compassionate-inquiry]] | 慈悲探尋 (Compassionate Inquiry) | 2026-05-17 |
-| [[wiki/concepts/composite-laminate-impact-damage]] | Composite Laminate Impact Damage | 2026-05-29 |
-| [[wiki/concepts/contact-mechanics]] | Contact Mechanics | 2026-06-01 |
-| [[wiki/concepts/continuous-learning]] | Continuous Learning | 2026-05-29 |
-| [[wiki/concepts/crystal-lattice-defects]] | Crystal Lattice Defects | 2026-05-21 |
-| [[wiki/concepts/cyclic-ramberg-osgood]] | Cyclic Ramberg-Osgood | 2026-06-02 |
-| [[wiki/concepts/diamond-sutra-core-teachings]] | 金剛經核心義理 | 2026-06-02 |
-| [[wiki/concepts/edge-ai-vision-soc]] | Edge AI Vision SoC | 2026-05-22 |
-| [[wiki/concepts/ego-and-pain-body]] | Ego and Pain-Body | 2026-06-29 |
-| [[wiki/concepts/electronic-equipment-vibration-analysis]] | Electronic Equipment Vibration Analysis | 2026-06-01 |
-| [[wiki/concepts/electronic-reliability-design]] | Electronic Product Reliability Design | 2026-06-02 |
-| [[wiki/concepts/entrepreneurial-first-principles]] | Entrepreneurial First Principles | 2026-05-29 |
-| [[wiki/concepts/environmental-stress-testing]] | Environmental Stress Testing | 2026-05-15 |
-| [[wiki/concepts/epigenetics]] | Epigenetics (表觀遺傳學與體質科學) | 2026-05-18 |
-| [[wiki/concepts/explicit-dynamics]] | Explicit Dynamics | 2026-06-01 |
-| [[wiki/concepts/explicit-dynamics-fracture]] | 顯式動力學斷裂模擬 (Explicit Dynamics Fracture) | 2026-05-19 |
-| [[wiki/concepts/family-constellation]] | 家庭系統排列 | 2026-06-02 |
-| [[wiki/concepts/fatigue-life-evaluation]] | Fatigue Life Evaluation | 2026-06-02 |
-| [[wiki/concepts/fkm-richtlinie]] | FKM Guideline (FKM-Richtlinie) — 結構設計與疲勞強度評估規範 | 2026-06-29 |
-| [[wiki/concepts/fea-troubleshooting]] | FEA Solver Diagnostics & Troubleshooting (有限元求解器診斷與疑難排解) | 2026-05-18 |
-| [[wiki/concepts/feynman-technique]] | Feynman Learning Technique (費曼學習法) | 2026-06-29 |
-| [[wiki/concepts/finite-element-method]] | Finite Element Method (FEM) | 2026-05-29 |
-| [[wiki/concepts/flexible-mechanism-reliability]] | Dynamic Reliability of Flexible Mechanisms | 2026-05-19 |
-| [[wiki/concepts/fmea]] | 失效模式與效應分析 (Failure Mode and Effects Analysis - FMEA) | 2026-05-19 |
-| [[wiki/concepts/fmea-msr]] | 監控與系統響應補充 FMEA (FMEA-MSR) | 2026-05-19 |
-| [[wiki/concepts/fmea-seven-steps]] | AIAG-VDA FMEA 七步分析法 (FMEA Seven Steps) | 2026-05-19 |
-| [[wiki/concepts/fracture-mechanics]] | Fracture Mechanics in Abaqus | 2026-05-19 |
-| [[wiki/concepts/functional-probiotics-and-microbiome]] | Functional Probiotics and Microbiome Health | 2026-06-09 |
-| [[wiki/concepts/gut-health]] | Gut Health (?賊??亙熒) | 2026-05-29 |
-| [[wiki/concepts/hardness-testing]] | Hardness Testing | 2026-05-20 |
-| [[wiki/concepts/harmonic-response-analysis]] | Harmonic Response Analysis | 2026-05-20 |
-| [[wiki/concepts/hermes-self-evolving-agent-architecture]] | Hermes Self-Evolving Agent Architecture | 2026-06-02 |
-| [[wiki/concepts/iceberg-theory]] | 冰山理論 (Iceberg Theory) | 2026-05-17 |
-| [[wiki/concepts/internal-family-systems]] | 內在家庭系統 (Internal Family Systems) | 2026-05-17 |
-| [[wiki/concepts/laozi-daoist-practice]] | 老子道家修養 | 2026-06-01 |
-| [[wiki/concepts/lcos-microdisplay]] | LCoS Microdisplay | 2026-05-22 |
-| [[wiki/concepts/legacy-and-incapacity-planning]] | Legacy and Incapacity Planning | 2026-05-21 |
-| [[wiki/concepts/leverage]] | Leverage (Naval Ravikant) | 2026-06-02 |
-| [[wiki/concepts/llm-wiki-system]] | LLM Wiki System — Architecture & Deployment Strategy | 2026-06-04 |
-| [[wiki/concepts/long-term-care-planning]] | Long-Term Care Planning | 2026-05-21 |
-| [[wiki/concepts/material-constitutive-models]] | ???祆?璅∪????蝔? | 2026-06-01 |
-| [[wiki/concepts/material-damage]] | Material Damage & Failure | 2026-06-01 |
-| [[wiki/concepts/material-selection]] | 蝟餌絞????????? | 2026-05-29 |
-| [[wiki/concepts/mcp-model-context-protocol]] | Model Context Protocol (MCP) | 2026-06-01 |
-| [[wiki/concepts/mechanical-properties-metals]] | Mechanical Properties of Metals | 2026-05-21 |
-| [[wiki/concepts/mechanical-reliability-testing]] | Mechanical Reliability Testing | 2026-06-01 |
-| [[wiki/concepts/medicare-and-retirement-health-insurance]] | Medicare and Retirement Health Insurance | 2026-05-21 |
-| [[wiki/concepts/mental-models]] | 憭??雁璅∪? (Multiple Mental Models) | 2026-05-29 |
-| [[wiki/concepts/mesh-convergence]] | Mesh Convergence | 2026-05-12 |
-| [[wiki/concepts/metal-heat-treatment]] | Metal Heat Treatment | 2026-05-21 |
-| [[wiki/concepts/more-stress-algorithm]] | MORE-Stress Algorithm | 2026-05-26 |
-| [[wiki/concepts/morrow-compatibility-theorem]] | Morrow Compatibility Theorem | 2026-06-02 |
-| [[wiki/concepts/nonlinear-analysis]] | Nonlinear Analysis in Abaqus | 2026-05-12 |
-| [[wiki/concepts/nonlinear-fem]] | Nonlinear Finite Element Method | 2026-05-21 |
-| [[wiki/concepts/nonlinear-fem-continuum]] | Nonlinear FEM Continuum Framework | 2026-05-21 |
-| [[wiki/concepts/nvh-modal-analysis]] | NVH and Experimental Modal Analysis | 2026-06-01 |
-| [[wiki/concepts/nvidia-drive-soc-reliability]] | NVIDIA DRIVE Orin and Thor SoC Reliability and Thermo-Mechanical Simulation | 2026-06-12 |
-| [[wiki/concepts/nvidia-physical-ai-stack]] | NVIDIA Physical AI Stack | 2026-06-09 |
-| [[wiki/concepts/online-teaching-techniques]] | Online Teaching Techniques | 2026-05-29 |
-| [[wiki/concepts/philosophy-of-religion]] | 宗教哲學 | 2026-06-02 |
-| [[wiki/concepts/power-of-now]] | 當下的力量 (The Power of Now) | 2026-05-29 |
-| [[wiki/concepts/probability-distributions]] | 常見概率分佈與可靠性模型 (Probability Distributions) | 2026-05-19 |
-| [[wiki/concepts/probiotics]] | Probiotics (益生菌) | 2026-05-18 |
-| [[wiki/concepts/product-reliability-testing]] | Product Reliability Testing Overview | 2026-06-29 |
-| [[wiki/concepts/psychology-of-human-misjudgment]] | 人類誤判心理學 (Psychology of Human Misjudgment) | 2026-05-26 |
-| [[wiki/concepts/qualcomm-snapdragon-ride-socs]] | Qualcomm Snapdragon Ride ADAS Modules (QAM8650P and QAM8797P) | 2026-06-12 |
-| [[wiki/concepts/quasi-static-analysis]] | Quasi-Static Analysis in Explicit | 2026-05-12 |
-| [[wiki/concepts/ramberg-osgood-estimation]] | Ramberg-Osgood Estimation from Conventional Properties | 2026-06-02 |
-| [[wiki/concepts/retirement-housing-decisions]] | Retirement Housing Decisions | 2026-05-21 |
-| [[wiki/concepts/retirement-income-optimization]] | Retirement Income Optimization | 2026-05-21 |
-| [[wiki/concepts/retirement-income-styles]] | Retirement Income Styles | 2026-05-21 |
-| [[wiki/concepts/retirement-planning]] | Retirement Planning for 40+ | 2026-05-29 |
-| [[wiki/concepts/retirement-tax-distribution-planning]] | Retirement Tax Distribution Planning | 2026-05-21 |
-| [[wiki/concepts/sadhguru-enlightenment]] | 薩古魯談開悟 (Sadhguru on Enlightenment) | 2026-06-02 |
-| [[wiki/concepts/satir-coaching]] | 薩提爾教練應用 (Satir Coaching) | 2026-06-02 |
-| [[wiki/concepts/satir-communication-stances]] | 薩提爾溝通姿態 (Satir Communication Stances) | 2026-06-02 |
-| [[wiki/concepts/satir-iceberg-model]] | 薩提爾冰山模型 (Satir Iceberg Model) | 2026-06-02 |
-| [[wiki/concepts/satir-model]] | 薩提爾模式 (Satir Model) | 2026-06-02 |
-| [[wiki/concepts/satir-self-worth-and-compulsive-proving]] | Satir: Self-Worth and Compulsive Proving | 2026-06-02 |
-| [[wiki/concepts/self-awareness]] | ?芣?閬箏? (Self-Awareness) | 2026-05-29 |
-| [[wiki/concepts/sequence-of-returns-risk]] | Sequence-of-Returns Risk | 2026-05-21 |
-| [[wiki/concepts/shamatha-vipashyana]] | 止觀與定慧雙修 | 2026-06-02 |
-| [[wiki/concepts/social-security-claiming]] | Social Security Claiming | 2026-05-21 |
-| [[wiki/concepts/solder-imc-interface-czm]] | Solder/IMC Interface Cohesive Zone Modeling | 2026-06-01 |
-| [[wiki/concepts/solder-joint-reliability]] | Solder Joint Reliability | 2026-06-29 |
-| [[wiki/concepts/solder-reflow-geometry-simulation]] | Solder Reflow Geometry Simulation | 2026-05-29 |
-| [[wiki/concepts/specific-knowledge]] | Specific Knowledge | 2026-06-02 |
-| [[wiki/concepts/statistics-basics]] | ?箇?蝯梯?摮貉?霈?? (Statistics Basics) | 2026-05-19 |
-| [[wiki/concepts/strength-theories]] | 強度理論與應力狀態分析 | 2026-05-19 |
-| [[wiki/concepts/stress-triaxiality]] | Stress Triaxiality | 2026-05-11 |
-| [[wiki/concepts/structural-dynamics]] | Structural Dynamics | 2026-06-01 |
-| [[wiki/concepts/surrender-experiment]] | The Surrender Experiment | 2026-05-19 |
-| [[wiki/concepts/system-shock-and-drop-analysis]] | System Shock and Free-Fall Drop Analysis | 2026-06-01 |
-| [[wiki/concepts/time-segmentation]] | Time Segmentation | 2026-05-21 |
-| [[wiki/concepts/triz]] | TRIZ 蝟餌絞??啗??潭???閫?捱?? (TRIZ) | 2026-05-19 |
-| [[wiki/concepts/triz-forty-principles]] | TRIZ 40 個發明措施 (Forty Inventive Principles) | 2026-05-25 |
-| [[wiki/concepts/underlying-logic]] | 底層邏輯 | 2026-06-02 |
-| [[wiki/concepts/universal-slopes-method]] | Universal Slopes Method | 2026-06-02 |
-| [[wiki/concepts/variable-spending-strategies]] | Variable Spending Strategies | 2026-05-21 |
-| [[wiki/concepts/vcct]] | VCCT (Virtual Crack Closure Technology) | 2026-05-11 |
-| [[wiki/concepts/wafer-level-optics]] | Wafer-Level Optics | 2026-05-22 |
-| [[wiki/concepts/welded-structure-fatigue]] | Fatigue Analysis of Welded Structures | 2026-05-19 |
-| [[wiki/concepts/xfem]] | XFEM (eXtended Finite Element Method) | 2026-05-11 |
-| [[wiki/concepts/zone-two-training]] | Zone 2 Training (二區有氧訓練) | 2026-06-15 |
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-## Software
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            transition: var(--transition);
+        }
 
-| Page | Summary | Updated |
-|------|---------|---------|
-| [[wiki/software/abaqus]] | Abaqus | 2026-06-01 |
-| [[wiki/software/ansys]] | ANSYS | 2026-05-20 |
-| [[wiki/software/linux]] | Linux | 2026-06-01 |
+        /* Sidebar Styling */
+        .sidebar {
+            width: 320px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            transition: var(--transition);
+            z-index: 10;
+        }
 
-## Projects
+        .sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-_No projects pages yet. Create with: `wiki/projects/page-name.md`_
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-## People
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
 
-| Page | Summary | Updated |
-|------|---------|---------|
-| [[wiki/people/altshuller-genrich]] | Genrich Altshuller | 2026-05-19 |
-| [[wiki/people/ashby-michael]] | 邁克爾·阿什比 | 2026-05-19 |
-| [[wiki/people/belytschko-ted]] | Ted Belytschko | 2026-05-19 |
-| [[wiki/people/bengen-william]] | William P. Bengen | 2026-06-26 |
-| [[wiki/people/boulbes-raphael]] | Raphael Jean Boulbes | 2026-05-12 |
-| [[wiki/people/cai-yingjie]] | 蔡英傑 | 2026-05-18 |
-| [[wiki/people/cao-jinfeng]] | 曹金鳳 (Cao Jinfeng) | 2026-05-19 |
-| [[wiki/people/davidson-richard]] | Richard Davidson (理查．戴維森) | 2026-06-15 |
-| [[wiki/people/drinking-library]] | 只能喝酒的圖書館 (Drinking Library) | 2026-05-19 |
-| [[wiki/people/feldman-christina]] | Christina Feldman | 2026-06-26 |
-| [[wiki/people/fu-peirong]] | Fu Peirong (傅佩榮) | 2026-06-15 |
-| [[wiki/people/goldie-julian]] | Julian Goldie (朱利安·高迪) | 2026-05-18 |
-| [[wiki/people/goleman-daniel]] | Daniel Goleman (丹尼爾．高曼) | 2026-06-15 |
-| [[wiki/people/griffiths-dawn]] | Dawn Griffiths | 2026-05-19 |
-| [[wiki/people/hassed-craig]] | Craig Hassed | 2026-06-26 |
-| [[wiki/people/jiang-minfeng]] | Jiang Minfeng | 2026-05-20 |
-| [[wiki/people/kabat-zinn-jon]] | Jon Kabat-Zinn | 2026-06-26 |
-| [[wiki/people/kuyken-willem]] | Willem Kuyken | 2026-06-26 |
-| [[wiki/people/li-chongjian]] | 李崇建 | 2026-05-19 |
-| [[wiki/people/li-chongyi]] | 李崇義 | 2026-05-17 |
-| [[wiki/people/liu-hongwen]] | 劉鴻文 | 2026-05-19 |
-| [[wiki/people/liu-shengxin]] | Liu Shengxin | 2026-05-20 |
-| [[wiki/people/maharshi-ramana]] | Ramana Maharshi | 2026-06-26 |
-| [[wiki/people/mckenzie-stephen]] | Stephen McKenzie | 2026-06-26 |
-| [[wiki/people/pfau-wade]] | Wade Pfau | 2026-05-21 |
-| [[wiki/people/puri-g-m]] | G.M. Puri | 2026-05-19 |
-| [[wiki/people/ravikant-naval]] | Naval Ravikant | 2026-06-02 |
-| [[wiki/people/ren-mingzhang]] | 任明章 | 2026-05-19 |
-| [[wiki/people/singer-michael]] | Michael A. Singer | 2026-05-19 |
-| [[wiki/people/song-yanren]] | 宋晏仁 | 2026-05-18 |
-| [[wiki/people/song-yayun]] | Song Ya-yun | 2026-05-19 |
-| [[wiki/people/wang-guojun]] | Wang Guojun | 2026-05-20 |
-| [[wiki/people/wang-shuyi]] | 王樹義 | 2026-05-19 |
-| [[wiki/people/wang-yongfu]] | Wang Yong-fu | 2026-05-19 |
-| [[wiki/people/wright-robert]] | Robert Wright (羅伯．賴特) | 2026-06-15 |
-| [[wiki/people/xin-chunliang]] | 辛春亮 | 2026-05-19 |
-| [[wiki/people/zhang-huicheng]] | 張輝誠 | 2026-05-19 |
-| [[wiki/people/zhao-min]] | Zhao Min | 2026-05-21 |
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
 
-## Comparisons
+        .menu-list {
+            padding: 20px;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
 
-| Page | Summary | Updated |
-|------|---------|---------|
-| [[wiki/comparisons/satir-practitioners-comparison]] | Satir Practitioners Comparison | 2026-05-21 |
-| [[wiki/comparisons/tolle-ego-buddhist-self-clinging-satir-self]] | Tolle Ego, Buddhist Self-Clinging, Satir Self, and Sadhguru | 2026-06-02 |
+        .menu-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
 
-## Synthesis
+        .menu-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
 
-| Page | Summary | Updated |
-|------|---------|---------|
-| [[wiki/synthesis/abaqus-introduction-course]] | Abaqus Introduction Course (Dassault Systèmes Official) | 2026-06-15 |
-| [[wiki/synthesis/aigc-productivity]] | ?箸?梁?嚗IGC?誨???Ｗ?撖西? | 2026-05-19 |
-| [[wiki/synthesis/ashby-materials-selection-book-summary]] | 产品设计中的材料选择 (Materials Selection in Mechanical Design) Book Summary | 2026-05-22 |
-| [[wiki/synthesis/book-of-joy]] | 喜悅作為特質：Book of Joy 綜述 | 2026-06-02 |
-| [[wiki/synthesis/buddha-fears-system-wan]] | 佛畏系統：用系統思維全面提升你的決策力 | 2026-06-29 |
-| [[wiki/synthesis/building-with-claude-on-google-cloud]] | Building with Claude on Google Cloud | 2026-06-12 |
-| [[wiki/synthesis/dalai-lama-buddhism-and-mind]] | 達賴喇嘛：佛教教義與心靈科學 (Dalai Lama: Buddhism and the Mind) | 2026-06-15 |
-| [[wiki/synthesis/diffusion-and-vision-models-cme296-l8]] | Diffusion and Vision Models: CME296 Lecture 8 Trending Topics | 2026-06-02 |
-| [[wiki/synthesis/dynamic-structures-abaqus-subroutines-hejazi]] | Dynamic Structures through Abaqus Subroutines (Hejazi Book) | 2026-06-02 |
-| [[wiki/synthesis/eighty-four-thousand-questions-khyentse]] | 宗薩蔣揚欽哲仁波切《八萬四千問》 | 2026-06-02 |
-| [[wiki/synthesis/electronic-reliability-design-2000-principles]] | 電子產品設計寶典可靠性原則2000條 | 2026-06-09 |
-| [[wiki/synthesis/elon-musk-2003-stanford-lecture]] | Elon Musk 2003 Stanford ETL Lecture | 2026-06-02 |
-| [[wiki/synthesis/evolution-of-god]] | 神的演化：博弈論、歷史唯物主義與道德想像力的擴張 | 2026-06-15 |
-| [[wiki/synthesis/fea-material-properties-handbook]] | 有限元分析常用材料參數手冊 | 2026-06-09 |
-| [[wiki/synthesis/fu-peirong-iching]] | 傅佩榮易經課 (Fu Peirong's I Ching Lessons) | 2026-06-29 |
-| [[wiki/synthesis/fu-peirong-laozi]] | 傅佩榮講老子：道德經的防禦性決策與學習系統 | 2026-06-29 |
-| [[wiki/synthesis/fu-peirong-philosophy-and-life]] | 傅佩榮《哲學與人生》 | 2026-06-01 |
-| [[wiki/synthesis/himax-optics-and-ai-thesis]] | Himax Optics and AI Thesis | 2026-06-09 |
-| [[wiki/synthesis/how-much-can-i-spend-in-retirement-chapter-summaries]] | How Much Can I Spend in Retirement Chapter Summaries | 2026-05-22 |
-| [[wiki/synthesis/karpathy-llm-wiki]] | Karpathy LLM Wiki Knowledge System | 2026-05-21 |
-| [[wiki/synthesis/matlab-numerical-computing-for-fem]] | MATLAB Numerical Computing for FEM | 2026-05-29 |
-| [[wiki/synthesis/meditation-science-and-evolution]] | 禪修的科學：演化心理學與腦神經科學的實證對話 | 2026-06-15 |
-| [[wiki/synthesis/mindfulness-ancient-wisdom-modern-psychology]] | Mindfulness: Ancient Wisdom Meets Modern Psychology (Christina Feldman & Willem Kuyken) Book Ingest | 2026-06-26 |
-| [[wiki/synthesis/mindfulness-for-life-mckenzie-hassed]] | Mindfulness for Life (Stephen McKenzie & Craig Hassed) Book Ingest | 2026-06-26 |
-| [[wiki/synthesis/mindfulness-meditation-for-pain-relief-kabat-zinn]] | Mindfulness Meditation for Pain Relief (Jon Kabat-Zinn) Book Ingest | 2026-06-26 |
-| [[wiki/synthesis/modal-analysis-theory-and-experiment]] | 模態分析理論與試驗 | 2026-06-09 |
-| [[wiki/synthesis/naval-ravikant-wealth-and-happiness]] | 納瓦爾的人生與財富框架 | 2026-06-02 |
-| [[wiki/synthesis/neng-duan-jingang-jing]] | 《能斷：金剛經給你強大》全域結構與核心義理分析 | 2026-06-08 |
-| [[wiki/synthesis/notebooklm-seo-workflow]] | NotebookLM ?郊?芸???隤輯? AI SEO 撌乩?瘚?(NotebookLM Ingestion Workflow) | 2026-05-29 |
-| [[wiki/synthesis/nvh-modal-analysis-textbook]] | 從這裡學NVH — NVH 與模態分析教材全覽 | 2026-06-09 |
-| [[wiki/synthesis/nvidia-gtc-taipei-2026-keynote]] | NVIDIA GTC Taipei 2026 — Jensen Huang Keynote Full Analysis | 2026-06-09 |
-| [[wiki/synthesis/personal-unlimited-company-moto]] | 個人無限公司：轉職和副業的相乘x生涯價值最大化生存法 | 2026-06-29 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch01-a-taste-of-scripting]] | Python Scripts for ABAQUS Ch01 - A Taste of Scripting | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch02-running-a-script]] | Python Scripts for ABAQUS Ch02 - Running a Script | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch03-python-101]] | Python Scripts for ABAQUS Ch03 - Python 101 | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch04-the-basics-of-scripting-cantilever-beam-example]] | Python Scripts for ABAQUS Ch04 - The Basics of Scripting | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch05-python-102]] | Python Scripts for ABAQUS Ch05 - Python 102 | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch06-replay-files-macros-and-ides]] | Python Scripts for ABAQUS Ch06 - Replay Files, Macros and IDEs | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch07-static-analysis-of-a-loaded-truss]] | Python Scripts for ABAQUS Ch07 - Static Analysis of a Loaded Truss | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch08-explicit-analysis-of-a-dynamically-loaded-truss]] | Python Scripts for ABAQUS Ch08 - Explicit Analysis of a Dynamically Loaded Truss | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch09-analysis-of-a-frame-of-i-beams]] | Python Scripts for ABAQUS Ch09 - Analysis of a Frame of I-Beams | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch10-bending-of-a-planar-shell-plate]] | Python Scripts for ABAQUS Ch10 - Bending of a Planar Shell | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch11-heat-transfer-analysis]] | Python Scripts for ABAQUS Ch11 - Heat Transfer Analysis | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch12-contact-analysis-contact-pairs-method]] | Python Scripts for ABAQUS Ch12 - Contact Analysis | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch13-optimization-determine-the-maximum-plate-bending-loads]] | Python Scripts for ABAQUS Ch13 - Optimization for Plate Bending Loads | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch14-parameterization-prompt-boxes-and-xy-plots]] | Python Scripts for ABAQUS Ch14 - Parameterization, Prompt Boxes and XY Plots | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch15-optimization-of-a-parameterized-sandwich-structure]] | Python Scripts for ABAQUS Ch15 - Optimization of a Parameterized Sandwich Structure | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch16-explore-an-output-database]] | Python Scripts for ABAQUS Ch16 - Explore an Output Database | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch17-combine-frames-of-two-output-databases-and-create-an-animation]] | Python Scripts for ABAQUS Ch17 - Combine ODB Frames and Create an Animation | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch18-monitor-an-analysis-job-and-send-an-email-when-complete]] | Python Scripts for ABAQUS Ch18 - Monitor an Analysis Job and Send an Email | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch19-a-really-simple-gui-rsg-for-the-sandwich-structure-study]] | Python Scripts for ABAQUS Ch19 - A Really Simple GUI (RSG) | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch20-create-a-custom-gui-application-template]] | Python Scripts for ABAQUS Ch20 - Create a Custom GUI Application Template | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch21-custom-gui-application-for-beam-frame-analysis]] | Python Scripts for ABAQUS Ch21 - Custom GUI Application for Beam Frame Analysis | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-ch22-plug-ins]] | Python Scripts for ABAQUS Ch22 - Plug-ins | 2026-05-21 |
-| [[wiki/synthesis/python-scripts-for-abaqus-chapter-summaries]] | Python Scripts for ABAQUS Chapter Summaries | 2026-05-21 |
-| [[wiki/synthesis/quantum-buddhism-speculative-framework]] | 量子佛學整合理論（Speculative Framework） | 2026-06-02 |
-| [[wiki/synthesis/ramana-maharshi-turiya]] | Turiya: Life and Teachings of Ramana Maharshi Synthesis | 2026-06-29 |
-| [[wiki/synthesis/retirement-planning-guidebook-ch01-retirement-income-styles-and-decisions]] | Retirement Planning Guidebook Ch01 - Retirement Income Styles and Decisions | 2026-05-21 |
-| [[wiki/synthesis/retirement-planning-guidebook-ch02-retirement-risks]] | Retirement Planning Guidebook Ch02 - Retirement Risks | 2026-05-21 |
-| [[wiki/synthesis/retirement-planning-guidebook-ch03-quantifying-goals-and-assessing-preparedness]] | Retirement Planning Guidebook Ch03 - Quantifying Goals and Assessing Preparedness | 2026-05-21 |
-| [[wiki/synthesis/retirement-planning-guidebook-ch04-sustainable-spending-from-investments]] | Retirement Planning Guidebook Ch04 - Sustainable Spending from Investments | 2026-05-21 |
-| [[wiki/synthesis/retirement-planning-guidebook-ch05-annuities-and-risk-pooling]] | Retirement Planning Guidebook Ch05 - Annuities and Risk Pooling | 2026-05-21 |
-| [[wiki/synthesis/retirement-planning-guidebook-ch06-social-security]] | Retirement Planning Guidebook Ch06 - Social Security | 2026-05-21 |
-| [[wiki/synthesis/retirement-planning-guidebook-ch07-medicare-and-health-insurance]] | Retirement Planning Guidebook Ch07 - Medicare and Health Insurance | 2026-05-21 |
-| [[wiki/synthesis/retirement-planning-guidebook-ch08-long-term-care-planning]] | Retirement Planning Guidebook Ch08 - Long-Term Care Planning | 2026-05-21 |
-| [[wiki/synthesis/retirement-planning-guidebook-ch09-housing-decisions-in-retirement]] | Retirement Planning Guidebook Ch09 - Housing Decisions in Retirement | 2026-05-21 |
-| [[wiki/synthesis/retirement-planning-guidebook-ch10-tax-planning-for-efficient-retirement-distributions]] | Retirement Planning Guidebook Ch10 - Tax Planning for Efficient Retirement Distributions | 2026-05-21 |
-| [[wiki/synthesis/retirement-planning-guidebook-ch11-legacy-and-incapacity-planning]] | Retirement Planning Guidebook Ch11 - Legacy and Incapacity Planning | 2026-05-21 |
-| [[wiki/synthesis/retirement-planning-guidebook-ch12-the-non-financial-aspects-of-retirement-success]] | Retirement Planning Guidebook Ch12 - The Non-Financial Aspects of Retirement Success | 2026-05-21 |
-| [[wiki/synthesis/retirement-planning-guidebook-ch13-putting-it-all-together]] | Retirement Planning Guidebook Ch13 - Putting It All Together | 2026-05-21 |
-| [[wiki/synthesis/retirement-planning-guidebook-chapter-summaries]] | Retirement Planning Guidebook Chapter Summaries | 2026-05-21 |
-| [[wiki/synthesis/richer-retirement-bengen]] | A Richer Retirement (William P. Bengen) Book Ingest | 2026-06-26 |
-| [[wiki/synthesis/sadhguru-inner-engineering-guide]] | 薩古魯《內在喜悅工程》與對話錄 | 2026-06-02 |
-| [[wiki/synthesis/same-as-ever-housel]] | 一如既往：不變的人性法則與致富心態 | 2026-06-29 |
-| [[wiki/synthesis/satir-elephant-in-the-room-gomori]] | 大象在屋裡：薩提爾模式家族治療實錄 (The Elephant in the Room) | 2026-06-09 |
-| [[wiki/synthesis/satir-learning-coach-system]] | 大象在屋裡：薩提爾模式的學習教練系統 | 2026-06-10 |
-| [[wiki/synthesis/satir-sharestart-2018]] | 薩提爾與學思達（2018 喬登美語演講） | 2026-05-25 |
-| [[wiki/synthesis/sharestart-character-education]] | ShareStart Character Education | 2026-05-29 |
-| [[wiki/synthesis/steinberg-vibration-analysis-electronics]] | Steinberg 電子設備振動分析 — 工程實用手冊 | 2026-06-09 |
-| [[wiki/synthesis/stillness-speaks-map]] | 《當下的覺醒》全局結構地圖與邏輯架構 | 2026-06-04 |
-| [[wiki/synthesis/team-storytelling-guide]] | 你的團隊需要一個會說故事的人 | 2026-06-29 |
-| [[wiki/synthesis/the-mountain-is-you]] | 你就是困住自己的那座山 | 2026-06-29 |
-| [[wiki/synthesis/the-surrender-experiment]] | 臣服實驗 (The Surrender Experiment) | 2026-05-26 |
-| [[wiki/synthesis/think-again-adam-grant]] | 亞當·格蘭特《逆思維》 | 2026-06-02 |
-| [[wiki/synthesis/toeic-850-strategy-and-study-plan]] | 多益 850+ 備考策略與學習計畫 (TOEIC 850+ Strategy & Study Plan) | 2026-05-26 |
-| [[wiki/synthesis/toeic-900-vocabulary-and-phrases]] | 多益 900 分高頻單字與片語分類法 (TOEIC 900 Vocabulary & Phrases) | 2026-05-26 |
-| [[wiki/synthesis/transportation-systems-reliability-dhillon]] | 交通運輸系統的可靠性與安全性 (Transportation Systems Reliability and Safety) | 2026-06-29 |
-| [[wiki/synthesis/triz-40-principles-book-summary]] | 创新 40 法 TRIZ创造性解决技术问题的诀窍 Book Summary | 2026-05-22 |
-| [[wiki/synthesis/triz-enhancement-and-practical-applications-book-summary]] | TRIZ进阶及实战 大道至简的发明方法 Book Summary | 2026-05-22 |
-| [[wiki/synthesis/trolley-problem-and-everyday-ethics]] | 電車難題與日常道德思辨 (Trolley Problem and Everyday Ethics) | 2026-06-09 |
-| [[wiki/synthesis/wafer-level-rdl-thermo-mechanical-simulation]] | Wafer-Level Cu-PI RDL Thermo-Mechanical Simulation | 2026-06-02 |
-| [[wiki/synthesis/why-buddhism-is-true]] | 令人神往的靜坐開悟：普林斯頓大受歡迎的佛學與現代心理學 | 2026-06-29 |
-| [[wiki/synthesis/yogacarabhumi-sastra-xuanzang-framework]] | 玄奘西行與《瑜伽師地論》唯識學體系 | 2026-06-02 |
-| [[wiki/synthesis/zhang-huicheng-family-satir]] | Zhang Huicheng: Family Communication and Satir Iceberg | 2026-06-02 |
-| [[wiki/synthesis/zhang-huicheng-letters]] | Zhang Huicheng's Memos to His Son | 2026-05-29 |
+        .menu-item.active {
+            border-color: var(--accent);
+            background-color: var(--accent-glow);
+        }
 
-## Queries
+        .menu-item-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-| Page | Summary | Updated |
-|------|---------|---------|
-| [[wiki/queries/2026-05-17-actionable-takeaways]] | 從薩提爾三傑訪談中學到的具體行動模組 | 2026-05-17 |
-| [[wiki/queries/2026-05-18-abaqus-contact-convergence-troubleshooting]] | ABAQUS 接觸不收斂調試與主從面優先級原則 | 2026-05-18 |
-| [[wiki/queries/2026-05-19-retirement-asset-planning-framework]] | Retirement Asset Planning Framework | 2026-05-19 |
-| [[wiki/queries/2026-05-19-zhang-xiaolu-memorandum-summary]] | Memos to Zhang Xiaolu Summary | 2026-05-19 |
-| [[wiki/queries/2026-05-25-claude-foundry-agents]] | 如何在 Microsoft Foundry 部署 Claude AI Agents？ | 2026-05-29 |
-| [[wiki/queries/2026-05-29-ai-prompting-for-abaqus-gui-plugin]] | AI Prompting Guide for Abaqus GUI Plug-in Development | 2026-05-29 |
-| [[wiki/queries/2026-06-01-ego-same-phenomenon-different-practices]] | Is Ego the Same Phenomenon Across Traditions? | 2026-06-01 |
-| [[wiki/queries/2026-06-01-practicing-the-power-of-now]] | Practicing The Power of Now | 2026-06-01 |
-| [[wiki/queries/2026-06-02-from-conventional-tensile-to-cyclic-fatigue-code-spec]] | 從常規拉伸到循環疲勞工程估算 SOP 的程式化規格 | 2026-06-02 |
-| [[wiki/queries/2026-06-02-nvidia-gtc-taipei-2026-cae-physical-ai-summary]] | NVIDIA GTC Taipei 2026 CAE and Physical AI Summary | 2026-06-02 |
-| [[wiki/queries/2026-06-02-ramberg-osgood-estimation-usecase]] | Ramberg-Osgood 估算文獻之工程應用用途 | 2026-06-02 |
+        .menu-item-title i {
+            color: var(--accent);
+        }
 
-> **How to use this index:**
-> - The LLM reads this file first when answering any query to identify relevant pages.
-> - The LLM updates this file after every ingest or filed query.
-> - Use Obsidian search or graph view to explore connections beyond this catalog.
+        .menu-item-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Workspace (Main panel) */
+        .workspace {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background-color: var(--bg-primary);
+        }
+
+        /* Tab bar on top of the iframe workspace */
+        .control-bar {
+            height: 60px;
+            background-color: var(--bg-sidebar);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            flex-shrink: 0;
+        }
+
+        .layout-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .control-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .control-btn:hover, .control-btn.active {
+            border-color: var(--accent);
+            color: var(--text-primary);
+            background-color: var(--accent-glow);
+        }
+
+        /* Iframe Containers (Flexible for single/split layouts) */
+        .iframe-container {
+            flex-grow: 1;
+            display: flex;
+            position: relative;
+            background-color: var(--bg-primary);
+        }
+
+        .pane {
+            flex: 1;
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .pane:last-child {
+            border-right: none;
+        }
+
+        .pane-header {
+            background-color: var(--bg-sidebar);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .pane-header select {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: transparent;
+        }
+
+        /* Sidebar toggle for mobile */
+        .sidebar-toggle-btn {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: absolute;
+                left: -320px;
+                height: 100%;
+            }
+            .sidebar.open {
+                left: 0;
+            }
+            .sidebar-toggle-btn {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar: Dashboard Hub List -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i> Coach Hub
+            </div>
+            <button class="theme-toggle" id="theme-toggle" title="切換主題">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+        <ul class="menu-list">
+            <li class="menu-item active" onclick="loadDashboard('ramana-maharshi-turiya-coach.html', 'pane-left', this)">
+                <div class="menu-item-title">
+                    <i class="fa-solid fa-spa"></i> Turiya: 覺醒與自我探究
+                </div>
+                <div class="menu-item-desc">馬哈希第四態（Turiya）修持、6步自我探究 SOP 與防錯反模式。</div>
+            </li>
+            <li class="menu-item" onclick="loadDashboard('laozi-dds-coach.html', 'pane-left', this)">
+                <div class="menu-item-title">
+                    <i class="fa-solid fa-yin-yang"></i> 老子: DDS 防禦性決策
+                </div>
+                <div class="menu-item-desc">為道日損、無為而無不為、上善若水守柔處下決策與學習系統。</div>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="workspace">
+        <!-- Control bar on top -->
+        <div class="control-bar">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <button class="control-btn sidebar-toggle-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i> 選單</button>
+                <div style="font-weight: 700; font-size: 1.05rem;" id="workspace-title">學習教練工作區</div>
+            </div>
+            
+            <div class="layout-controls">
+                <button class="control-btn active" id="layout-single" onclick="changeLayout('single')">
+                    <i class="fa-solid fa-window-maximize"></i> 單頁模式
+                </button>
+                <button class="control-btn" id="layout-split" onclick="changeLayout('split')">
+                    <i class="fa-solid fa-columns"></i> 左右對照
+                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard Viewport -->
+        <div class="iframe-container" id="iframe-container">
+            <!-- Left Pane (Always active) -->
+            <div class="pane" id="pane-left">
+                <div class="pane-header" id="pane-header-left" style="display: none;">
+                    <span>左側視窗</span>
+                    <select onchange="onPaneSelectChange('pane-left', this.value)" id="select-left">
+                        <option value="ramana-maharshi-turiya-coach.html">Turiya: 覺醒與自我探究</option>
+                        <option value="laozi-dds-coach.html">老子: DDS 防禦性決策</option>
+                    </select>
+                </div>
+                <iframe src="ramana-maharshi-turiya-coach.html" name="iframe-left" id="iframe-left"></iframe>
+            </div>
+
+            <!-- Right Pane (Active only during split screen) -->
+            <div class="pane" id="pane-right" style="display: none;">
+                <div class="pane-header">
+                    <span>右側視窗 (對照)</span>
+                    <select onchange="onPaneSelectChange('pane-right', this.value)" id="select-right">
+                        <option value="ramana-maharshi-turiya-coach.html">Turiya: 覺醒與自我探究</option>
+                        <option value="laozi-dds-coach.html">老子: DDS 防禦性決策</option>
+                    </select>
+                </div>
+                <iframe src="ramana-maharshi-turiya-coach.html" name="iframe-right" id="iframe-right"></iframe>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Layout Toggle Logic
+        let currentLayout = 'single';
+
+        function changeLayout(type) {
+            currentLayout = type;
+            const paneRight = document.getElementById('pane-right');
+            const paneHeaderLeft = document.getElementById('pane-header-left');
+            const btnSingle = document.getElementById('layout-single');
+            const btnSplit = document.getElementById('layout-split');
+
+            if (type === 'single') {
+                paneRight.style.display = 'none';
+                paneHeaderLeft.style.display = 'none';
+                btnSingle.classList.add('active');
+                btnSplit.classList.remove('active');
+            } else {
+                paneRight.style.display = 'flex';
+                paneHeaderLeft.style.display = 'flex';
+                btnSingle.classList.remove('active');
+                btnSplit.classList.add('active');
+            }
+        }
+
+        // Sidebar Navigation click logic
+        function loadDashboard(url, targetPaneId, menuItem) {
+            // Update Active Menu State
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            menuItem.classList.add('active');
+
+            if (currentLayout === 'single') {
+                document.getElementById('iframe-left').src = url;
+                document.getElementById('select-left').value = url;
+            } else {
+                // If in split mode, let user choose where to load it, or default to left
+                document.getElementById('iframe-left').src = url;
+                document.getElementById('select-left').value = url;
+            }
+
+            // Close mobile sidebar if open
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.remove('open');
+        }
+
+        // Dropdown selection sync logic
+        function onPaneSelectChange(paneId, url) {
+            if (paneId === 'pane-left') {
+                document.getElementById('iframe-left').src = url;
+                // Sync sidebar active state if possible
+                syncSidebarState(url);
+            } else {
+                document.getElementById('iframe-right').src = url;
+            }
+        }
+
+        function syncSidebarState(url) {
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                const clickAttr = item.getAttribute('onclick');
+                if (clickAttr && clickAttr.includes(url)) {
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // Mobile Sidebar Toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = root.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                root.removeAttribute('data-theme');
+                themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+                // Trigger dark theme inside iframes if supported
+                setIframesTheme('dark');
+            } else {
+                root.setAttribute('data-theme', 'light');
+                themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+                setIframesTheme('light');
+            }
+        });
+
+        function setIframesTheme(theme) {
+            const frames = [document.getElementById('iframe-left'), document.getElementById('iframe-right')];
+            frames.forEach(frame => {
+                try {
+                    if (frame && frame.contentWindow && frame.contentWindow.document) {
+                        const htmlNode = frame.contentWindow.document.documentElement;
+                        const btnToggle = frame.contentWindow.document.getElementById('theme-toggle');
+                        if (theme === 'light') {
+                            htmlNode.setAttribute('data-theme', 'light');
+                            if (btnToggle) btnToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+                        } else {
+                            htmlNode.removeAttribute('data-theme');
+                            if (btnToggle) btnToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+                        }
+                    }
+                } catch(e) {
+                    console.log("Could not toggle iframe theme due to cross-origin or load timing restrictions.");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
