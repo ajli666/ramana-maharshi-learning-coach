@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老子防禦性決策與學習系統 (Laozi-DDS)</title>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Mermaid.js for flowcharts -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useWidth: true, htmlLabels: true }
+        });
+    </script>
+    <style>
+        :root {
+            --bg-primary: #0a0b10;
+            --bg-secondary: #12131a;
+            --bg-tertiary: #1a1c26;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.15);
+            --accent-success: #10b981;
+            --accent-error: #ef4444;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --border: #262938;
+            --shadow: rgba(0, 0, 0, 0.4);
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --accent: #4f46e5;
+            --accent-glow: rgba(79, 70, 229, 0.1);
+            --accent-success: #059669;
+            --accent-error: #dc2626;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            transition: var(--transition);
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 60px 0 40px 0;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .header-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .category-tag {
+            background-color: var(--accent-glow);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin-top: 10px;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1px;
+            margin-bottom: 40px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+
+        .tabs-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background-color: var(--bg-secondary);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.05);
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
+        }
+
+        h2 i {
+            color: var(--accent);
+        }
+
+        .grid-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-list {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .grid-item {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .grid-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .grid-item-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .grid-item-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        tr:hover td {
+            color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .mermaid-container {
+            background-color: #0f1015;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            cursor: zoom-in;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .mermaid-container:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .highlight-box {
+            border-left: 4px solid var(--accent);
+            background-color: var(--bg-tertiary);
+            padding: 16px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        /* SOP Steps */
+        .sop-container {
+            margin: 20px 0;
+        }
+
+        .sop-step {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 24px;
+        }
+
+        .sop-step::before {
+            content: '';
+            position: absolute;
+            left: 17px;
+            top: 28px;
+            bottom: -22px;
+            width: 2px;
+            background-color: var(--border);
+            z-index: 1;
+        }
+
+        .sop-step:last-child::before {
+            display: none;
+        }
+
+        .sop-badge {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--bg-tertiary);
+            border: 2px solid var(--border);
+            color: var(--text-secondary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        .sop-step.completed .sop-badge {
+            background-color: var(--accent-success);
+            border-color: var(--accent-success);
+            color: var(--bg-primary);
+        }
+
+        .sop-step-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sop-step-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .sop-action-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sop-action-btn:hover {
+            border-color: var(--accent-success);
+            color: var(--accent-success);
+        }
+
+        .sop-reset-btn {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .sop-reset-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Quiz Panel */
+        .quiz-card {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-question {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .quiz-option {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 18px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .quiz-option:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+            transform: translateX(4px);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--accent-success);
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--text-primary);
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--accent-error);
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--text-primary);
+        }
+
+        .quiz-feedback {
+            display: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-top: 12px;
+        }
+
+        .quiz-feedback.success {
+            display: block;
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: var(--accent-success);
+        }
+
+        .quiz-feedback.error {
+            display: block;
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: var(--accent-error);
+        }
+
+        /* Checkbox items */
+        .exercise-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px;
+            border-radius: 12px;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+
+        .checkbox-container {
+            display: block;
+            position: relative;
+            padding-left: 28px;
+            cursor: pointer;
+            font-size: 22px;
+            user-select: none;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 4px;
+            left: 0;
+            height: 22px;
+            width: 22px;
+            border-radius: 6px;
+            background-color: var(--bg-secondary);
+            border: 2px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .checkbox-container:hover input ~ .checkmark {
+            border-color: var(--accent);
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: var(--accent-success);
+            border-color: var(--accent-success);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 7px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid var(--bg-primary);
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+
+        .exercise-details {
+            flex-grow: 1;
+        }
+
+        .exercise-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .exercise-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Lightbox modal for zoom */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 11, 16, 0.95);
+            justify-content: center;
+            align-items: center;
+            animation: fadeInModal 0.25s ease;
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #f3f4f6;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+        }
+
+        .zoom-modal-content {
+            width: 90%;
+            height: 80%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: grab;
+        }
+
+        .zoom-modal-content svg {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            transform-origin: center;
+            transition: transform 0.1s ease;
+        }
+
+        .zoom-controls {
+            position: absolute;
+            bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .zoom-controls button {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .zoom-controls button:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background-color: var(--bg-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-meta">
+                <span class="category-tag">Synthesis & Coach</span>
+                <button class="theme-toggle" id="theme-toggle" title="切換主題">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+            <h1>老子: DDS 防禦性決策系統</h1>
+            <div class="subtitle">
+                將《道德經》與傅佩榮教授的現代詮釋，轉化為變革期破除決策焦慮、進行資訊脫水與精力管理的心智工具。
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tabs-nav">
+            <button class="tab-btn active" data-tab="tab-map"><i class="fa-solid fa-sitemap"></i> 系統地圖</button>
+            <button class="tab-btn" data-tab="tab-terms"><i class="fa-solid fa-book-open"></i> 精確術語</button>
+            <button class="tab-btn" data-tab="tab-frameworks"><i class="fa-solid fa-brain"></i> 心智模型</button>
+            <button class="tab-btn" data-tab="tab-stories"><i class="fa-solid fa-lightbulb"></i> 智慧故事</button>
+            <button class="tab-btn" data-tab="tab-sop"><i class="fa-solid fa-list-check"></i> 實作 SOP</button>
+            <button class="tab-btn" data-tab="tab-antipatterns"><i class="fa-solid fa-triangle-exclamation"></i> 避坑指南</button>
+            <button class="tab-btn" data-tab="tab-quiz"><i class="fa-solid fa-square-poll-vertical"></i> 自我評測</button>
+            <button class="tab-btn" data-tab="tab-exercises"><i class="fa-solid fa-calendar-check"></i> 行動練習</button>
+        </nav>
+
+        <!-- 1. System Map -->
+        <div class="tab-pane active" id="tab-map">
+            <div class="card">
+                <h2><i class="fa-solid fa-sitemap"></i> 老子防禦性決策開展地圖</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    點擊下圖可放大與拖拽。該地圖展示了面對不確定性與變革期時，如何透過「減法脫水（日損）」、「專注發散切換（無為）」及「柔性生存（守柔處下）」避開剛強易折的困境。
+                </p>
+                <div class="mermaid-container">
+                    <pre class="mermaid">
+flowchart TD
+    A[不確定性與變革期: 決策焦慮] --> B{第一步: 動機檢視}
+    B -->|有名/虛名/跟風| C[著相有名: 砍掉該項目]
+    B -->|無名/生存剛需/發揮優勢| D[為道日損: 進行決策與知識脫水]
+    D --> E[精煉核心: 抱一鎖定第一性原理]
+    E --> F[防禦邊界: 設定知止煞車點]
+    
+    G[遭遇難題卡關/思緒鎖死] --> H{第二步: 專注與發散切換}
+    H -->|剛強死磕| I[剛強易折: 導致精力與認知資源枯竭]
+    H -->|無為發散| J[有為專注45分鐘 -> 主動知止煞車]
+    J --> K[放鬆無目的: 散步/洗澡/睡眠]
+    K --> L[無為而無不為: 潛意識背景網絡自發連結湧現靈感]
+    
+    M[處於資源弱勢或新環境] --> N{第三步: 柔性生存法則}
+    N -->|死要面子/裝懂/強硬硬頂| O[剛強易折: 面臨正面打擊與內耗]
+    N -->|守柔處下| P[處下示弱: 卸下防衛虛心請教]
+    P --> Q[守柔避險: 繞過頑石阻力，尋找細分市場]
+    Q --> R[如水長流: 以柔克剛突破低谷]
+                    </pre>
+                </div>
+                <div class="highlight-box">
+                    「為學日益，為道日損。損之又損，以至於無為。無為而無不為。」——《道德經》第四十八章。在焦慮的時代中，懂得煞車與減法，才是真正的防禦性大智慧。
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Core Terminology -->
+        <div class="tab-pane" id="tab-terms">
+            <div class="card">
+                <h2><i class="fa-solid fa-book-open"></i> 老子哲學核心術語定義</h2>
+                <div class="grid-list">
+                    <div class="grid-item">
+                        <div class="grid-item-title">道 (Dao)</div>
+                        <div class="grid-item-desc">究竟真實，宇宙的底層邏輯與第一性原理，萬物的來源與歸宿。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title">德 (De)</div>
+                        <div class="grid-item-desc">萬物「得」之於道者，即個體生存的稟賦、本性與客觀運作規律。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title">為道日損 (Daily Diminishing)</div>
+                        <div class="grid-item-desc">追求道的本質需要每天做減法，減少干擾、偏見、虛名與繁雜的手法。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title">無為 (Wu-Wei / Non-action)</div>
+                        <div class="grid-item-desc">指「無心而為」——不帶有主觀私慾地強行干預，順應事物的自然規律。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title">自然 (Ziran)</div>
+                        <div class="grid-item-desc">指「自己如此的狀態」，非指大自然，而是順應個體天性的自發狀態。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title">守柔處下 (Fluid Adaptability)</div>
+                        <div class="grid-item-desc">像水一樣，甘居低處（處下）以卸下防衛虛心學習，姿態柔軟（守柔）以繞過頑石阻力。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Mind Models -->
+        <div class="tab-pane" id="tab-frameworks">
+            <div class="card">
+                <h2><i class="fa-solid fa-brain"></i> 決策與學習三大心智模型</h2>
+                
+                <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: var(--accent);">模型一：為學與為道對比 (日益 vs 日損)</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                    在個人成長中，需要理智地區分這兩種不同的心智路徑：
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th>為學日益 (Daily Increase)</th>
+                            <th>為道日損 (Daily Diminishing)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 600;">核心特徵</td>
+                            <td>每天增加資訊、工具、知識與手段</td>
+                            <td>每天減少雜訊、偏見、成見與虛華手段</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">適用時期</td>
+                            <td>完全陌生的新領域「原始積累期」</td>
+                            <td>面臨決策、資源有限或思緒過載的「抉擇期」</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">目標方向</td>
+                            <td>向外開拓、獲取更多的相對事實</td>
+                            <td>向內脫水、鎖定唯一的第一性原理</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="font-size: 1.25rem; font-weight: 700; margin-top: 30px; margin-bottom: 12px; color: var(--accent);">模型二：反者道之動的逆向轉化</h3>
+                <div style="background-color: var(--bg-tertiary); padding: 20px; border-radius: 12px; border: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.9rem;">
+                    1. 發展到頂峰 (物壯則老) <br>
+                    &nbsp;&nbsp;&nbsp;└── 2. 向相反方向轉化 (衰退/重整)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── 3. 順應轉化、逆向避險 (知止不殆)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── 4. 處於低谷、蓄積勢能 (以退為進)
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Wisdom Stories -->
+        <div class="tab-pane" id="tab-stories">
+            <div class="card">
+                <h2><i class="fa-solid fa-lightbulb"></i> 老子思想經典智慧故事</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    以下故事深入剖析了人為智巧的偏離與回歸大道的智慧：
+                </p>
+                <div class="grid-list">
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-arrows-split-up-and-left"></i> 故事一：楚王失弓與孔老格局對比</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：楚王失弓，說「楚人失之，楚人得之」。孔子聽了說「人失之，人得之」。老子聽了說「失之，得之」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>智慧機制</strong>：楚王局限於國家利益，孔子局限於人類中心，老子則突破了人為侷限，將失去與得到回歸到宇宙的整體（失之，得之），泯除得失心。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-gear"></i> 故事二：子貢與桔槔（機械、機事與機心）</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：子貢勸抱甕灌溉的老人使用桔槔，老人怒道：「有機事者必有機心」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>智慧機制</strong>：過度依賴工具的便利，會使人心思變複雜、計較利益。這提醒我們在追求自動化與技術的同時，應警惕大腦的「機心」內耗。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-wine-glass-empty"></i> 故事三：品酒兄弟與「雖小道必有可觀」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：品酒兄弟能喝出酒桶底有一條生鏽鐵環的皮帶；有人能吃出飯是用舊木材燒出的。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>智慧機制</strong>：老子重視觀察「細節」，認為困難的事都是從細節開始的。但同時要警惕「多則惑」，不可在細節的小道中迷失了整體的道。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-shield-halved"></i> 故事四：寧武子之愚與「愚不可及」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：孔子稱許寧武子：「邦有道則知，邦無道則愚。其知可及也，其愚不可及也。」
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>智慧機制</strong>：在亂世或不確定環境中，刻意表現聰明（有為、剛強）只會招致傷害。寧武子的愚並非真愚，而是「守柔不爭」、自我收斂的極高避險智慧。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Action SOPs -->
+        <div class="tab-pane" id="tab-sop">
+            <div class="card">
+                <h2><i class="fa-solid fa-list-check"></i> 可實作方法與引導步驟</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    按照以下引導步驟實作。點擊步驟右側的「完成」按鈕可以標記進度：
+                </p>
+
+                <div class="sop-container">
+                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; color: var(--accent);">SOP 1：個人決策與知識的「減法脫水」SOP</h3>
+                    
+                    <div class="sop-step" id="step-1">
+                        <div class="sop-badge">1</div>
+                        <div class="sop-step-title">
+                            原始積累（日益）
+                            <button class="sop-action-btn" onclick="completeStep('1')">完成步驟</button>
+                        </div>
+                        <div class="sop-step-desc">列出你目前所有想做的事情、買的課程、進行中的專案或詳細筆記。</div>
+                    </div>
+
+                    <div class="sop-step" id="step-2">
+                        <div class="sop-badge">2</div>
+                        <div class="sop-step-title">
+                            動機核對（過濾名利）
+                            <button class="sop-action-btn" onclick="completeStep('2')">完成步驟</button>
+                        </div>
+                        <div class="sop-step-desc">問自己：「這件事如果不去社群媒體打卡，沒人知道，我還願意默默做它嗎？」若否，直接劃掉（剔除有名執著）。</div>
+                    </div>
+
+                    <div class="sop-step" id="step-3">
+                        <div class="sop-badge">3</div>
+                        <div class="sop-step-title">
+                            無情日損（硬性減半）
+                            <button class="sop-action-btn" onclick="completeStep('3')">完成步驟</button>
+                        </div>
+                        <div class="sop-step-desc">強迫自己將剩下的清單砍掉 50%。只留下生存剛需與最契合自身優勢（德）的單一核心項目。</div>
+                    </div>
+
+                    <div class="sop-step" id="step-4">
+                        <div class="sop-badge">4</div>
+                        <div class="sop-step-title">
+                            知止煞車點設定
+                            <button class="sop-action-btn" onclick="completeStep('4')">完成步驟</button>
+                        </div>
+                        <div class="sop-step-desc">為核心項目設定「最大虧損額」或「退出時間」（知止不殆），一旦觸及強制平倉。</div>
+                    </div>
+                </div>
+
+                <div class="sop-container" style="margin-top: 40px;">
+                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; color: var(--accent);">SOP 2：難題卡點的「無為發散」解題 SOP</h3>
+                    
+                    <div class="sop-step" id="step-5">
+                        <div class="sop-badge">5</div>
+                        <div class="sop-step-title">
+                            極限施壓（有為專注）
+                            <button class="sop-action-btn" onclick="completeStep('5')">完成步驟</button>
+                        </div>
+                        <div class="sop-step-desc">集中精力思考 45 分鐘，排除所有干擾，寫下所有嘗試過但失敗的途徑。</div>
+                    </div>
+
+                    <div class="sop-step" id="step-6">
+                        <div class="sop-badge">6</div>
+                        <div class="sop-step-title">
+                            主動知止煞車
+                            <button class="sop-action-btn" onclick="completeStep('6')">完成步驟</button>
+                        </div>
+                        <div class="sop-step-desc">一旦 45 分鐘結束或思緒重覆打轉，立刻站起來、合上電腦螢幕。</div>
+                    </div>
+
+                    <div class="sop-step" id="step-7">
+                        <div class="sop-badge">7</div>
+                        <div class="sop-step-title">
+                            順應自然（發散模式）
+                            <button class="sop-action-btn" onclick="completeStep('7')">完成步驟</button>
+                        </div>
+                        <div class="sop-step-desc">散步 15 分鐘、洗熱水澡或小睡。不准看手機，溫和地將注意力移開，讓潛意識（自化）自動連結資訊。</div>
+                    </div>
+                </div>
+
+                <button class="sop-reset-btn" onclick="resetSop()"><i class="fa-solid fa-arrows-rotate"></i> 重設所有步驟</button>
+            </div>
+        </div>
+
+        <!-- 6. Anti-patterns -->
+        <div class="tab-pane" id="tab-antipatterns">
+            <div class="card">
+                <h2><i class="fa-solid fa-triangle-exclamation"></i> 決策避坑指南（反模式）</h2>
+                <div class="grid-list">
+                    <div class="grid-item" style="border-left: 4px solid var(--accent-error);">
+                        <div class="grid-item-title" style="color: var(--accent-error);">反模式一：無為＝擺爛空等</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>表現</strong>：在職涯或學習遇到挑戰時，直接雙手一攤，稱「順其自然，無為而治」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>代價</strong>：逃避努力，知識債越積越多。老子的無為是「為而不恃」，必須先極限努力（為），再放下對結果的強求。
+                        </div>
+                    </div>
+
+                    <div class="grid-item" style="border-left: 4px solid var(--accent-error);">
+                        <div class="grid-item-title" style="color: var(--accent-error);">反模式二：為學日益的資訊囤積</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>表現</strong>：硬碟裝滿了幾百G的教學資料、書架塞滿未讀書籍，心滿意足。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>代價</strong>：用「收集資料的動作」來逃避「深入思考的焦慮」，大腦完全沒有進行知識脫水，面臨問題仍無決策能力。
+                        </div>
+                    </div>
+
+                    <div class="grid-item" style="border-left: 4px solid var(--accent-error);">
+                        <div class="grid-item-title" style="color: var(--accent-error);">反模式三：剛強死磕的困獸之鬥</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>表現</strong>：不惜犧牲健康與睡眠，瘋狂加班、熬夜死磕難關。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>代價</strong>：違反大腦的生理規律，大腦緊繃時無法建立新的突觸連結，效率極低且出錯率飆升（剛強易折）。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Quiz Panel -->
+        <div class="tab-pane" id="tab-quiz">
+            <div class="card">
+                <h2><i class="fa-solid fa-square-poll-vertical"></i> DDS 決策自我評測</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    請點擊選項進行作答，檢查自己是否真正理解老子的決策思維：
+                </p>
+
+                <div class="quiz-card">
+                    <div class="quiz-question">Q1. 面對職業轉型期時，何時該「日益」？何時該「日損」？</div>
+                    <div class="quiz-options">
+                        <button class="quiz-option" onclick="checkAnswer(this, 'q1', false)">A. 應該永遠只做日益，積累越多越安全</button>
+                        <button class="quiz-option" onclick="checkAnswer(this, 'q1', true)">B. 初期需大量吸收常識以「日益」；抉擇聚焦時需做減法以「日損」</button>
+                        <button class="quiz-option" onclick="checkAnswer(this, 'q1', false)">C. 轉型期一開始就應該「日損」不看任何資料</button>
+                    </div>
+                    <div class="quiz-feedback" id="q1-feedback"></div>
+                </div>
+
+                <div class="quiz-card">
+                    <div class="quiz-question">Q2. 小明焦慮時「天天睡4小時熬夜死磕，在網路上天天打卡曬筆記」，違反了老子的什麼原則？</div>
+                    <div class="quiz-options">
+                        <button class="quiz-option" onclick="checkAnswer(this, 'q2', true)">A. 剛強死磕違背了「守柔」，曬打卡屬於「著相有名」</button>
+                        <button class="quiz-option" onclick="checkAnswer(this, 'q2', false)">B. 小明做得對，勉強自己就是有志氣，符合「強行者有志」</button>
+                    </div>
+                    <div class="quiz-feedback" id="q2-feedback"></div>
+                </div>
+
+                <div class="quiz-card">
+                    <div class="quiz-question">Q3. 「無為」是否意味著什麼都不做直接躺平？</div>
+                    <div class="quiz-options">
+                        <button class="quiz-option" onclick="checkAnswer(this, 'q3', false)">A. 是的，順其自然就是完全放任不作為</button>
+                        <button class="quiz-option" onclick="checkAnswer(this, 'q3', true)">B. 錯，無為是「無心而為」（為而不恃），反對的是刻意妄為</button>
+                    </div>
+                    <div class="quiz-feedback" id="q3-feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. Action Exercises -->
+        <div class="tab-pane" id="tab-exercises">
+            <div class="card">
+                <h2><i class="fa-solid fa-calendar-check"></i> 實作與習慣內化練習</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    勾選你已開始執行的練習任務，進度將自動儲存於瀏覽器中：
+                </p>
+
+                <div class="exercise-item">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="ex-laozi-1" onchange="saveProgress('ex-laozi-1')">
+                        <span class="checkmark"></span>
+                    </label>
+                    <div class="exercise-details">
+                        <div class="exercise-title">任務一：學習與專案清單「決策脫水」 (1次性)</div>
+                        <div class="exercise-desc">盤點目前進行中的副業/專案，硬性劃掉 50% 屬於跟風焦慮項目，鎖定唯一個核心並設定知止煞車點。</div>
+                    </div>
+                </div>
+
+                <div class="exercise-item">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="ex-laozi-2" onchange="saveProgress('ex-laozi-2')">
+                        <span class="checkmark"></span>
+                    </label>
+                    <div class="exercise-details">
+                        <div class="exercise-title">任務二：難題卡點的「無為散步」實驗 (每次卡關時)</div>
+                        <div class="exercise-desc">卡卡超過 30 分鐘，強制合上螢幕出門散步 15 分鐘，不准攜帶手機，感受大腦發散模式的靈感湧現。</div>
+                    </div>
+                </div>
+
+                <div class="exercise-item">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="ex-laozi-3" onchange="saveProgress('ex-laozi-3')">
+                        <span class="checkmark"></span>
+                    </label>
+                    <div class="exercise-details">
+                        <div class="exercise-title">任務三：溝通「處下示弱」實驗 (3天內)</div>
+                        <div class="exercise-desc">在交談中遇到不懂的專業詞彙時，不偽裝裝懂，真誠地說：「這個我不太清楚，你可以教我一下嗎？」</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal overlay for zooming the map -->
+    <div id="zoom-modal" class="zoom-modal">
+        <span class="close-modal" id="close-modal">&times;</span>
+        <div class="zoom-modal-content" id="zoom-modal-content"></div>
+        <div class="zoom-controls">
+            <button id="zoom-in-btn" title="放大"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+            <button id="zoom-out-btn" title="縮小"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+            <button id="zoom-reset-btn" title="重設"><i class="fa-solid fa-arrows-rotate"></i></button>
+        </div>
+    </div>
+
+    <script>
+        // Tab Navigation
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panes = document.querySelectorAll('.tab-pane');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                panes.forEach(p => p.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = root.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                root.removeAttribute('data-theme');
+                themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            } else {
+                root.setAttribute('data-theme', 'light');
+                themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            }
+        });
+
+        // Interactive SOP Checklist logic
+        function completeStep(stepId) {
+            const stepElement = document.getElementById('step-' + stepId);
+            if (stepElement) {
+                stepElement.classList.add('completed');
+                localStorage.setItem('sop-laozi-step-' + stepId, 'completed');
+            }
+        }
+
+        function resetSop() {
+            document.querySelectorAll('.sop-step').forEach(step => {
+                step.classList.remove('completed');
+                const stepId = step.id.replace('step-', '');
+                localStorage.removeItem('sop-laozi-step-' + stepId);
+            });
+        }
+
+        function loadSopProgress() {
+            document.querySelectorAll('.sop-step').forEach(step => {
+                const stepId = step.id.replace('step-', '');
+                if (localStorage.getItem('sop-laozi-step-' + stepId) === 'completed') {
+                    step.classList.add('completed');
+                }
+            });
+        }
+
+        // Quiz checking logic
+        function checkAnswer(element, quizId, isCorrect) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                opt.style.pointerEvents = 'none'; // Lock selections
+            });
+
+            const feedback = document.getElementById(quizId + '-feedback');
+
+            if (isCorrect) {
+                element.classList.add('correct');
+                if (quizId === 'q1') {
+                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！在初期吸收期需要「日益」增加儲備；但到了核心抉擇與解題階段，則需要「日損」剔除干擾、聚焦唯一的底層核心。';
+                } else if (quizId === 'q2') {
+                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！天天少睡死磕是典型的硬碰硬（違背守柔），而炫耀式打卡則是追求外在相對價值評價（有名），容易招致內耗折損。';
+                } else if (quizId === 'q3') {
+                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！無為反對的是「主觀妄為與執著控制」，而不是不做準備。「為而不恃」是先努力做好一切準備，然後放手順應規律。';
+                }
+                feedback.className = 'quiz-feedback success';
+            } else {
+                element.classList.add('incorrect');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> 回答錯誤。請重新思考老子關於「有為/無為」及「日損/日益」在不同情境下的對比。';
+                feedback.className = 'quiz-feedback error';
+            }
+        }
+
+        // Checkbox status persistence
+        function saveProgress(id) {
+            const checkbox = document.getElementById(id);
+            localStorage.setItem(id, checkbox.checked);
+        }
+
+        function loadProgress() {
+            ['ex-laozi-1', 'ex-laozi-2', 'ex-laozi-3'].forEach(id => {
+                const checked = localStorage.getItem(id) === 'true';
+                const checkbox = document.getElementById(id);
+                if (checkbox) {
+                    checkbox.checked = checked;
+                }
+            });
+            loadSopProgress();
+        }
+
+        // Zoom Modal Logic for Mermaid diagram
+        const zoomModal = document.getElementById('zoom-modal');
+        const zoomContent = document.getElementById('zoom-modal-content');
+        const closeModal = document.getElementById('close-modal');
+        const mermaidContainer = document.querySelector('.mermaid-container');
+        
+        let currentScale = 1.0;
+        let isDragging = false;
+        let startX = 0, startY = 0, translateX = 0, translateY = 0;
+
+        if (mermaidContainer) {
+            mermaidContainer.addEventListener('click', () => {
+                const svgElement = mermaidContainer.querySelector('svg');
+                if (svgElement) {
+                    zoomContent.innerHTML = svgElement.outerHTML;
+                    zoomModal.style.display = 'flex';
+                    currentScale = 1.0;
+                    translateX = 0;
+                    translateY = 0;
+                    updateTransform();
+                }
+            });
+        }
+
+        closeModal.addEventListener('click', () => {
+            zoomModal.style.display = 'none';
+        });
+
+        zoomModal.addEventListener('click', (e) => {
+            if (e.target === zoomModal || e.target === zoomContent) {
+                zoomModal.style.display = 'none';
+            }
+        });
+
+        document.getElementById('zoom-in-btn').addEventListener('click', () => {
+            currentScale *= 1.2;
+            updateTransform();
+        });
+
+        document.getElementById('zoom-out-btn').addEventListener('click', () => {
+            currentScale *= 0.8;
+            updateTransform();
+        });
+
+        document.getElementById('zoom-reset-btn').addEventListener('click', () => {
+            currentScale = 1.0;
+            translateX = 0;
+            translateY = 0;
+            updateTransform();
+        });
+
+        function updateTransform() {
+            const svg = zoomContent.querySelector('svg');
+            if (svg) {
+                svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+            }
+        }
+
+        zoomContent.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX - translateX;
+            startY = e.clientY - translateY;
+            zoomContent.style.cursor = 'grabbing';
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            zoomContent.style.cursor = 'grab';
+        });
+
+        zoomContent.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX - translateX;
+                startY = e.touches[0].clientY - translateY;
+            }
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging || e.touches.length !== 1) return;
+            translateX = e.touches[0].clientX - startX;
+            translateY = e.touches[0].clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        window.onload = loadProgress;
+    </script>
+</body>
+</html>

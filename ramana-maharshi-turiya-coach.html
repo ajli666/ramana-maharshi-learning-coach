@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turiya: 薩古魯與馬哈希的自我探究與覺醒系統</title>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Mermaid.js for flowcharts -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useWidth: true, htmlLabels: true }
+        });
+    </script>
+    <style>
+        :root {
+            --bg-primary: #0a0b10;
+            --bg-secondary: #12131a;
+            --bg-tertiary: #1a1c26;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.15);
+            --accent-success: #10b981;
+            --accent-error: #ef4444;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --border: #262938;
+            --shadow: rgba(0, 0, 0, 0.4);
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --accent: #4f46e5;
+            --accent-glow: rgba(79, 70, 229, 0.1);
+            --accent-success: #059669;
+            --accent-error: #dc2626;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            transition: var(--transition);
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            padding: 60px 0 40px 0;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .header-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .category-tag {
+            background-color: var(--accent-glow);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin-top: 10px;
+        }
+
+        /* Navigation Tabs */
+        .tabs-nav {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1px;
+            margin-bottom: 40px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .tabs-nav::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background-color: var(--bg-secondary);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        /* Tab Content Pane */
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Card Elements */
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.05);
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
+        }
+
+        h2 i {
+            color: var(--accent);
+        }
+
+        /* Grid Lists */
+        .grid-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-list {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .grid-item {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .grid-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .grid-item-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .grid-item-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Table Design */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Interactive Checklist SOP */
+        .sop-step {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding: 16px;
+            border-radius: 12px;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .sop-step.completed {
+            border-color: var(--accent-success);
+            background-color: rgba(16, 185, 129, 0.03);
+        }
+
+        .step-number {
+            background-color: var(--accent);
+            color: #ffffff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .sop-step.completed .step-number {
+            background-color: var(--accent-success);
+        }
+
+        .step-content {
+            flex-grow: 1;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .step-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .step-action-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            transition: var(--transition);
+        }
+
+        .step-action-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Assessment Quiz */
+        .quiz-option {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 20px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+
+        .quiz-option:hover {
+            border-color: var(--accent);
+            background-color: var(--bg-secondary);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--accent-success);
+            background-color: rgba(16, 185, 129, 0.05);
+            color: var(--accent-success);
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--accent-error);
+            background-color: rgba(239, 68, 68, 0.05);
+            color: var(--accent-error);
+        }
+
+        .quiz-feedback {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 15px;
+            display: none;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .quiz-feedback.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--accent-success);
+            display: block;
+        }
+
+        .quiz-feedback.error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--accent-error);
+            display: block;
+        }
+
+        /* Interactive Checklist Tracker */
+        .exercise-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .exercise-item:last-child {
+            border-bottom: none;
+        }
+
+        .checkbox-container {
+            display: block;
+            position: relative;
+            padding-left: 28px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: var(--bg-tertiary);
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .checkbox-container:hover input ~ .checkmark {
+            border-color: var(--accent);
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .exercise-details {
+            flex-grow: 1;
+        }
+
+        .exercise-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .exercise-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Mermaid container fix */
+        .mermaid-container {
+            background-color: #0f1016;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+            margin-bottom: 20px;
+            position: relative;
+            cursor: zoom-in;
+            transition: var(--transition);
+        }
+
+        .mermaid-container:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .mermaid-container::after {
+            content: "🔍 點擊放大對照";
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(99, 102, 241, 0.85);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+
+        .mermaid-container:hover::after {
+            opacity: 1;
+        }
+
+        /* Zoom Modal Overlay Styles */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 11, 16, 0.95);
+            justify-content: center;
+            align-items: center;
+            animation: fadeInModal 0.25s ease;
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #f3f4f6;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+        }
+
+        .zoom-modal-content {
+            width: 90%;
+            height: 80%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: grab;
+        }
+
+        .zoom-modal-content svg {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            transform-origin: center;
+            transition: transform 0.1s ease;
+        }
+
+        .zoom-controls {
+            position: absolute;
+            bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .zoom-controls button {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .zoom-controls button:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background-color: var(--bg-secondary);
+        }
+
+        .highlight-box {
+            border-left: 4px solid var(--accent);
+            background-color: var(--bg-tertiary);
+            padding: 16px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-meta">
+                <span class="category-tag">Synthesis</span>
+                <button class="theme-toggle" id="theme-toggle" title="切換主題">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+            <h1>Turiya: 覺醒與自我探究系統</h1>
+            <div class="subtitle">
+                將古老奧義與拉馬納．馬哈希（Ramana Maharshi）的自我探究實踐，轉化為日常的認知解構與心智訓練工具。
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tabs-nav">
+            <button class="tab-btn active" data-tab="tab-map"><i class="fa-solid fa-sitemap"></i> 系統地圖</button>
+            <button class="tab-btn" data-tab="tab-terms"><i class="fa-solid fa-book-open"></i> 精確術語</button>
+            <button class="tab-btn" data-tab="tab-frameworks"><i class="fa-solid fa-brain"></i> 心智模型</button>
+            <button class="tab-btn" data-tab="tab-stories"><i class="fa-solid fa-lightbulb"></i> 醒覺故事</button>
+            <button class="tab-btn" data-tab="tab-sop"><i class="fa-solid fa-list-check"></i> 自我探究 SOP</button>
+            <button class="tab-btn" data-tab="tab-antipatterns"><i class="fa-solid fa-triangle-exclamation"></i> 反模式</button>
+            <button class="tab-btn" data-tab="tab-quiz"><i class="fa-solid fa-square-poll-vertical"></i> 自我評測</button>
+            <button class="tab-btn" data-tab="tab-exercises"><i class="fa-solid fa-calendar-check"></i> 行動練習</button>
+        </nav>
+
+        <!-- 1. System Map -->
+        <div class="tab-pane active" id="tab-map">
+            <div class="card">
+                <h2><i class="fa-solid fa-sitemap"></i> 意識與探究開展地圖</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    下圖展示了個體心智從唯一真實的「自性（Self）」出發，如何分裂出「醒、夢、睡」三態，以及「自我探究（Atma-Vichara）」如何反轉此一投射過程，重回無差別的第四態（Turiya）。
+                </p>
+                <div class="mermaid-container">
+                    <pre class="mermaid">
+flowchart TD
+    A[宇宙的起點: 唯一真實的 Self/自性] --> B[三種虛幻狀態的循環]
+    B --> B1[Waking 醒: 認同身體與世界]
+    B --> B2[Dreaming 夢: 認同心智與念頭]
+    B --> B3[Deep Sleep 睡: 融入源頭但無意識]
+    
+    A --> C[動態的阻礙: Ego / Mind / 念頭]
+    C -->| Aham-vritti 我之念 | D[將注意力外投投射於萬物]
+    
+    E[系統解構工具: Atma-Vichara 自我探究] -->|180度反轉注意| F[追溯「我」之念的發源處]
+    F -->|溶入| G[Heart / 心 / 意識源頭]
+    G -->|顯現| H[Turiya 第四態: 寂靜的純粹存在]
+    
+    I[外部助力: Guru 導師] -->|指向| J[Inner Guru 內在自性]
+    K[場所共振: Arunachala 聖山] -->|磁石效應| G
+                    </pre>
+                </div>
+                <div class="highlight-box">
+                    「外部世界的所有繁雜與痛苦，都始於同一個起點：『我之念』的升起。只要將焦點 180 度反轉追溯源頭，這個幻象便會不攻自破。」
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.5. Awakening Stories -->
+        <div class="tab-pane" id="tab-stories">
+            <div class="card">
+                <h2><i class="fa-solid fa-lightbulb"></i> 紀錄片中不為人知的五大醒覺故事</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    以下故事精華提煉自影片原文脈絡，解構了潛藏在日常境遇中的醒覺密碼：
+                </p>
+                <div class="grid-list">
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-eye-slash"></i> 故事一：受苦的是「我（I）」還是「眼睛（eye）」？</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：片中討論痛苦本質時英文原話為 <em>"All suffering happens to the 'I'"</em>（所有痛苦都發生在小我上），但逐字稿常誤植為 <em>"the eye"</em>，譯為「痛苦發生在眼睛上」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：這是一個深刻的隱喻。受苦從來不是因為眼睛看到了截止日逼近或存款數字，而是心智中塑造出來的「我（I）」對這一切產生了焦慮與抗拒。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-skull"></i> 故事二：16歲少年的「實證死亡實驗」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：面對突來的死亡恐懼，馬哈希沒有尋求外在協助，而是躺下模擬屍體僵硬，追問：「現在身體死了，會被抬去火化。但在身體化為灰燼之後，那個知道身體死掉的『覺知』也死了嗎？」
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：這表明醒覺並非神秘的宗教儀式，而需要極致理性的**「科學懷疑精神」**——直接去檢驗「我是這具肉體」這個先入為主的假設。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-mask"></i> 故事三：「小偷扮演警察」的內耗陷阱</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：心智試圖以思考、理智對話或強行壓抑來達到無念，就像小偷假扮警察去抓小偷，只會增加心智活動，製造更隱蔽的「靈性小我」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：不要與念頭進行分析或對抗。直接忽略警察與小偷，回頭追問：「是誰在看這場警察抓小偷的戲？」，直接從小我抽離。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-cow"></i> 故事四：母牛拉克希米（Lakshmi）的平等覺醒</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：馬哈希視靜修處的母牛 Lakshmi 為修行同伴，並在其臨終時觸摸心臟與頭部引導其意識回歸源頭，親自證實其已獲得解脫（Moksha）。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：打破了人類智商高於萬物的優越感。覺知不分物種、沒有階級，最純淨的覺知往往存在於最簡單的生命之中。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-biohazard"></i> 故事五：癌症手術中的「主客體剝離」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：晚年經歷痛苦的惡性腫瘤手術，馬哈希安詳微笑：「他們以為這個身體是『我』。但我能去哪裡？我一直都在這裡。」
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：痛覺是肉體（客體）的反饋，但受苦是心智對痛覺的認同。當主客體剝離，痛覺便只是物理現象，無法干擾內在的真我螢幕。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Core Terminology -->
+        <div class="tab-pane" id="tab-terms">
+            <div class="card">
+                <h2><i class="fa-solid fa-book-open"></i> 核心術語與定義</h2>
+                <div class="grid-list">
+                    <div class="grid-item">
+                        <div class="grid-item-title">Self (自性 / 真我)</div>
+                        <div class="grid-item-desc">唯一真實存在的本體，超越時空與主客體對立，本質是存在-意識-喜樂（Sat-Chit-Ananda）。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title">Turiya (第四態 / 意識本體)</div>
+                        <div class="grid-item-desc">並非第四種狀態，而是貫穿、支撐並超越「醒、夢、深睡」這三態的純粹意識背景（Substratum）。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title">Atma-Vichara (自我探究)</div>
+                        <div class="grid-item-desc">通過直接向內追問「我是誰」，將注意力抽離一切客體，倒轉回主體意識源頭的根本修行方法。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title">Mouna (聖默 / 純然寂靜)</div>
+                        <div class="grid-item-desc">非指聲帶的不說話，而是指心智（Ego）完全靜止，安住於純粹存在（Being）的意識狀態。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title">The "I-thought" (「我」之念)</div>
+                        <div class="grid-item-desc">心智升起的第一個念頭。任何思想、情緒、痛苦的立足點，都必須依附於這個最初的「我之念」。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title">Arunachala (阿魯納查拉聖山)</div>
+                        <div class="grid-item-desc">位於南印度的聖山。馬哈希在此常駐54年不曾離開，將其視為真我的實體顯化，能如磁石般平息心智。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.5. Awakening Stories -->
+        <div class="tab-pane" id="tab-stories">
+            <div class="card">
+                <h2><i class="fa-solid fa-lightbulb"></i> 紀錄片中不為人知的五大醒覺故事</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    以下故事精華提煉自影片原文脈絡，解構了潛藏在日常境遇中的醒覺密碼：
+                </p>
+                <div class="grid-list">
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-eye-slash"></i> 故事一：受苦的是「我（I）」還是「眼睛（eye）」？</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：片中討論痛苦本質時英文原話為 <em>"All suffering happens to the 'I'"</em>（所有痛苦都發生在小我上），但逐字稿常誤植為 <em>"the eye"</em>，譯為「痛苦發生在眼睛上」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：這是一個深刻的隱喻。受苦從來不是因為眼睛看到了截止日逼近或存款數字，而是心智中塑造出來的「我（I）」對這一切產生了焦慮與抗拒。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-skull"></i> 故事二：16歲少年的「實證死亡實驗」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：面對突來的死亡恐懼，馬哈希沒有尋求外在協助，而是躺下模擬屍體僵硬，追問：「現在身體死了，會被抬去火化。但在身體化為灰燼之後，那個知道身體死掉的『覺知』也死了嗎？」
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：這表明醒覺並非神秘的宗教儀式，而需要極致理性的**「科學懷疑精神」**——直接去檢驗「我是這具肉體」這個先入為主的假設。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-mask"></i> 故事三：「小偷扮演警察」的內耗陷阱</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：心智試圖以思考、理智對話或強行壓抑來達到無念，就像小偷假扮警察去抓小偷，只會增加心智活動，製造更隱蔽的「靈性小我」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：不要與念頭進行分析或對抗。直接忽略警察與小偷，回頭追問：「是誰在看這場警察抓小偷的戲？」，直接從小我抽離。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-cow"></i> 故事四：母牛拉克希米（Lakshmi）的平等覺醒</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：馬哈希視靜修處的母牛 Lakshmi 為修行同伴，並在其臨終時觸摸心臟與頭部引導其意識回歸源頭，親自證實其已獲得解脫（Moksha）。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：打破了人類智商高於萬物的優越感。覺知不分物種、沒有階級，最純淨的覺知往往存在於最簡單的生命之中。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-biohazard"></i> 故事五：癌症手術中的「主客體剝離」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：晚年經歷痛苦的惡性腫瘤手術，馬哈希安詳微笑：「他們以為這個身體是『我』。但我能去哪裡？我一直都在這裡。」
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：痛覺是肉體（客體）的反饋，但受苦是心智對痛覺的認同。當主客體剝離，痛覺便只是物理現象，無法干擾內在的真我螢幕。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Mind Models -->
+        <div class="tab-pane" id="tab-frameworks">
+            <div class="card">
+                <h2><i class="fa-solid fa-brain"></i> 核心心智模型</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    馬哈希的教導建立在極致的非雙重性（Advaita）之上，以下是兩個能直接指導日常生活的框架：
+                </p>
+                
+                <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: var(--accent);">模型一：螢幕與投影模型 (The Screen Model)</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                    我們每天的經歷（憤怒、焦慮、成功的喜悅、身體的衰老）就像投射在電影螢幕上的畫面。
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th>投影畫面（醒、夢、睡三態）</th>
+                            <th>螢幕背景（Turiya / 真我）</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 600;">特性</td>
+                            <td>來來去去，不斷變化</td>
+                            <td>始終在場，永恆不變</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">影響關係</td>
+                            <td>畫面無法把螢幕弄濕或燒毀</td>
+                            <td>螢幕是一切畫面得以顯現的前提</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">認同</td>
+                            <td>痛苦的根源（將畫面當作真的我）</td>
+                            <td>解脫的核心（安住於不變的背景）</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="font-size: 1.25rem; font-weight: 700; margin-top: 30px; margin-bottom: 12px; color: var(--accent);">模型二：自我意識外投路徑</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                    在自我探究中，理解心智的投射路徑有助於逆向追尋。
+                </p>
+                <div style="background-color: var(--bg-tertiary); padding: 20px; border-radius: 12px; border: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.9rem;">
+                    1. 意識源頭 (Heart) <br>
+                    &nbsp;&nbsp;&nbsp;└── 2. 升起「我」之念 (The I-thought)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── 3. 附帶產生「我的」概念 (Ownership)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── 4. 投射出主客體世界與痛苦 (Duallistic World)
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.5. Awakening Stories -->
+        <div class="tab-pane" id="tab-stories">
+            <div class="card">
+                <h2><i class="fa-solid fa-lightbulb"></i> 紀錄片中不為人知的五大醒覺故事</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    以下故事精華提煉自影片原文脈絡，解構了潛藏在日常境遇中的醒覺密碼：
+                </p>
+                <div class="grid-list">
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-eye-slash"></i> 故事一：受苦的是「我（I）」還是「眼睛（eye）」？</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：片中討論痛苦本質時英文原話為 <em>"All suffering happens to the 'I'"</em>（所有痛苦都發生在小我上），但逐字稿常誤植為 <em>"the eye"</em>，譯為「痛苦發生在眼睛上」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：這是一個深刻的隱喻。受苦從來不是因為眼睛看到了截止日逼近或存款數字，而是心智中塑造出來的「我（I）」對這一切產生了焦慮與抗拒。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-skull"></i> 故事二：16歲少年的「實證死亡實驗」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：面對突來的死亡恐懼，馬哈希沒有尋求外在協助，而是躺下模擬屍體僵硬，追問：「現在身體死了，會被抬去火化。但在身體化為灰燼之後，那個知道身體死掉的『覺知』也死了嗎？」
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：這表明醒覺並非神秘的宗教儀式，而需要極致理性的**「科學懷疑精神」**——直接去檢驗「我是這具肉體」這個先入為主的假設。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-mask"></i> 故事三：「小偷扮演警察」的內耗陷阱</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：心智試圖以思考、理智對話或強行壓抑來達到無念，就像小偷假扮警察去抓小偷，只會增加心智活動，製造更隱蔽的「靈性小我」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：不要與念頭進行分析或對抗。直接忽略警察與小偷，回頭追問：「是誰在看這場警察抓小偷的戲？」，直接從小我抽離。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-cow"></i> 故事四：母牛拉克希米（Lakshmi）的平等覺醒</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：馬哈希視靜修處的母牛 Lakshmi 為修行同伴，並在其臨終時觸摸心臟與頭部引導其意識回歸源頭，親自證實其已獲得解脫（Moksha）。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：打破了人類智商高於萬物的優越感。覺知不分物種、沒有階級，最純淨的覺知往往存在於最簡單的生命之中。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-biohazard"></i> 故事五：癌症手術中的「主客體剝離」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：晚年經歷痛苦的惡性腫瘤手術，馬哈希安詳微笑：「他們以為這個身體是『我』。但我能去哪裡？我一直都在這裡。」
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：痛覺是肉體（客體）的反饋，但受苦是心智對痛覺的認同。當主客體剝離，痛覺便只是物理現象，無法干擾內在的真我螢幕。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Interactive SOP -->
+        <div class="tab-pane" id="tab-sop">
+            <div class="card">
+                <h2><i class="fa-solid fa-list-check"></i> 自我探究 (Atma-Vichara) 實踐指南</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    這是一套當你陷入情緒糾結、工作壓力或人生兩難時，可以用來反向解構小我的 SOP。請跟隨步驟進行實作演練：
+                </p>
+
+                <div class="sop-step" id="step-1">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">截獲波動 / 念頭</div>
+                        <div class="step-desc">當你心中升起諸如「我不能輸」、「這個人怎麼這樣對我」或強烈的焦慮時，停下動作，保持觀察。</div>
+                        <button class="step-action-btn" onclick="completeStep(1)">我已覺察此念頭</button>
+                    </div>
+                </div>
+
+                <div class="sop-step" id="step-2">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">主體問詢 (對誰升起？)</div>
+                        <div class="step-desc">對自己發問：「這個憤怒/焦慮，是出現在誰面前的？是出現在誰內心？」</div>
+                        <button class="step-action-btn" onclick="completeStep(2)">確認發問</button>
+                    </div>
+                </div>
+
+                <div class="sop-step" id="step-3">
+                    <div class="step-content">
+                        <div class="step-title">定位主體 (對我升起)</div>
+                        <div class="step-desc">心智會自然得出結論：「是對『我』升起的。我是這個念頭的承載者。」</div>
+                        <button class="step-action-btn" onclick="completeStep(3)">定位於「我」</button>
+                    </div>
+                </div>
+
+                <div class="sop-step" id="step-4">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">致命一問 (我是誰？)</div>
+                        <div class="step-desc">接著，直指核心追問：「那麼，這個承受痛苦的『我』，是誰？是這具肉體嗎？還是這個受傷的心智？」</div>
+                        <button class="step-action-btn" onclick="completeStep(4)">直指源頭發問</button>
+                    </div>
+                </div>
+
+                <div class="sop-step" id="step-5">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-title">注意力 180 度大反轉</div>
+                        <div class="step-desc"><strong>【關鍵】</strong>不要用頭腦編造答案。強行將原本關注外部、關注念頭的注意力，拉回到「那個正在發問、正在感知的主體」身上。</div>
+                        <button class="step-action-btn" onclick="completeStep(5)">完成反轉</button>
+                    </div>
+                </div>
+
+                <div class="sop-step" id="step-6">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <div class="step-title">安住於寂靜空白</div>
+                        <div class="step-desc">在不給予任何言語回答的情況下，維持無物可觀的空白。念頭在此處會失去依託而消融。若又有念頭升起，回到步驟 1 重新開始。</div>
+                        <button class="step-action-btn" onclick="resetSop()">重置探究流程</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.5. Awakening Stories -->
+        <div class="tab-pane" id="tab-stories">
+            <div class="card">
+                <h2><i class="fa-solid fa-lightbulb"></i> 紀錄片中不為人知的五大醒覺故事</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    以下故事精華提煉自影片原文脈絡，解構了潛藏在日常境遇中的醒覺密碼：
+                </p>
+                <div class="grid-list">
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-eye-slash"></i> 故事一：受苦的是「我（I）」還是「眼睛（eye）」？</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：片中討論痛苦本質時英文原話為 <em>"All suffering happens to the 'I'"</em>（所有痛苦都發生在小我上），但逐字稿常誤植為 <em>"the eye"</em>，譯為「痛苦發生在眼睛上」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：這是一個深刻的隱喻。受苦從來不是因為眼睛看到了截止日逼近或存款數字，而是心智中塑造出來的「我（I）」對這一切產生了焦慮與抗拒。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-skull"></i> 故事二：16歲少年的「實證死亡實驗」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：面對突來的死亡恐懼，馬哈希沒有尋求外在協助，而是躺下模擬屍體僵硬，追問：「現在身體死了，會被抬去火化。但在身體化為灰燼之後，那個知道身體死掉的『覺知』也死了嗎？」
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：這表明醒覺並非神秘的宗教儀式，而需要極致理性的**「科學懷疑精神」**——直接去檢驗「我是這具肉體」這個先入為主的假設。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-mask"></i> 故事三：「小偷扮演警察」的內耗陷阱</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：心智試圖以思考、理智對話或強行壓抑來達到無念，就像小偷假扮警察去抓小偷，只會增加心智活動，製造更隱蔽的「靈性小我」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：不要與念頭進行分析或對抗。直接忽略警察與小偷，回頭追問：「是誰在看這場警察抓小偷的戲？」，直接從小我抽離。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-cow"></i> 故事四：母牛拉克希米（Lakshmi）的平等覺醒</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：馬哈希視靜修處的母牛 Lakshmi 為修行同伴，並在其臨終時觸摸心臟與頭部引導其意識回歸源頭，親自證實其已獲得解脫（Moksha）。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：打破了人類智商高於萬物的優越感。覺知不分物種、沒有階級，最純淨的覺知往往存在於最簡單的生命之中。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-biohazard"></i> 故事五：癌症手術中的「主客體剝離」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：晚年經歷痛苦的惡性腫瘤手術，馬哈希安詳微笑：「他們以為這個身體是『我』。但我能去哪裡？我一直都在這裡。」
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：痛覺是肉體（客體）的反饋，但受苦是心智對痛覺的認同。當主客體剝離，痛覺便只是物理現象，無法干擾內在的真我螢幕。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Anti-patterns -->
+        <div class="tab-pane" id="tab-antipatterns">
+            <div class="card">
+                <h2><i class="fa-solid fa-triangle-exclamation"></i> 修行避坑指南（反模式）</h2>
+                <div class="grid-list">
+                    <div class="grid-item" style="border-left: 4px solid var(--accent-error);">
+                        <div class="grid-item-title" style="color: var(--accent-error);">反模式一：小偷扮演警察 (Thief as Policeman)</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>現象</strong>：試圖通過繁雜的教義分析、自我對話、意志壓抑來「殺死自我」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>機理</strong>：心智試圖消滅自己，就像小偷偽裝成警察去抓自己一樣，只會製造更隱蔽的「靈性自我（Spiritual Ego）」。
+                        </div>
+                    </div>
+
+                    <div class="grid-item" style="border-left: 4px solid var(--accent-error);">
+                        <div class="grid-item-title" style="color: var(--accent-error);">反模式二：將開悟視為客體追求</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>現象</strong>：每天焦慮地追逐一個遙遠的「開悟目標」，為自己設定進度條。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>機理</strong>：這默許了「我現在沒有真我，以後要獲得真我」的謬論。真我不是增加出來的，而是當障礙剝離後自然顯現的。
+                        </div>
+                    </div>
+
+                    <div class="grid-item" style="border-left: 4px solid var(--accent-error);">
+                        <div class="grid-item-title" style="color: var(--accent-error);">反模式三：假性聖默 (False Mouna)</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>現象</strong>：表面上觀察禁語不說話，但大腦中評判、渴望與情緒劇烈交戰。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>機理</strong>：流於形式的身體禁語，並未觸及純粹存在的意識寂靜。真正的寂靜在發言時依然能維持。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.5. Awakening Stories -->
+        <div class="tab-pane" id="tab-stories">
+            <div class="card">
+                <h2><i class="fa-solid fa-lightbulb"></i> 紀錄片中不為人知的五大醒覺故事</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    以下故事精華提煉自影片原文脈絡，解構了潛藏在日常境遇中的醒覺密碼：
+                </p>
+                <div class="grid-list">
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-eye-slash"></i> 故事一：受苦的是「我（I）」還是「眼睛（eye）」？</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：片中討論痛苦本質時英文原話為 <em>"All suffering happens to the 'I'"</em>（所有痛苦都發生在小我上），但逐字稿常誤植為 <em>"the eye"</em>，譯為「痛苦發生在眼睛上」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：這是一個深刻的隱喻。受苦從來不是因為眼睛看到了截止日逼近或存款數字，而是心智中塑造出來的「我（I）」對這一切產生了焦慮與抗拒。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-skull"></i> 故事二：16歲少年的「實證死亡實驗」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：面對突來的死亡恐懼，馬哈希沒有尋求外在協助，而是躺下模擬屍體僵硬，追問：「現在身體死了，會被抬去火化。但在身體化為灰燼之後，那個知道身體死掉的『覺知』也死了嗎？」
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：這表明醒覺並非神秘的宗教儀式，而需要極致理性的**「科學懷疑精神」**——直接去檢驗「我是這具肉體」這個先入為主的假設。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-mask"></i> 故事三：「小偷扮演警察」的內耗陷阱</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：心智試圖以思考、理智對話或強行壓抑來達到無念，就像小偷假扮警察去抓小偷，只會增加心智活動，製造更隱蔽的「靈性小我」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：不要與念頭進行分析或對抗。直接忽略警察與小偷，回頭追問：「是誰在看這場警察抓小偷的戲？」，直接從小我抽離。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-cow"></i> 故事四：母牛拉克希米（Lakshmi）的平等覺醒</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：馬哈希視靜修處的母牛 Lakshmi 為修行同伴，並在其臨終時觸摸心臟與頭部引導其意識回歸源頭，親自證實其已獲得解脫（Moksha）。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：打破了人類智商高於萬物的優越感。覺知不分物種、沒有階級，最純淨的覺知往往存在於最簡單的生命之中。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-biohazard"></i> 故事五：癌症手術中的「主客體剝離」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：晚年經歷痛苦的惡性腫瘤手術，馬哈希安詳微笑：「他們以為這個身體是『我』。但我能去哪裡？我一直都在這裡。」
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：痛覺是肉體（客體）的反饋，但受苦是心智對痛覺的認同。當主客體剝離，痛覺便只是物理現象，無法干擾內在的真我螢幕。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Quiz -->
+        <div class="tab-pane" id="tab-quiz">
+            <div class="card">
+                <h2><i class="fa-solid fa-square-poll-vertical"></i> 自我評測與認知挑戰</h2>
+                
+                <div style="margin-bottom: 30px;">
+                    <p style="font-weight: 600; margin-bottom: 12px;">Q1. 根據拉馬納．馬哈希的說法，為什麼其他修持方法（如神學研究、分析哲學）有時像「小偷扮演警察」？</p>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', false)">
+                        <span style="font-weight: bold;">A</span> 因為這些修持方法是非法的
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', true)">
+                        <span style="font-weight: bold;">B</span> 因為試圖解決問題的工具（心智/小我）本身，就是問題的製造者
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', false)">
+                        <span style="font-weight: bold;">C</span> 因為這些方法需要花費很多錢
+                    </div>
+                    <div class="quiz-feedback" id="q1-feedback"></div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <p style="font-weight: 600; margin-bottom: 12px;">Q2. 關於「Turiya（第四態）」的敘述，哪一個是正確的？</p>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', false)">
+                        <span style="font-weight: bold;">A</span> 它是一種在特定深度禪定中才會暫時體驗到的特殊意識高潮
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', false)">
+                        <span style="font-weight: bold;">B</span> 它是只在做夢與深睡之間出現的極短暫縫隙
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', true)">
+                        <span style="font-weight: bold;">C</span> 它是始終存在、支撐並穿透「醒、夢、深睡」的純粹意識背景螢幕
+                    </div>
+                    <div class="quiz-feedback" id="q2-feedback"></div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <p style="font-weight: 600; margin-bottom: 12px;">Q3. 關於影片中「I vs. eye (我與眼睛)」的英文翻譯盲點，這給予現代人什麼醒覺啟示？</p>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', false)">
+                        <span style="font-weight: bold;">A</span> 人類的所有痛苦都是因為物理眼睛看到了太多的苦難造成的
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', true)">
+                        <span style="font-weight: bold;">B</span> 痛苦不是因為眼睛看到了現實，而是心智中的那個「我（I）」對現實產生了抗拒與認同
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', false)">
+                        <span style="font-weight: bold;">C</span> 我們需要閉上雙眼，不看任何事物，才能徹底避免焦慮
+                    </div>
+                    <div class="quiz-feedback" id="q3-feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.5. Awakening Stories -->
+        <div class="tab-pane" id="tab-stories">
+            <div class="card">
+                <h2><i class="fa-solid fa-lightbulb"></i> 紀錄片中不為人知的五大醒覺故事</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    以下故事精華提煉自影片原文脈絡，解構了潛藏在日常境遇中的醒覺密碼：
+                </p>
+                <div class="grid-list">
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-eye-slash"></i> 故事一：受苦的是「我（I）」還是「眼睛（eye）」？</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：片中討論痛苦本質時英文原話為 <em>"All suffering happens to the 'I'"</em>（所有痛苦都發生在小我上），但逐字稿常誤植為 <em>"the eye"</em>，譯為「痛苦發生在眼睛上」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：這是一個深刻的隱喻。受苦從來不是因為眼睛看到了截止日逼近或存款數字，而是心智中塑造出來的「我（I）」對這一切產生了焦慮與抗拒。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-skull"></i> 故事二：16歲少年的「實證死亡實驗」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：面對突來的死亡恐懼，馬哈希沒有尋求外在協助，而是躺下模擬屍體僵硬，追問：「現在身體死了，會被抬去火化。但在身體化為灰燼之後，那個知道身體死掉的『覺知』也死了嗎？」
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：這表明醒覺並非神秘的宗教儀式，而需要極致理性的**「科學懷疑精神」**——直接去檢驗「我是這具肉體」這個先入為主的假設。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-mask"></i> 故事三：「小偷扮演警察」的內耗陷阱</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：心智試圖以思考、理智對話或強行壓抑來達到無念，就像小偷假扮警察去抓小偷，只會增加心智活動，製造更隱蔽的「靈性小我」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：不要與念頭進行分析或對抗。直接忽略警察與小偷，回頭追問：「是誰在看這場警察抓小偷的戲？」，直接從小我抽離。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-cow"></i> 故事四：母牛拉克希米（Lakshmi）的平等覺醒</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：馬哈希視靜修處的母牛 Lakshmi 為修行同伴，並在其臨終時觸摸心臟與頭部引導其意識回歸源頭，親自證實其已獲得解脫（Moksha）。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：打破了人類智商高於萬物的優越感。覺知不分物種、沒有階級，最純淨的覺知往往存在於最簡單的生命之中。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-biohazard"></i> 故事五：癌症手術中的「主客體剝離」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：晚年經歷痛苦的惡性腫瘤手術，馬哈希安詳微笑：「他們以為這個身體是『我』。但我能去哪裡？我一直都在這裡。」
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：痛覺是肉體（客體）的反饋，但受苦是心智對痛覺的認同。當主客體剝離，痛覺便只是物理現象，無法干擾內在的真我螢幕。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Action Exercises -->
+        <div class="tab-pane" id="tab-exercises">
+            <div class="card">
+                <h2><i class="fa-solid fa-calendar-check"></i> 行動練習與心智鍛鍊計畫</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    將概念轉化為日常行為。勾選你已完成的修持練習，進度將儲存於瀏覽器中：
+                </p>
+
+                <div class="exercise-item">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="ex-1" onchange="saveProgress('ex-1')">
+                        <span class="checkmark"></span>
+                    </label>
+                    <div class="exercise-details">
+                        <div class="exercise-title">階段一：日常「念頭截擊」練習 (連續3天)</div>
+                        <div class="exercise-desc">當鬧鐘響起或焦慮來襲時，停下 30 秒，觀察念頭，向內追問：「這個念頭出現在誰面前？我是誰？」不給答案，感受注意力的反轉。</div>
+                    </div>
+                </div>
+
+                <div class="exercise-item">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="ex-2" onchange="saveProgress('ex-2')">
+                        <span class="checkmark"></span>
+                    </label>
+                    <div class="exercise-details">
+                        <div class="exercise-title">階段二：入睡前的「自我融化」練習</div>
+                        <div class="exercise-desc">躺在床上準備入睡時，不回顧今天、不計劃明天，只是向內觀照「是誰要入睡了？」讓意識追尋源頭，自然融化在深睡之中。</div>
+                    </div>
+                </div>
+
+                <div class="exercise-item">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="ex-3" onchange="saveProgress('ex-3')">
+                        <span class="checkmark"></span>
+                    </label>
+                    <div class="exercise-details">
+                        <div class="exercise-title">階段三：甦醒黃金 3 秒鐘的「源頭追蹤」</div>
+                        <div class="exercise-desc">睜開眼、心智尚未完全拼湊出「我是誰、我要做什麼」的黃金 3 秒內，迅速感受「自我感覺的甦醒點」，追溯它從哪裡升起。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.5. Awakening Stories -->
+        <div class="tab-pane" id="tab-stories">
+            <div class="card">
+                <h2><i class="fa-solid fa-lightbulb"></i> 紀錄片中不為人知的五大醒覺故事</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    以下故事精華提煉自影片原文脈絡，解構了潛藏在日常境遇中的醒覺密碼：
+                </p>
+                <div class="grid-list">
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-eye-slash"></i> 故事一：受苦的是「我（I）」還是「眼睛（eye）」？</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：片中討論痛苦本質時英文原話為 <em>"All suffering happens to the 'I'"</em>（所有痛苦都發生在小我上），但逐字稿常誤植為 <em>"the eye"</em>，譯為「痛苦發生在眼睛上」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：這是一個深刻的隱喻。受苦從來不是因為眼睛看到了截止日逼近或存款數字，而是心智中塑造出來的「我（I）」對這一切產生了焦慮與抗拒。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-skull"></i> 故事二：16歲少年的「實證死亡實驗」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：面對突來的死亡恐懼，馬哈希沒有尋求外在協助，而是躺下模擬屍體僵硬，追問：「現在身體死了，會被抬去火化。但在身體化為灰燼之後，那個知道身體死掉的『覺知』也死了嗎？」
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：這表明醒覺並非神秘的宗教儀式，而需要極致理性的**「科學懷疑精神」**——直接去檢驗「我是這具肉體」這個先入為主的假設。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-mask"></i> 故事三：「小偷扮演警察」的內耗陷阱</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：心智試圖以思考、理智對話或強行壓抑來達到無念，就像小偷假扮警察去抓小偷，只會增加心智活動，製造更隱蔽的「靈性小我」。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：不要與念頭進行分析或對抗。直接忽略警察與小偷，回頭追問：「是誰在看這場警察抓小偷的戲？」，直接從小我抽離。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-cow"></i> 故事四：母牛拉克希米（Lakshmi）的平等覺醒</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：馬哈希視靜修處的母牛 Lakshmi 為修行同伴，並在其臨終時觸摸心臟與頭部引導其意識回歸源頭，親自證實其已獲得解脫（Moksha）。
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：打破了人類智商高於萬物的優越感。覺知不分物種、沒有階級，最純淨的覺知往往存在於最簡單的生命之中。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
+                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-biohazard"></i> 故事五：癌症手術中的「主客體剝離」</div>
+                        <div class="grid-item-desc" style="margin-bottom: 10px;">
+                            <strong>還原</strong>：晚年經歷痛苦的惡性腫瘤手術，馬哈希安詳微笑：「他們以為這個身體是『我』。但我能去哪裡？我一直都在這裡。」
+                        </div>
+                        <div class="grid-item-desc">
+                            <strong>醒覺機制</strong>：痛覺是肉體（客體）的反饋，但受苦是心智對痛覺的認同。當主客體剝離，痛覺便只是物理現象，無法干擾內在的真我螢幕。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal overlay for zooming the map -->
+    <div id="zoom-modal" class="zoom-modal">
+        <span class="close-modal" id="close-modal">&times;</span>
+        <div class="zoom-modal-content" id="zoom-modal-content"></div>
+        <div class="zoom-controls">
+            <button id="zoom-in-btn" title="放大"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+            <button id="zoom-out-btn" title="縮小"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+            <button id="zoom-reset-btn" title="重設"><i class="fa-solid fa-arrows-rotate"></i></button>
+        </div>
+    </div>
+
+    <script>
+        // Tab Navigation
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panes = document.querySelectorAll('.tab-pane');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                panes.forEach(p => p.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = root.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                root.removeAttribute('data-theme');
+                themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            } else {
+                root.setAttribute('data-theme', 'light');
+                themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            }
+        });
+
+        // Interactive SOP Checklist logic
+        function completeStep(stepNumber) {
+            const step = document.getElementById('step-' + stepNumber);
+            if (step) {
+                step.classList.add('completed');
+            }
+        }
+
+        function resetSop() {
+            document.querySelectorAll('.sop-step').forEach(step => {
+                step.classList.remove('completed');
+            });
+        }
+
+        // Quiz checking logic
+        function checkAnswer(element, quizId, isCorrect) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                opt.style.pointerEvents = 'none'; // Lock selections
+            });
+
+            const feedback = document.getElementById(quizId + '-feedback');
+
+            if (isCorrect) {
+                element.classList.add('correct');
+                if (quizId === 'q1') {
+                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！自我（Ego）本身是心智為保護自身而產生的假警察，若用它來對抗心智，只會增加更多內耗。';
+                } else if (quizId === 'q2') {
+                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！第四態並非某種特殊的感官體驗，而是所有意識狀態的背景投影幕。';
+                } else if (quizId === 'q3') {
+                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！痛苦本質上是「我之念（I-thought）」的產物，只要探究「我是誰」解構這個主體認同，痛苦就失去了依附對象。';
+                }
+                feedback.className = 'quiz-feedback success';
+            } else {
+                element.classList.add('incorrect');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> 回答錯誤，請再思考一下。不要用頭腦的邏輯分析來殺死頭腦。';
+                feedback.className = 'quiz-feedback error';
+            }
+        }
+
+        // Checkbox status persistence
+        function saveProgress(id) {
+            const checkbox = document.getElementById(id);
+            localStorage.setItem(id, checkbox.checked);
+        }
+
+        function loadProgress() {
+            ['ex-1', 'ex-2', 'ex-3'].forEach(id => {
+                const checked = localStorage.getItem(id) === 'true';
+                const checkbox = document.getElementById(id);
+                if (checkbox) {
+                    checkbox.checked = checked;
+                }
+            });
+        }
+
+        // Zoom Modal Logic
+        const zoomModal = document.getElementById('zoom-modal');
+        const zoomContent = document.getElementById('zoom-modal-content');
+        const closeModal = document.getElementById('close-modal');
+        const mermaidContainer = document.querySelector('.mermaid-container');
+        
+        let currentScale = 1.0;
+        let isDragging = false;
+        let startX = 0, startY = 0, translateX = 0, translateY = 0;
+
+        if (mermaidContainer) {
+            mermaidContainer.addEventListener('click', () => {
+                const svgElement = mermaidContainer.querySelector('svg');
+                if (svgElement) {
+                    zoomContent.innerHTML = svgElement.outerHTML;
+                    zoomModal.style.display = 'flex';
+                    currentScale = 1.0;
+                    translateX = 0;
+                    translateY = 0;
+                    updateTransform();
+                }
+            });
+        }
+
+        closeModal.addEventListener('click', () => {
+            zoomModal.style.display = 'none';
+        });
+
+        zoomModal.addEventListener('click', (e) => {
+            if (e.target === zoomModal || e.target === zoomContent) {
+                zoomModal.style.display = 'none';
+            }
+        });
+
+        document.getElementById('zoom-in-btn').addEventListener('click', () => {
+            currentScale *= 1.2;
+            updateTransform();
+        });
+
+        document.getElementById('zoom-out-btn').addEventListener('click', () => {
+            currentScale *= 0.8;
+            updateTransform();
+        });
+
+        document.getElementById('zoom-reset-btn').addEventListener('click', () => {
+            currentScale = 1.0;
+            translateX = 0;
+            translateY = 0;
+            updateTransform();
+        });
+
+        function updateTransform() {
+            const svg = zoomContent.querySelector('svg');
+            if (svg) {
+                svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+            }
+        }
+
+        zoomContent.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX - translateX;
+            startY = e.clientY - translateY;
+            zoomContent.style.cursor = 'grabbing';
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            zoomContent.style.cursor = 'grab';
+        });
+
+        zoomContent.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX - translateX;
+                startY = e.touches[0].clientY - translateY;
+            }
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging || e.touches.length !== 1) return;
+            translateX = e.touches[0].clientX - startX;
+            translateY = e.touches[0].clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        window.onload = loadProgress;
+    </script>
+</body>
+</html>
