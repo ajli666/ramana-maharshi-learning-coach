@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>當下的學習力 — 托勒心智轉化與高效學習系統</title>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Mermaid.js for flowcharts -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useWidth: true, htmlLabels: true }
+        });
+    </script>
+    <style>
+        :root {
+            --bg-primary: #080a0f;
+            --bg-secondary: #0f121d;
+            --bg-tertiary: #171b2d;
+            --accent: #10b981; /* Zen Emerald */
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --accent-secondary: #14b8a6; /* Teal */
+            --accent-success: #10b981;
+            --accent-error: #ef4444;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --border: #20263f;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f0fdf4; /* Very light green tint */
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e6f4ea;
+            --accent: #059669;
+            --accent-glow: rgba(5, 150, 105, 0.1);
+            --accent-secondary: #0d9488;
+            --accent-success: #059669;
+            --accent-error: #dc2626;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: #d1fae5;
+            --shadow: rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            transition: var(--transition);
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 60px 0 40px 0;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .header-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .category-tag {
+            background-color: var(--accent-glow);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin-top: 10px;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1px;
+            margin-bottom: 40px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+
+        .tabs-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background-color: var(--bg-secondary);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.05);
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
+        }
+
+        h2 i {
+            color: var(--accent);
+        }
+
+        .grid-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-list {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .grid-item {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .grid-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .grid-item-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .grid-item-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        tr:hover td {
+            color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .mermaid-container {
+            background-color: #05060b;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            cursor: zoom-in;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .mermaid-container:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .highlight-box {
+            border-left: 4px solid var(--accent);
+            background-color: var(--bg-tertiary);
+            padding: 16px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        /* SOP Steps */
+        .sop-container {
+            margin: 20px 0;
+        }
+
+        .sop-step {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 24px;
+        }
+
+        .sop-step::before {
+            content: '';
+            position: absolute;
+            left: 17px;
+            top: 28px;
+            bottom: -22px;
+            width: 2px;
+            background-color: var(--border);
+            z-index: 1;
+        }
+
+        .sop-step:last-child::before {
+            display: none;
+        }
+
+        .sop-badge {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--bg-tertiary);
+            border: 2px solid var(--border);
+            color: var(--text-secondary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        .sop-step.completed .sop-badge {
+            background-color: var(--accent-success);
+            border-color: var(--accent-success);
+            color: var(--bg-primary);
+        }
+
+        .sop-step-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sop-step-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .sop-action-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sop-action-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Quiz Styling */
+        .quiz-card {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-question {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .quiz-option:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+            background-color: var(--accent-glow);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--accent-success);
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--accent-success);
+            font-weight: 600;
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--accent-error);
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--accent-error);
+            font-weight: 600;
+        }
+
+        .quiz-feedback {
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: none;
+            line-height: 1.5;
+        }
+
+        .quiz-feedback.success {
+            display: block;
+            background-color: rgba(16, 185, 129, 0.05);
+            border-left: 3px solid var(--accent-success);
+            color: var(--text-primary);
+        }
+
+        .quiz-feedback.error {
+            display: block;
+            background-color: rgba(239, 68, 68, 0.05);
+            border-left: 3px solid var(--accent-error);
+            color: var(--text-primary);
+        }
+
+        /* Checkbox Habits List */
+        .exercise-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            align-items: flex-start;
+        }
+
+        .checkbox-container {
+            display: block;
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 22px;
+            user-select: none;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 2px;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .checkbox-container:hover input ~ .checkmark {
+            border-color: var(--accent);
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid var(--bg-primary);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .exercise-details {
+            flex-grow: 1;
+        }
+
+        .exercise-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .exercise-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        /* Syllabus Timeline Table */
+        .syllabus-table td {
+            vertical-align: top;
+        }
+
+        /* Zoom modal styling */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(5, 6, 11, 0.95);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .zoom-modal-content {
+            width: 90%;
+            height: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .zoom-modal-content svg {
+            max-width: 100%;
+            max-height: 100%;
+            transition: transform 0.1s ease;
+            cursor: grab;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: var(--text-secondary);
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+        }
+
+        .zoom-controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .zoom-controls button {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .zoom-controls button:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background-color: var(--accent-glow);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-meta">
+                <span class="category-tag">Mindfulness Learning Coach</span>
+                <button class="theme-toggle" id="theme-toggle" title="切換主題">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+            <h1>當下的學習力：艾克哈特．托勒心智轉化系統</h1>
+            <div class="subtitle">將「臨在」與「臣服」轉譯為專注定錨、克服焦慮與釋放本智的高效學習儀表板。</div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tabs-nav">
+            <button class="tab-btn active" data-tab="tab-core">核心地圖 & 兩書對比</button>
+            <button class="tab-btn" data-tab="tab-frameworks">心智模型</button>
+            <button class="tab-btn" data-tab="tab-principles">判斷邏輯</button>
+            <button class="tab-btn" data-tab="tab-sops">實作 SOP</button>
+            <button class="tab-btn" data-tab="tab-antipatterns">分心反模式</button>
+            <button class="tab-btn" data-tab="tab-quizzes">自我測驗</button>
+            <button class="tab-btn" data-tab="tab-syllabus">21天工作坊</button>
+            <button class="tab-btn" data-tab="tab-translation">日常應用</button>
+        </nav>
+
+        <!-- 1. Core Map & Book Comparison -->
+        <div class="tab-pane active" id="tab-core">
+            <div class="card">
+                <h2><i class="fa-solid fa-diagram-project"></i> 托勒心智轉化學習系統架構圖</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">點擊架構圖可放大、縮放與拖拽檢視：</p>
+                <div class="mermaid-container">
+                    <pre class="mermaid">
+graph TD
+    A["托勒心智轉化系統"] --> B["1. 診斷：心智桎梏"]
+    A --> C["2. 當下入口：覺性通道"]
+    A --> D["3. 運作：轉化機制"]
+    
+    B --> B1["小我 (Ego)<br>強迫性想法認同"]
+    B --> B2["心理時間<br>焦慮與拖延的根源"]
+    
+    C --> C1["觀察思考者 (Watcher)<br>啟動元認知監控"]
+    C --> C2["無念的間隙 (Gaps)<br>思維暫停/直覺生起"]
+    C --> C3["內在身體 (Body)<br>20%精力定錨體內"]
+    
+    D --> D1["臣服 (Surrender)<br>接受當下如是事實"]
+    D --> D2["正面行動 (Action)<br>單一步伐/一次一事"]
+    
+    style A fill:#0f172a,stroke:#10b981,stroke-width:2px,color:#fff
+    style B fill:#1e1b4b,stroke:#20263f,color:#fff
+    style C fill:#064e3b,stroke:#10b981,color:#fff
+    style D fill:#115e59,stroke:#14b8a6,color:#fff
+                    </pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fa-solid fa-scale-balanced"></i> 《當下的力量》與《當下的覺醒》對比分析</h2>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>比較維度</th>
+                                <th>《當下的力量》 (The Power of Now)</th>
+                                <th>《當下的覺醒》 (Stillness Speaks)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>寫作載體</strong></td>
+                                <td>問答錄 (Q&A Style) — 詳盡破除心智的知性防禦</td>
+                                <td>經文箴言體 (Sutra Style) — 短小清冷，文字間充滿靜默空白</td>
+                            </tr>
+                            <tr>
+                                <td><strong>主要關鍵字</strong></td>
+                                <td>當下 (Now)、臨在、小我、痛苦之身、臣服</td>
+                                <td>寂照 (Stillness)、空間、形相與本質、不知道 (Not Knowing)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>大腦應對方式</strong></td>
+                                <td>知性說服：剖析強迫性思考與心理時間的荒謬性</td>
+                                <td>直接引導：用文字作為路標，帶領讀者直接進入體驗</td>
+                            </tr>
+                            <tr>
+                                <td><strong>自然定位</strong></td>
+                                <td>親近自然的溪流星空以感受神聖美感</td>
+                                <td>大自然是走出心智牢籠的導師，人與自然意識雙向共生</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Key Frameworks -->
+        <div class="tab-pane" id="tab-frameworks">
+            <div class="card">
+                <h2><i class="fa-solid fa-brain"></i> 核心心智模型與框架</h2>
+                <div class="grid-list">
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-eye"></i> 觀察思考者 (Watcher of the Thinker)</div>
+                        <div class="grid-item-desc">站在第三人稱視角，不評判地看著自己腦海中的聲音（如「這太難了，我學不會」）。意識到你不是那個聲音，而是看見聲音的「覺知本身」。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-bolt-lightning"></i> 無念的間隙 (Gaps of No-mind)</div>
+                        <div class="grid-item-desc">在接連不斷的思緒中，人為創造短暫的「沒有想法、但高度警覺」的空白狀態。這是直覺、創造力與深層理解力爆發的土壤。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-clock"></i> 心理時間 vs 鐘錶時間</div>
+                        <div class="grid-item-desc">鐘錶時間用於學習規劃與安排；心理時間則是執著於過去的挫敗或對未來的焦慮。專注當下就是要在執行時「心理時間歸零」。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-leaf"></i> 臣服與正面行動</div>
+                        <div class="grid-item-desc">無條件接納當下的事實（「我就是卡關了」），放下自尊抗拒。然後在此背景下採取最簡單的單一步伐（正面行動）。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Core Principles -->
+        <div class="tab-pane" id="tab-principles">
+            <div class="card">
+                <h2><i class="fa-solid fa-code-compare"></i> 托勒的判斷邏輯與決策原則</h2>
+                
+                <div class="highlight-box">
+                    「當你與你的大腦認同，你就等於用概念的牢籠囚禁了自己，失去了本然的創造力。」
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>核心原則</th>
+                            <th>優質實踐 (臨在/本體)</th>
+                            <th>劣質誤用 (小我/抗拒)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>原則一：人不等於心智</strong></td>
+                            <td>寫程式報錯時，冷靜觀察到腦中的焦慮聲音，將其視為背景雜音，繼續客觀排除錯誤。</td>
+                            <td>完全相信腦中「我好笨、我寫不出來」的念頭，氣餒地關掉電腦，陷入自責。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>原則二：一次只做一件事</strong></td>
+                            <td>做英聽練習時，心理時間歸零，全神貫注於聽懂當下這一句的發音與意思。</td>
+                            <td>一邊背單字一邊焦慮地看還有多少頁沒背完，或者不斷回想昨天模擬考不及格的痛苦。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>原則三：接納未知與不知道</strong></td>
+                            <td>面對未曾見過的考題，坦然接納「我現在不知道」，放鬆心智，等待直覺或本智生起。</td>
+                            <td>一遇到不懂的公式便感到恐慌，瘋狂推測、強加合理解釋，或因為挫折感而直接躺平。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 4. SOPs -->
+        <div class="tab-pane" id="tab-sops">
+            <div class="card">
+                <h2><i class="fa-solid fa-list-check"></i> 可執行的心智實作 SOP</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">每當在學習、工作中遭遇分心、焦慮或卡關，請依序執行以下 SOP，完成時可點擊勾選以記錄：</p>
+                
+                <div class="sop-container">
+                    <h3>SOP 1：「貓守老鼠洞」元認知喚醒法</h3>
+                    <div class="sop-step" id="step-sop1-1">
+                        <div class="sop-badge">1</div>
+                        <div class="sop-step-title">
+                            <span>暫停手頭動作</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop1-1')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">當讀書分心（如想拿手機、感到無聊）時，立刻停下一切工作。</div>
+                    </div>
+                    <div class="sop-step" id="step-sop1-2">
+                        <div class="sop-badge">2</div>
+                        <div class="sop-step-title">
+                            <span>內在自我提問</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop1-2')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">閉上眼睛，在內心深處對自己發問：「我的下一個想法會是什麼？」</div>
+                    </div>
+                    <div class="sop-step" id="step-sop1-3">
+                        <div class="sop-badge">3</div>
+                        <div class="sop-step-title">
+                            <span>如貓守洞般盯著空白</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop1-3')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">保持絕對的警惕，將專注力凝視在腦袋的空白處，等待念頭跑出來。</div>
+                    </div>
+                    <div class="sop-step" id="step-sop1-4">
+                        <div class="sop-badge">4</div>
+                        <div class="sop-step-title">
+                            <span>體驗無念間隙並回錨</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop1-4')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">享受那幾秒鐘的全然寂靜。張開雙眼，把這股清明帶回眼前唯一的一件事。</div>
+                    </div>
+                </div>
+
+                <div class="sop-container" style="margin-top: 40px;">
+                    <h3>SOP 2：「內在身體」專專定錨法</h3>
+                    <div class="sop-step" id="step-sop2-1">
+                        <div class="sop-badge">1</div>
+                        <div class="sop-step-title">
+                            <span>調息與轉移注意力</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop2-1')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">調整坐姿，閉眼做三次深呼吸，將注意力從腦海完全往下引導至雙手。</div>
+                    </div>
+                    <div class="sop-step" id="step-sop2-2">
+                        <div class="sop-badge">2</div>
+                        <div class="sop-step-title">
+                            <span>感受微觀能量信號</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop2-2')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">去感受雙手微麻、發熱或跳動的生命存在感。</div>
+                    </div>
+                    <div class="sop-step" id="step-sop2-3">
+                        <div class="sop-badge">3</div>
+                        <div class="sop-step-title">
+                            <span>擴大掃描全身</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop2-3')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">將這股感受擴散至雙腳、腹部與整個身體，形成一個整體的體內能量場。</div>
+                    </div>
+                    <div class="sop-step" id="step-sop2-4">
+                        <div class="sop-badge">4</div>
+                        <div class="sop-step-title">
+                            <span>分配專注力雙軌運作</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop2-4')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">保留 20% 注意力在體內能量場，其餘 80% 投入讀書解題，維持大腦清冷防過載。</div>
+                    </div>
+                </div>
+
+                <div style="text-align: right; margin-top: 20px;">
+                    <button class="sop-action-btn" onclick="resetSop()"><i class="fa-solid fa-rotate-left"></i> 重設所有 SOP 狀態</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Anti-patterns -->
+        <div class="tab-pane" id="tab-antipatterns">
+            <div class="card">
+                <h2><i class="fa-solid fa-triangle-exclamation"></i> 實踐托勒智慧的三大分心反模式</h2>
+                <div class="grid-list">
+                    <div class="grid-item" style="border-left: 4px solid var(--accent-error);">
+                        <div class="grid-item-title" style="color: var(--accent-error);"><i class="fa-solid fa-shield-halved"></i> 以靈修為名的被動逃避</div>
+                        <div class="grid-item-desc"><strong>表現：</strong>遇到學不會的學科時說「我要順其自然、臣服於我的不會」，然後把書丟一邊去打電動。<br><strong>糾正：</strong>真正的臣服是內在徹底接受不會的事實，消解負面情緒，外在採取單一步驟的正面行動。</div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent-error);">
+                        <div class="grid-item-title" style="color: var(--accent-error);"><i class="fa-solid fa-clapperboard"></i> 學習中的「心理電影放映」</div>
+                        <div class="grid-item-desc"><strong>表現：</strong>讀書時，腦子裡不斷幻想「我考上理想學校後的快樂生活」或「我考不上被父母責罵的慘狀」。<br><strong>糾正：</strong>關閉大腦投影機，把注意力 100% 收回到當下正在閱讀的這行文字或寫的這行代碼上。</div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent-error);">
+                        <div class="grid-item-title" style="color: var(--accent-error);"><i class="fa-solid fa-hand-fist"></i> 強行對抗大腦生理疲勞</div>
+                        <div class="grid-item-desc"><strong>表現：</strong>讀書 5 小時大腦發木，依然灌咖啡死撐，心裡抱怨還有那麼多沒讀完。<br><strong>糾正：</strong>臣服於大腦發木的生理事實。停下學習，進行 5 分鐘無念間隙或內在身體定錨，讓大腦本智修復。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Quizzes -->
+        <div class="tab-pane" id="tab-quizzes">
+            <div class="card">
+                <h2><i class="fa-solid fa-circle-question"></i> 心智模型自我測驗</h2>
+                
+                <div class="quiz-card">
+                    <div class="quiz-question">Q1. 關於托勒提到的「無念的間隙」，最正確的理解是什麼？</div>
+                    <div class="quiz-options">
+                        <button class="quiz-option" onclick="checkAnswer(this, 'q1', false)">A. 徹底放空，昏昏欲睡，心智不需要保持任何警覺。</button>
+                        <button class="quiz-option" onclick="checkAnswer(this, 'q1', true)">B. 一種沒有思考但高度警覺的空白狀態，是直覺與靈感生起的源頭。</button>
+                    </div>
+                    <div class="quiz-feedback" id="q1-feedback"></div>
+                </div>
+
+                <div class="quiz-card">
+                    <div class="quiz-question">Q2. 當遇到重大考試焦慮、心跳加速、手心出汗時，托勒的「微觀臣服」應如何實踐？</div>
+                    <div class="quiz-options">
+                        <button class="quiz-option" onclick="checkAnswer(this, 'q2', true)">A. 放下未來的故事（例如考不上會怎樣），臣服並全然接納當下那一秒的生理感受（心跳、胸悶）。</button>
+                        <button class="quiz-option" onclick="checkAnswer(this, 'q2', false)">B. 告訴自己「我一定會考上」，用強大的意志力和正面幻想去壓制焦慮的情緒。</button>
+                    </div>
+                    <div class="quiz-feedback" id="q2-feedback"></div>
+                </div>
+
+                <div class="quiz-card">
+                    <div class="quiz-question">Q3. 在圖書館讀書時，旁邊的人一直發出噪音，以下哪一個是「透明人」防禦練習的正確做法？</div>
+                    <div class="quiz-options">
+                        <button class="quiz-option" onclick="checkAnswer(this, 'q3', false)">A. 強迫自己裝作沒聽到，暗中詛咒對方，把憤怒壓抑在心底。</button>
+                        <button class="quiz-option" onclick="checkAnswer(this, 'q3', true)">B. 想像自己是透明的，允許噪音穿透身體的能量場，不製造任何內在抗拒的牆。</button>
+                    </div>
+                    <div class="quiz-feedback" id="q3-feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Syllabus (21-Day Workshop) -->
+        <div class="tab-pane" id="tab-syllabus">
+            <div class="card">
+                <h2><i class="fa-solid fa-calendar-days"></i> 21天「當下覺醒」實踐工作坊進度表</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">勾選你已完成的每日修煉，系統將持久保存進度：</p>
+                
+                <div style="overflow-x: auto;">
+                    <table class="syllabus-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">天數</th>
+                                <th style="width: 180px;">主題</th>
+                                <th>每日任務說明</th>
+                                <th style="width: 80px; text-align: center;">進度</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Day 1-3</strong></td>
+                                <td>旁聽心智與時間分離</td>
+                                <td>監控腦中碎碎念並標記「聲音在那裡，我在這聆聽」；讀書時關閉心理時間故事，只專注於當下讀的頁面。</td>
+                                <td style="text-align: center;">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="ex-day-1-3" onchange="saveProgress('ex-day-1-3')">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Day 4-7</strong></td>
+                                <td>痛苦之身與抱怨監控</td>
+                                <td>當挫折憤怒突襲時標記「痛苦之身已甦醒」，不被帶走；在噪音環境練習「透明人穿透法」。</td>
+                                <td style="text-align: center;">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="ex-day-4-7" onchange="saveProgress('ex-day-4-7')">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Day 8-10</strong></td>
+                                <td>貓守老鼠洞與內在定錨</td>
+                                <td>分心時執行「貓守老鼠洞」SOP；讀書時採用 20% 內在身體 / 80% 書本專注力雙軌運行，防止大腦過載。</td>
+                                <td style="text-align: center;">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="ex-day-8-10" onchange="saveProgress('ex-day-8-10')">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Day 11-14</strong></td>
+                                <td>以自然為師與擁抱未知</td>
+                                <td>凝視一株植物 3 分鐘不加標籤；面對難題克制硬猜，對自己說「我不知道」，感受不知道背後的寂照。</td>
+                                <td style="text-align: center;">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="ex-day-11-14" onchange="saveProgress('ex-day-11-14')">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Day 15-18</strong></td>
+                                <td>微觀臣服與一次一事</td>
+                                <td>卡關時區分事實與心智故事，對如是說「是」；拋棄結果，全心投入當下單一行動（洗碗或寫一行代碼）。</td>
+                                <td style="text-align: center;">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="ex-day-15-18" onchange="saveProgress('ex-day-15-18')">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Day 19-21</strong></td>
+                                <td>人際臣服與精神煉金術</td>
+                                <td>與人爭吵時主動放下「想證明自己是對的」之小我；用純然專注觀照痛苦本身，將其煉化為平靜意識。</td>
+                                <td style="text-align: center;">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="ex-day-19-21" onchange="saveProgress('ex-day-19-21')">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. Daily Application -->
+        <div class="tab-pane" id="tab-translation">
+            <div class="card">
+                <h2><i class="fa-solid fa-repeat"></i> 當下智慧的學習力轉換卡</h2>
+                <div class="grid-list">
+                    <div class="exercise-item">
+                        <div class="exercise-details">
+                            <div class="exercise-title"><i class="fa-solid fa-mobile-screen"></i> 轉換 1：戰勝手機誘惑 (手機是小我誘餌)</div>
+                            <div class="exercise-desc">當你想滑手機時，不要壓抑，而是閉眼執行 10 秒鐘「貓守老鼠洞」SOP，觀測這股「想滑手機的能量衝動」如何自生自滅。</div>
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-details">
+                            <div class="exercise-title"><i class="fa-solid fa-code"></i> 轉換 2：戰勝 Debug 痛苦 (報錯是事實，恐慌是故事)</div>
+                            <div class="exercise-desc">報錯時，在內心說「是」，接受專案報錯的事實。深呼吸，不批判自己的智商，專注於列出眼前能做的唯一小步驟。</div>
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-details">
+                            <div class="exercise-title"><i class="fa-solid fa-mug-hot"></i> 轉換 3：克服工作倦怠 (倦怠源於執著未來)</div>
+                            <div class="exercise-desc">工作到下午發木時，關閉所有頁面。保留 20% 注意力在體內，緩慢喝下一杯溫水，感受水在喉嚨與體內的流動。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Zoom modal overlay -->
+    <div id="zoom-modal" class="zoom-modal">
+        <span class="close-modal" id="close-modal">&times;</span>
+        <div class="zoom-modal-content" id="zoom-modal-content"></div>
+        <div class="zoom-controls">
+            <button id="zoom-in-btn" title="放大"><i class="fa-solid fa-magnifying-glass-plus"></i> 放大</button>
+            <button id="zoom-out-btn" title="縮小"><i class="fa-solid fa-magnifying-glass-minus"></i> 縮小</button>
+            <button id="zoom-reset-btn" title="重設"><i class="fa-solid fa-arrows-rotate"></i> 重設</button>
+        </div>
+    </div>
+
+    <script>
+        // Tab Navigation
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panes = document.querySelectorAll('.tab-pane');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                panes.forEach(p => p.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = root.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                root.removeAttribute('data-theme');
+                themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            } else {
+                root.setAttribute('data-theme', 'light');
+                themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            }
+        });
+
+        // Interactive SOP Checklist logic
+        function completeStep(stepId) {
+            const stepElement = document.getElementById('step-' + stepId);
+            if (stepElement) {
+                stepElement.classList.add('completed');
+                localStorage.setItem('sop-tolle-step-' + stepId, 'completed');
+            }
+        }
+
+        function resetSop() {
+            document.querySelectorAll('.sop-step').forEach(step => {
+                step.classList.remove('completed');
+                const stepId = step.id.replace('step-', '');
+                localStorage.removeItem('sop-tolle-step-' + stepId);
+            });
+        }
+
+        function loadSopProgress() {
+            document.querySelectorAll('.sop-step').forEach(step => {
+                const stepId = step.id.replace('step-', '');
+                if (localStorage.getItem('sop-tolle-step-' + stepId) === 'completed') {
+                    step.classList.add('completed');
+                }
+            });
+        }
+
+        // Quiz checking logic
+        function checkAnswer(element, quizId, isCorrect) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                opt.style.pointerEvents = 'none'; // Lock
+            });
+
+            const feedback = document.getElementById(quizId + '-feedback');
+
+            if (isCorrect) {
+                element.classList.add('correct');
+                if (quizId === 'q1') {
+                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！無念的間隙是在連續的想法之流中人為創造出的「空白狀態」，此時大腦雖然沒有想法，但維持著高度警覺，這使更高階的本智（直覺、洞察力）得以流動。';
+                } else if (quizId === 'q2') {
+                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！面對焦慮，小我習慣逃避或用強大意志力壓抑（抗拒）。真正的臣服是全然接受身體「當下」的生理不適，透過專注觀照將其作為意識燃料，心理的故事自然會煙消雲散。';
+                } else if (quizId === 'q3') {
+                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！「透明人」練習旨在瓦解心智對噪音的抵抗。當你不再在內心建造一道「憤怒的牆」去撞擊噪音時，噪音便會毫無阻礙地穿過你，你的內在安寧便不會受到打擾。';
+                }
+                feedback.className = 'quiz-feedback success';
+            } else {
+                element.classList.add('incorrect');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> 回答錯誤。請重新體會小我與臣服、無念與專注定錨在面對特定情境時的交互作用。';
+                feedback.className = 'quiz-feedback error';
+            }
+        }
+
+        // Checkbox status persistence
+        function saveProgress(id) {
+            const checkbox = document.getElementById(id);
+            localStorage.setItem(id, checkbox.checked);
+        }
+
+        function loadProgress() {
+            ['ex-day-1-3', 'ex-day-4-7', 'ex-day-8-10', 'ex-day-11-14', 'ex-day-15-18', 'ex-day-19-21'].forEach(id => {
+                const checked = localStorage.getItem(id) === 'true';
+                const checkbox = document.getElementById(id);
+                if (checkbox) {
+                    checkbox.checked = checked;
+                }
+            });
+            loadSopProgress();
+        }
+
+        // Zoom Modal Logic for Mermaid diagram
+        const zoomModal = document.getElementById('zoom-modal');
+        const zoomContent = document.getElementById('zoom-modal-content');
+        const closeModal = document.getElementById('close-modal');
+        const mermaidContainer = document.querySelector('.mermaid-container');
+        
+        let currentScale = 1.0;
+        let isDragging = false;
+        let startX = 0, startY = 0, translateX = 0, translateY = 0;
+
+        if (mermaidContainer) {
+            mermaidContainer.addEventListener('click', () => {
+                const svgElement = mermaidContainer.querySelector('svg');
+                if (svgElement) {
+                    zoomContent.innerHTML = svgElement.outerHTML;
+                    zoomModal.style.display = 'flex';
+                    currentScale = 1.0;
+                    translateX = 0;
+                    translateY = 0;
+                    updateTransform();
+                }
+            });
+        }
+
+        closeModal.addEventListener('click', () => {
+            zoomModal.style.display = 'none';
+        });
+
+        zoomModal.addEventListener('click', (e) => {
+            if (e.target === zoomModal || e.target === zoomContent) {
+                zoomModal.style.display = 'none';
+            }
+        });
+
+        document.getElementById('zoom-in-btn').addEventListener('click', () => {
+            currentScale *= 1.2;
+            updateTransform();
+        });
+
+        document.getElementById('zoom-out-btn').addEventListener('click', () => {
+            currentScale *= 0.8;
+            updateTransform();
+        });
+
+        document.getElementById('zoom-reset-btn').addEventListener('click', () => {
+            currentScale = 1.0;
+            translateX = 0;
+            translateY = 0;
+            updateTransform();
+        });
+
+        function updateTransform() {
+            const svg = zoomContent.querySelector('svg');
+            if (svg) {
+                svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+            }
+        }
+
+        zoomContent.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX - translateX;
+            startY = e.clientY - translateY;
+            zoomContent.style.cursor = 'grabbing';
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            zoomContent.style.cursor = 'grab';
+        });
+
+        zoomContent.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX - translateX;
+                startY = e.touches[0].clientY - translateY;
+            }
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging || e.touches.length !== 1) return;
+            translateX = e.touches[0].clientX - startX;
+            translateY = e.touches[0].clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        window.onload = loadProgress;
+    </script>
+</body>
+</html>
