@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>當下的學習力 — 托勒心智轉化與高效學習系統</title>
-    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <!-- Google Fonts: Inter & Outfit & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Mermaid.js for flowcharts -->
@@ -34,7 +34,7 @@
             --text-muted: #6b7280;
             --border: #20263f;
             --shadow: rgba(0, 0, 0, 0.5);
-            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-sans: 'Inter', 'Outfit', system-ui, -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -651,6 +651,116 @@
             color: var(--accent);
             background-color: var(--accent-glow);
         }
+
+        /* Timers styling */
+        .timer-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .timer-circle {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--bg-tertiary) 60%, transparent 61%);
+            border: 4px solid var(--border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        .timer-progress {
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top-color: var(--accent);
+            transform: rotate(0deg);
+            pointer-events: none;
+            transition: transform 1s linear;
+        }
+
+        .timer-btn {
+            background-color: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px var(--accent-glow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timer-btn:hover {
+            background-color: #0f766e;
+            transform: translateY(-1px);
+        }
+
+        .timer-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Breath Visualizer */
+        .breath-visualizer {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--accent-glow);
+            border: 2px solid var(--accent);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            transition: transform 4s cubic-bezier(0.4, 0, 0.2, 1), background-color 4s ease;
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .breath-text {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+
+        .breath-visualizer.inhale {
+            transform: scale(1.6);
+            background-color: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 0 50px rgba(16, 185, 129, 0.5);
+        }
+
+        .breath-visualizer.hold {
+            transform: scale(1.6);
+            background-color: rgba(20, 184, 166, 0.3);
+            border-color: #14b8a6;
+            box-shadow: 0 0 50px rgba(20, 184, 166, 0.5);
+        }
+
+        .breath-visualizer.exhale {
+            transform: scale(1.0);
+            background-color: rgba(16, 185, 129, 0.1);
+            border-color: #10b981;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -670,7 +780,7 @@
 
         <!-- Navigation Tabs -->
         <nav class="tabs-nav">
-            <button class="tab-btn active" data-tab="tab-core">核心地圖 & 兩書對比</button>
+            <button class="tab-btn active" data-tab="tab-core">核心地圖 & 三書對比</button>
             <button class="tab-btn" data-tab="tab-frameworks">心智模型</button>
             <button class="tab-btn" data-tab="tab-principles">判斷邏輯</button>
             <button class="tab-btn" data-tab="tab-sops">實作 SOP</button>
@@ -692,8 +802,9 @@ graph TD
     A --> C["2. 當下入口：覺性通道"]
     A --> D["3. 運作：轉化機制"]
     
-    B --> B1["小我 (Ego)<br>強迫性想法認同"]
+    B --> B1["小我 (Ego)<br>強迫性想法認同與身份執著"]
     B --> B2["心理時間<br>焦慮與拖延的根源"]
+    B --> B3["痛苦之身 (Pain-Body)<br>情緒殘留物接管心智"]
     
     C --> C1["觀察思考者 (Watcher)<br>啟動元認知監控"]
     C --> C2["無念的間隙 (Gaps)<br>思維暫停/直覺生起"]
@@ -711,7 +822,7 @@ graph TD
             </div>
 
             <div class="card">
-                <h2><i class="fa-solid fa-scale-balanced"></i> 《當下的力量》與《當下的覺醒》對比分析</h2>
+                <h2><i class="fa-solid fa-scale-balanced"></i> 托勒核心三書對比分析</h2>
                 <div style="overflow-x: auto;">
                     <table>
                         <thead>
@@ -719,6 +830,7 @@ graph TD
                                 <th>比較維度</th>
                                 <th>《當下的力量》 (The Power of Now)</th>
                                 <th>《當下的覺醒》 (Stillness Speaks)</th>
+                                <th>《一個新世界》 (A New Earth)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -726,21 +838,25 @@ graph TD
                                 <td><strong>寫作載體</strong></td>
                                 <td>問答錄 (Q&A Style) — 詳盡破除心智的知性防禦</td>
                                 <td>經文箴言體 (Sutra Style) — 短小清冷，文字間充滿靜默空白</td>
+                                <td>系統論述 (Systematic) — 社會學與心理學的深度剖析</td>
                             </tr>
                             <tr>
                                 <td><strong>主要關鍵字</strong></td>
                                 <td>當下 (Now)、臨在、小我、痛苦之身、臣服</td>
                                 <td>寂照 (Stillness)、空間、形相與本質、不知道 (Not Knowing)</td>
+                                <td>覺醒、外在與內在目的、角色扮演、覺醒的作為</td>
                             </tr>
                             <tr>
                                 <td><strong>大腦應對方式</strong></td>
                                 <td>知性說服：剖析強迫性思考與心理時間的荒謬性</td>
                                 <td>直接引導：用文字作為路標，帶領讀者直接進入體驗</td>
+                                <td>身份去魅：解構社會賦予的標籤與人類集體的瘋狂</td>
                             </tr>
                             <tr>
                                 <td><strong>自然定位</strong></td>
                                 <td>親近自然的溪流星空以感受神聖美感</td>
                                 <td>大自然是走出心智牢籠的導師，人與自然意識雙向共生</td>
+                                <td>花朵的綻放象徵意識的覺醒，萬物皆有其純粹本質</td>
                             </tr>
                         </tbody>
                     </table>
@@ -768,6 +884,14 @@ graph TD
                     <div class="grid-item">
                         <div class="grid-item-title"><i class="fa-solid fa-leaf"></i> 臣服與正面行動</div>
                         <div class="grid-item-desc">無條件接納當下的事實（「我就是卡關了」），放下自尊抗拒。然後在此背景下採取最簡單的單一步伐（正面行動）。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-ghost"></i> 痛苦之身 (Pain-Body)</div>
+                        <div class="grid-item-desc">過去未被充分感受和接納的情緒殘留物。它是一個半獨立的能量場，會週期性甦醒，藉由引發負面情緒與衝突來「進食」。覺察是唯一的解藥。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-star"></i> 覺醒的作為 (Awakened Doing)</div>
+                        <div class="grid-item-desc">行動時與當下頻率對齊的三種模式：接納 (Acceptance)、享受 (Enjoyment) 或熱忱 (Enthusiasm)。若缺其一，就只是小我在製造痛苦。</div>
                     </div>
                 </div>
             </div>
@@ -805,6 +929,11 @@ graph TD
                             <td><strong>原則三：接納未知與不知道</strong></td>
                             <td>面對未曾見過的考題，坦然接納「我現在不知道」，放鬆心智，等待直覺或本智生起。</td>
                             <td>一遇到不懂的公式便感到恐慌，瘋狂推測、強加合理解釋，或因為挫折感而直接躺平。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>原則四：內在目的優先於外在目的</strong></td>
+                            <td>意識到人生的首要目的是「在當下保持覺知與臨在」。讀書考試（外在目的）只是達成這個狀態的遊戲與載體。</td>
+                            <td>認為「考上好學校/拿到好成績」是人生唯一的目的，為此不惜犧牲身心健康，被得失心完全控制。</td>
                         </tr>
                     </tbody>
                 </table>
@@ -851,6 +980,16 @@ graph TD
                         </div>
                         <div class="sop-step-desc">享受那幾秒鐘的全然寂靜。張開雙眼，把這股清明帶回眼前唯一的一件事。</div>
                     </div>
+                    <!-- 貓守老鼠洞計時器 -->
+                    <div class="timer-box" style="margin-top: 20px;">
+                        <div class="timer-circle">
+                            <div class="timer-progress" id="cat-progress"></div>
+                            <span id="cat-time">02:00</span>
+                        </div>
+                        <button class="timer-btn" id="cat-btn" onclick="toggleCatTimer()">
+                            <i class="fa-solid fa-eye"></i> <span>啟動無念觀察</span>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="sop-container" style="margin-top: 40px;">
@@ -886,6 +1025,53 @@ graph TD
                             <button class="sop-action-btn" onclick="completeStep('sop2-4')">已完成</button>
                         </div>
                         <div class="sop-step-desc">保留 20% 注意力在體內能量場，其餘 80% 投入讀書解題，維持大腦清冷防過載。</div>
+                    </div>
+                    
+                    <!-- 內在身體定錨呼吸引導 -->
+                    <div class="timer-box" style="margin-top: 20px;">
+                        <div class="breath-visualizer" id="breath-circle">
+                            <span class="breath-text" id="breath-txt">準備</span>
+                        </div>
+                        <div style="font-size: 0.85rem; font-weight:700; color: var(--accent); margin-bottom: 15px;" id="breath-instruction">點擊按鈕開啟 4-4-4 呼吸引導</div>
+                        <button class="timer-btn" id="breath-btn" onclick="toggleBreathGuide()">
+                            <i class="fa-solid fa-wind"></i> <span>啟動呼吸引導</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sop-container" style="margin-top: 40px;">
+                    <h3>SOP 3：「痛苦之身」解除警報法</h3>
+                    <div class="sop-step" id="step-sop3-1">
+                        <div class="sop-badge">1</div>
+                        <div class="sop-step-title">
+                            <span>識別情緒甦醒</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop3-1')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">當強烈的煩躁、憤怒、挫折或悲傷突然湧現時，立刻在內心標記：「痛苦之身已甦醒。」</div>
+                    </div>
+                    <div class="sop-step" id="step-sop3-2">
+                        <div class="sop-badge">2</div>
+                        <div class="sop-step-title">
+                            <span>切斷故事與情緒的連結</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop3-2')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">停止大腦繼續編織受害者故事（「都是他害的/我注定失敗」），只純粹觀察情緒本身。</div>
+                    </div>
+                    <div class="sop-step" id="step-sop3-3">
+                        <div class="sop-badge">3</div>
+                        <div class="sop-step-title">
+                            <span>去中心化的直接凝視</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop3-3')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">用高度覺知直接注視這股負面能量，不評判、不抗拒、不試圖消滅它，只是看著它。</div>
+                    </div>
+                    <div class="sop-step" id="step-sop3-4">
+                        <div class="sop-badge">4</div>
+                        <div class="sop-step-title">
+                            <span>將痛苦轉化為意識之光</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop3-4')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">在不帶評判的注視下，痛苦之身無法繼續進食，能量場會逐漸消散並轉化為深沉的平靜。</div>
                     </div>
                 </div>
 
@@ -1126,6 +1312,18 @@ graph TD
                 const stepId = step.id.replace('step-', '');
                 localStorage.removeItem('sop-tolle-step-' + stepId);
             });
+            resetCatTimer();
+            if (breathInterval) clearInterval(breathInterval);
+            breathRunning = false;
+            breathSecs = 0;
+            const circle = document.getElementById('breath-circle');
+            if (circle) circle.className = 'breath-visualizer';
+            const txt = document.getElementById('breath-txt');
+            if (txt) txt.innerText = '準備';
+            const instr = document.getElementById('breath-instruction');
+            if (instr) instr.innerText = '點擊按鈕開啟 4-4-4 呼吸引導';
+            const btn = document.getElementById('breath-btn');
+            if (btn) btn.innerHTML = '<i class="fa-solid fa-wind"></i> <span>啟動呼吸引導</span>';
         }
 
         function loadSopProgress() {
@@ -1276,6 +1474,144 @@ graph TD
         window.addEventListener('touchend', () => {
             isDragging = false;
         });
+
+        // Audio Chime Synthesis (Web Audio API)
+        function playChime() {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+            const ctx = new AudioContext();
+            
+            // Core frequencies of a singing bowl (beating overtones)
+            const baseFreq = 180; // Low calming F3/G3 hum
+            const partials = [
+                { freq: baseFreq, gain: 0.5, decay: 6.0 },
+                { freq: baseFreq * 1.005, gain: 0.3, decay: 5.0 }, // Beating frequency for warm vibrato
+                { freq: baseFreq * 2.81, gain: 0.25, decay: 3.5 }, // Metallic overtone 1
+                { freq: baseFreq * 2.83, gain: 0.15, decay: 3.0 }, // Beating overtone 1
+                { freq: baseFreq * 5.0, gain: 0.1, decay: 2.0 },   // High overtone
+                { freq: baseFreq * 6.1, gain: 0.05, decay: 1.2 }   // Initial strike chime
+            ];
+            
+            const masterGain = ctx.createGain();
+            masterGain.connect(ctx.destination);
+            masterGain.gain.setValueAtTime(0.001, ctx.currentTime);
+            // Gentle attack (soft mallet strike)
+            masterGain.gain.linearRampToValueAtTime(0.8, ctx.currentTime + 0.08);
+            masterGain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 6.0);
+            
+            partials.forEach(p => {
+                const osc = ctx.createOscillator();
+                const gainNode = ctx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(p.freq, ctx.currentTime);
+                
+                gainNode.gain.setValueAtTime(p.gain, ctx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + p.decay);
+                
+                osc.connect(gainNode);
+                gainNode.connect(masterGain);
+                
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + Math.max(6.0, p.decay));
+            });
+        }
+
+        // Timer 1: Cat Watching Mouse Hole (貓守老鼠洞)
+        let catInterval;
+        let catRunning = false;
+        let catTime = 120; // 2 minutes
+
+        function toggleCatTimer() {
+            const btn = document.getElementById('cat-btn');
+            const timeDisplay = document.getElementById('cat-time');
+            const progress = document.getElementById('cat-progress');
+
+            if (catRunning) {
+                clearInterval(catInterval);
+                catRunning = false;
+                btn.innerHTML = '<i class="fa-solid fa-play"></i> <span>恢復無念觀察</span>';
+            } else {
+                playChime();
+                catRunning = true;
+                btn.innerHTML = '<i class="fa-solid fa-pause"></i> <span>暫停觀察</span>';
+                
+                catInterval = setInterval(() => {
+                    if (catTime <= 0) {
+                        clearInterval(catInterval);
+                        playChime();
+                        catRunning = false;
+                        btn.innerHTML = '<i class="fa-solid fa-rotate-left"></i> <span>重設</span>';
+                        btn.onclick = resetCatTimer;
+                        return;
+                    }
+                    catTime--;
+                    
+                    const min = Math.floor(catTime / 60).toString().padStart(2, '0');
+                    const sec = (catTime % 60).toString().padStart(2, '0');
+                    timeDisplay.innerText = `${min}:${sec}`;
+                    
+                    const deg = ((120 - catTime) / 120) * 360;
+                    progress.style.transform = `rotate(${deg}deg)`;
+                }, 1000);
+            }
+        }
+
+        function resetCatTimer() {
+            clearInterval(catInterval);
+            catTime = 120;
+            catRunning = false;
+            document.getElementById('cat-time').innerText = "02:00";
+            document.getElementById('cat-progress').style.transform = "rotate(0deg)";
+            const btn = document.getElementById('cat-btn');
+            btn.innerHTML = '<i class="fa-solid fa-eye"></i> <span>啟動無念觀察</span>';
+            btn.onclick = toggleCatTimer;
+        }
+
+        // Timer 2: Breathing & Body Scanning Guide (4-4-4 Breath Pacer)
+        let breathInterval;
+        let breathRunning = false;
+        let breathSecs = 0;
+
+        function toggleBreathGuide() {
+            const btn = document.getElementById('breath-btn');
+            const circle = document.getElementById('breath-circle');
+            const txt = document.getElementById('breath-txt');
+            const instr = document.getElementById('breath-instruction');
+
+            if (breathRunning) {
+                clearInterval(breathInterval);
+                breathRunning = false;
+                circle.className = 'breath-visualizer';
+                txt.innerText = '已暫停';
+                btn.innerHTML = '<i class="fa-solid fa-play"></i> <span>恢復引導</span>';
+            } else {
+                playChime();
+                breathRunning = true;
+                btn.innerHTML = '<i class="fa-solid fa-pause"></i> <span>暫停引導</span>';
+                
+                const updateBreath = () => {
+                    const step = breathSecs % 12;
+                    if (step < 4) {
+                        circle.className = 'breath-visualizer inhale';
+                        txt.innerText = `吸氣 ${4 - step}`;
+                        instr.innerText = '專注於空氣吸入，並將注意力緩慢沉向手部微觀磁場';
+                    } else if (step < 8) {
+                        circle.className = 'breath-visualizer hold';
+                        txt.innerText = `持氣 ${8 - step}`;
+                        instr.innerText = '閉氣，感受手心、指尖發麻發熱的微弱電流感';
+                    } else {
+                        circle.className = 'breath-visualizer exhale';
+                        txt.innerText = `呼氣 ${12 - step}`;
+                        instr.innerText = '放鬆呼氣，將注意力向外擴散至全身能量場';
+                    }
+                    breathSecs++;
+                };
+                
+                updateBreath();
+                breathInterval = setInterval(updateBreath, 1000);
+            }
+        }
 
         window.onload = loadProgress;
     </script>

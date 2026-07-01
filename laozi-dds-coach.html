@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>老子防禦性決策與學習系統 (Laozi-DDS)</title>
-    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <title>老莊防禦性決策與學習系統 (Laozi-Zhuangzi-DDS)</title>
+    <!-- Google Fonts: Inter & Outfit & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Mermaid.js for flowcharts -->
@@ -24,7 +24,7 @@
             --bg-primary: #0a0b10;
             --bg-secondary: #12131a;
             --bg-tertiary: #1a1c26;
-            --accent: #6366f1;
+            --accent: #6366f1; /* Indigo */
             --accent-glow: rgba(99, 102, 241, 0.15);
             --accent-success: #10b981;
             --accent-error: #ef4444;
@@ -33,7 +33,7 @@
             --text-muted: #6b7280;
             --border: #262938;
             --shadow: rgba(0, 0, 0, 0.4);
-            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-sans: 'Inter', 'Outfit', system-ui, -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -70,23 +70,23 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
         header {
-            padding: 60px 0 40px 0;
+            padding: 50px 0 30px 0;
             border-bottom: 1px solid var(--border);
             position: relative;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .header-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .category-tag {
@@ -123,10 +123,10 @@
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 800;
             line-height: 1.25;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             letter-spacing: -0.02em;
             background: linear-gradient(135deg, var(--text-primary), var(--accent));
             -webkit-background-clip: text;
@@ -134,7 +134,7 @@
         }
 
         .subtitle {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             color: var(--text-secondary);
             font-weight: 400;
             border-left: 3px solid var(--accent);
@@ -142,52 +142,117 @@
             margin-top: 10px;
         }
 
-        .tabs-nav {
+        /* Progressive Learning Progress Bar */
+        .progress-container {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 30px;
             display: flex;
-            gap: 8px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 1px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar-wrapper {
+            flex-grow: 1;
+            height: 8px;
+            background-color: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background-color: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+            transition: width 0.5s ease;
+        }
+
+        .progress-percentage {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent);
+            min-width: 40px;
+            text-align: right;
+        }
+
+        /* 6-Step Progressive Navigation */
+        .steps-nav {
+            display: flex;
+            justify-content: space-between;
             margin-bottom: 40px;
+            position: relative;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 10px;
             overflow-x: auto;
-            white-space: nowrap;
             scrollbar-width: none;
         }
 
-        .tabs-nav::-webkit-scrollbar {
+        .steps-nav::-webkit-scrollbar {
             display: none;
         }
 
-        .tab-btn {
+        .step-nav-btn {
             background: none;
             border: none;
             color: var(--text-secondary);
-            padding: 12px 20px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            cursor: pointer;
-            position: relative;
-            transition: var(--transition);
-            border-radius: 8px 8px 0 0;
-        }
-
-        .tab-btn:hover {
-            color: var(--text-primary);
-            background-color: var(--bg-secondary);
-        }
-
-        .tab-btn.active {
-            color: var(--accent);
+            padding: 12px 16px;
+            font-size: 0.9rem;
             font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            border-radius: 12px;
+            transition: var(--transition);
+            flex: 1;
+            min-width: 130px;
+            text-align: center;
         }
 
-        .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            height: 2px;
+        .step-nav-btn span.step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .step-nav-btn:hover {
+            color: var(--text-primary);
+            background-color: var(--bg-tertiary);
+        }
+
+        .step-nav-btn.active {
+            color: var(--accent);
+            background-color: var(--accent-glow);
+        }
+
+        .step-nav-btn.active span.step-number {
             background-color: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-primary);
             box-shadow: 0 0 8px var(--accent);
         }
 
@@ -221,7 +286,7 @@
         }
 
         h2 {
-            font-size: 1.6rem;
+            font-size: 1.45rem;
             font-weight: 700;
             margin-bottom: 20px;
             display: flex;
@@ -232,6 +297,15 @@
 
         h2 i {
             color: var(--accent);
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            border-bottom: 1px dashed var(--border);
+            padding-bottom: 8px;
         }
 
         .grid-list {
@@ -264,6 +338,13 @@
             color: var(--text-primary);
             margin-bottom: 8px;
             font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .grid-item-title i {
+            color: var(--accent);
         }
 
         .grid-item-desc {
@@ -275,7 +356,7 @@
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         th {
@@ -299,7 +380,7 @@
         }
 
         .mermaid-container {
-            background-color: #0f1015;
+            background-color: #05060b;
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 20px;
@@ -379,7 +460,7 @@
 
         .sop-step-title {
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-primary);
             margin-bottom: 6px;
             display: flex;
@@ -388,7 +469,7 @@
         }
 
         .sop-step-desc {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
         }
 
@@ -398,34 +479,17 @@
             color: var(--text-secondary);
             padding: 4px 10px;
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: var(--transition);
         }
 
         .sop-action-btn:hover {
-            border-color: var(--accent-success);
-            color: var(--accent-success);
-        }
-
-        .sop-reset-btn {
-            background-color: var(--bg-tertiary);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 10px;
-        }
-
-        .sop-reset-btn:hover {
             border-color: var(--accent);
             color: var(--accent);
         }
 
-        /* Quiz Panel */
+        /* Quiz Styling */
         .quiz-card {
             background-color: var(--bg-tertiary);
             border: 1px solid var(--border);
@@ -436,7 +500,7 @@
 
         .quiz-question {
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             margin-bottom: 16px;
             color: var(--text-primary);
         }
@@ -445,78 +509,81 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-bottom: 16px;
         }
 
         .quiz-option {
             background-color: var(--bg-secondary);
             border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 12px 18px;
             border-radius: 8px;
-            padding: 14px 18px;
             cursor: pointer;
             text-align: left;
             font-size: 0.95rem;
-            color: var(--text-secondary);
+            font-weight: 500;
             transition: var(--transition);
         }
 
         .quiz-option:hover {
             border-color: var(--accent);
             color: var(--text-primary);
-            transform: translateX(4px);
+            background-color: var(--accent-glow);
         }
 
         .quiz-option.correct {
             border-color: var(--accent-success);
             background-color: rgba(16, 185, 129, 0.1);
-            color: var(--text-primary);
+            color: var(--accent-success);
+            font-weight: 600;
         }
 
         .quiz-option.incorrect {
             border-color: var(--accent-error);
             background-color: rgba(239, 68, 68, 0.1);
-            color: var(--text-primary);
+            color: var(--accent-error);
+            font-weight: 600;
         }
 
         .quiz-feedback {
-            display: none;
-            padding: 12px 16px;
+            margin-top: 14px;
+            padding: 12px;
             border-radius: 8px;
             font-size: 0.9rem;
+            display: none;
             line-height: 1.5;
-            margin-top: 12px;
         }
 
         .quiz-feedback.success {
             display: block;
-            background-color: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            color: var(--accent-success);
+            background-color: rgba(16, 185, 129, 0.05);
+            border-left: 3px solid var(--accent-success);
+            color: var(--text-primary);
         }
 
         .quiz-feedback.error {
             display: block;
-            background-color: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            color: var(--accent-error);
+            background-color: rgba(239, 68, 68, 0.05);
+            border-left: 3px solid var(--accent-error);
+            color: var(--text-primary);
         }
 
-        /* Checkbox items */
+        /* Checkbox Habits List */
         .exercise-item {
             display: flex;
-            align-items: flex-start;
             gap: 16px;
-            padding: 20px;
-            border-radius: 12px;
+            padding: 16px;
             background-color: var(--bg-tertiary);
             border: 1px solid var(--border);
-            margin-bottom: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            align-items: flex-start;
         }
 
         .checkbox-container {
             display: block;
             position: relative;
             padding-left: 28px;
+            margin-bottom: 12px;
             cursor: pointer;
             font-size: 22px;
             user-select: none;
@@ -532,13 +599,13 @@
 
         .checkmark {
             position: absolute;
-            top: 4px;
+            top: 2px;
             left: 0;
-            height: 22px;
-            width: 22px;
-            border-radius: 6px;
+            height: 20px;
+            width: 20px;
             background-color: var(--bg-secondary);
             border: 2px solid var(--border);
+            border-radius: 4px;
             transition: var(--transition);
         }
 
@@ -547,8 +614,8 @@
         }
 
         .checkbox-container input:checked ~ .checkmark {
-            background-color: var(--accent-success);
-            border-color: var(--accent-success);
+            background-color: var(--accent);
+            border-color: var(--accent);
         }
 
         .checkmark:after {
@@ -562,12 +629,12 @@
         }
 
         .checkbox-container .checkmark:after {
-            left: 7px;
+            left: 6px;
             top: 2px;
             width: 5px;
             height: 10px;
             border: solid var(--bg-primary);
-            border-width: 0 3px 3px 0;
+            border-width: 0 2px 2px 0;
             transform: rotate(45deg);
         }
 
@@ -577,41 +644,53 @@
 
         .exercise-title {
             font-weight: 700;
-            font-size: 1.05rem;
+            font-size: 1rem;
             color: var(--text-primary);
             margin-bottom: 4px;
         }
 
         .exercise-desc {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: var(--text-secondary);
         }
 
-        /* Lightbox modal for zoom */
+        /* Zoom modal styling */
         .zoom-modal {
             display: none;
             position: fixed;
-            z-index: 9999;
+            z-index: 100;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(10, 11, 16, 0.95);
-            justify-content: center;
+            background-color: rgba(5, 6, 11, 0.95);
             align-items: center;
-            animation: fadeInModal 0.25s ease;
+            justify-content: center;
+            flex-direction: column;
         }
 
-        @keyframes fadeInModal {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .zoom-modal-content {
+            width: 90%;
+            height: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .zoom-modal-content svg {
+            max-width: 100%;
+            max-height: 100%;
+            transition: transform 0.1s ease;
+            cursor: grab;
         }
 
         .close-modal {
             position: absolute;
             top: 20px;
             right: 30px;
-            color: #f3f4f6;
+            color: var(--text-secondary);
             font-size: 40px;
             font-weight: bold;
             cursor: pointer;
@@ -622,51 +701,119 @@
             color: var(--accent);
         }
 
-        .zoom-modal-content {
-            width: 90%;
-            height: 80%;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: grab;
-        }
-
-        .zoom-modal-content svg {
-            width: auto;
-            height: auto;
-            max-width: 100%;
-            max-height: 100%;
-            transform-origin: center;
-            transition: transform 0.1s ease;
-        }
-
         .zoom-controls {
-            position: absolute;
-            bottom: 30px;
             display: flex;
             gap: 15px;
+            margin-top: 20px;
         }
 
         .zoom-controls button {
-            background-color: var(--bg-tertiary);
+            background-color: var(--bg-secondary);
             border: 1px solid var(--border);
             color: var(--text-primary);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            padding: 10px 18px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1.2rem;
+            transition: var(--transition);
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: var(--transition);
+            gap: 8px;
         }
 
         .zoom-controls button:hover {
             border-color: var(--accent);
             color: var(--accent);
+            background-color: var(--accent-glow);
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .btn-primary:hover {
+            background-color: #5558e6;
+            box-shadow: 0 0 12px var(--accent-glow);
+            transform: translateY(-1px);
+        }
+
+        /* Timers styling */
+        .timer-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            padding: 20px;
             background-color: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .timer-circle {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--bg-tertiary) 60%, transparent 61%);
+            border: 4px solid var(--border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        .timer-progress {
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top-color: var(--accent);
+            transform: rotate(0deg);
+            pointer-events: none;
+            transition: transform 1s linear;
+        }
+
+        .timer-btn {
+            background-color: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px var(--accent-glow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timer-btn:hover {
+            background-color: #5558e6;
+            transform: translateY(-1px);
+        }
+
+        .timer-btn:active {
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -676,422 +823,845 @@
         <!-- Header -->
         <header>
             <div class="header-meta">
-                <span class="category-tag">Synthesis & Coach</span>
+                <span class="category-tag">Daoist Learning Coach</span>
                 <button class="theme-toggle" id="theme-toggle" title="切換主題">
                     <i class="fa-solid fa-moon"></i>
                 </button>
             </div>
-            <h1>老子: DDS 防禦性決策系統</h1>
-            <div class="subtitle">
-                將《道德經》與傅佩榮教授的現代詮釋，轉化為變革期破除決策焦慮、進行資訊脫水與精力管理的心智工具。
-            </div>
+            <h1>老莊防禦性決策與學習系統 (Laozi-Zhuangzi-DDS)</h1>
+            <div class="subtitle">循序漸進的道家認知升級路徑：從減法決策到心流掌握。</div>
         </header>
 
-        <!-- Navigation Tabs -->
-        <nav class="tabs-nav">
-            <button class="tab-btn active" data-tab="tab-map"><i class="fa-solid fa-sitemap"></i> 系統地圖</button>
-            <button class="tab-btn" data-tab="tab-terms"><i class="fa-solid fa-book-open"></i> 精確術語</button>
-            <button class="tab-btn" data-tab="tab-frameworks"><i class="fa-solid fa-brain"></i> 心智模型</button>
-            <button class="tab-btn" data-tab="tab-stories"><i class="fa-solid fa-lightbulb"></i> 智慧故事</button>
-            <button class="tab-btn" data-tab="tab-sop"><i class="fa-solid fa-list-check"></i> 實作 SOP</button>
-            <button class="tab-btn" data-tab="tab-antipatterns"><i class="fa-solid fa-triangle-exclamation"></i> 避坑指南</button>
-            <button class="tab-btn" data-tab="tab-quiz"><i class="fa-solid fa-square-poll-vertical"></i> 自我評測</button>
-            <button class="tab-btn" data-tab="tab-exercises"><i class="fa-solid fa-calendar-check"></i> 行動練習</button>
+        <!-- Progressive Progress Bar -->
+        <div class="progress-container">
+            <span class="progress-label"><i class="fa-solid fa-graduation-cap"></i> 學習進度掌握：</span>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar-fill" id="progress-bar"></div>
+            </div>
+            <span class="progress-percentage" id="progress-text">0%</span>
+        </div>
+
+        <!-- 6-Step Progressive Navigation -->
+        <nav class="steps-nav">
+            <button class="step-nav-btn active" data-tab="step-1" onclick="changeStep(1)">
+                <span class="step-number">1</span>
+                建立認知地圖
+            </button>
+            <button class="step-nav-btn" data-tab="step-2" onclick="changeStep(2)">
+                <span class="step-number">2</span>
+                理解心智模型
+            </button>
+            <button class="step-nav-btn" data-tab="step-3" onclick="changeStep(3)">
+                <span class="step-number">3</span>
+                實作指南 SOP
+            </button>
+            <button class="step-nav-btn" data-tab="step-4" onclick="changeStep(4)">
+                <span class="step-number">4</span>
+                避開分心誤區
+            </button>
+            <button class="step-nav-btn" data-tab="step-5" onclick="changeStep(5)">
+                <span class="step-number">5</span>
+                12週實踐計畫
+            </button>
+            <button class="step-nav-btn" data-tab="step-6" onclick="changeStep(6)">
+                <span class="step-number">6</span>
+                檢測與練習本
+            </button>
         </nav>
 
-        <!-- 1. System Map -->
-        <div class="tab-pane active" id="tab-map">
+        <!-- STEP 1: Build the Map -->
+        <div class="tab-pane active" id="step-1">
             <div class="card">
-                <h2><i class="fa-solid fa-sitemap"></i> 老子防禦性決策開展地圖</h2>
+                <h2><i class="fa-solid fa-diagram-project"></i> 階段一：建立老莊國學認知地圖</h2>
                 <p style="margin-bottom: 20px; color: var(--text-secondary);">
-                    點擊下圖可放大與拖拽。該地圖展示了面對不確定性與變革期時，如何透過「減法脫水（日損）」、「專注發散切換（無為）」及「柔性生存（守柔處下）」避開剛強易折的困境。
+                    道家思想不是消極遁世，而是應對紛亂變革的**「防禦性生存智慧」**。點擊下方系統圖可放大、縮放檢視：
                 </p>
                 <div class="mermaid-container">
                     <pre class="mermaid">
-flowchart TD
-    A[不確定性與變革期: 決策焦慮] --> B{第一步: 動機檢視}
-    B -->|有名/虛名/跟風| C[著相有名: 砍掉該項目]
-    B -->|無名/生存剛需/發揮優勢| D[為道日損: 進行決策與知識脫水]
-    D --> E[精煉核心: 抱一鎖定第一性原理]
-    E --> F[防禦邊界: 設定知止煞車點]
+graph TD
+    A["老莊哲學高效學習系統"] --> B["老子：戰略減法與精力調節"]
+    A --> C["莊子：內在解縛與極致心流"]
     
-    G[遭遇難題卡關/思緒鎖死] --> H{第二步: 專注與發散切換}
-    H -->|剛強死磕| I[剛強易折: 導致精力與認知資源枯竭]
-    H -->|無為發散| J[有為專注45分鐘 -> 主動知止煞車]
-    J --> K[放鬆無目的: 散步/洗澡/睡眠]
-    K --> L[無為而無不為: 潛意識背景網絡自發連結湧現靈感]
+    B --> B1["為道日損<br>刪除焦慮跟風，聚焦唯一主航道"]
+    B --> B2["無為自化<br>極限思考後放手，利用大腦發散模式"]
+    B --> B3["守柔處下<br>主動示弱請教，繞開障礙尋求細分突破"]
     
-    M[處於資源弱勢或新環境] --> N{第三步: 柔性生存法則}
-    N -->|死要面子/裝懂/強硬硬頂| O[剛強易折: 面臨正面打擊與內耗]
-    N -->|守柔處下| P[處下示弱: 卸下防衛虛心請教]
-    P --> Q[守柔避險: 繞過頑石阻力，尋找細分市場]
-    Q --> R[如水長流: 以柔克剛突破低谷]
+    C --> C1["心齋虛待<br>清空概念預設與評判偏見，空杯吸收"]
+    C --> C2["外化內不化<br>外在順應僵硬套路，內在自尊隔離分數毒害"]
+    C --> C3["庖丁解牛<br>規則熟透後放空理性，靠直覺神行心流"]
+    C --> C4["無用之用<br>非功利性漫遊，保護天賦德行不被榨乾"]
+    
+    style A fill:#0f172a,stroke:#6366f1,stroke-width:2px,color:#fff
+    style B fill:#1e1b4b,stroke:#262938,color:#fff
+    style C fill:#115e59,stroke:#14b8a6,color:#fff
                     </pre>
                 </div>
-                <div class="highlight-box">
-                    「為學日益，為道日損。損之又損，以至於無為。無為而無不為。」——《道德經》第四十八章。在焦慮的時代中，懂得煞車與減法，才是真正的防禦性大智慧。
+            </div>
+
+            <div class="card">
+                <h2><i class="fa-solid fa-scale-balanced"></i> 老子與莊子的防禦定位比較</h2>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>比較維度</th>
+                                <th>老子哲學 (Laozi-DDS)</th>
+                                <th>莊子哲學 (Zhuangzi-Extension)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>防禦核心</strong></td>
+                                <td>外在生存策略：以弱勝強、適可而止、減法脫水</td>
+                                <td>內在精神自由：心齋虛以待物、外化內不化</td>
+                            </tr>
+                            <tr>
+                                <td><strong>學習「減法」</strong></td>
+                                <td><strong>為道日損</strong> — 排除外在冗餘專案與跟風資料</td>
+                                <td><strong>心齋</strong> — 清空大腦偏見、概念預設與經驗包袱</td>
+                            </tr>
+                            <tr>
+                                <td><strong>外部應變力</strong></td>
+                                <td><strong>守柔處下</strong> — 像水流遇阻礙主動繞道、示弱請教</td>
+                                <td><strong>外化內不化</strong> — 外部符合體制要求，內在隔離成敗得失</td>
+                            </tr>
+                            <tr>
+                                <td><strong>高難度實戰</strong></td>
+                                <td><strong>無為自化</strong> — 順應天道客規，大腦專注與發散交替</td>
+                                <td><strong>庖丁解牛</strong> — 官知止而神行，忘掉規則進入心流</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="text-align: right;">
+                    <button class="btn-primary" onclick="nextStep(2)">進入下一階段：理解心智模型 <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
-        </div>
 
-        <!-- 2. Core Terminology -->
-        <div class="tab-pane" id="tab-terms">
             <div class="card">
-                <h2><i class="fa-solid fa-book-open"></i> 老子哲學核心術語定義</h2>
-                <div class="grid-list">
-                    <div class="grid-item">
-                        <div class="grid-item-title">道 (Dao)</div>
-                        <div class="grid-item-desc">究竟真實，宇宙的底層邏輯與第一性原理，萬物的來源與歸宿。</div>
-                    </div>
-                    <div class="grid-item">
-                        <div class="grid-item-title">德 (De)</div>
-                        <div class="grid-item-desc">萬物「得」之於道者，即個體生存的稟賦、本性與客觀運作規律。</div>
-                    </div>
-                    <div class="grid-item">
-                        <div class="grid-item-title">為道日損 (Daily Diminishing)</div>
-                        <div class="grid-item-desc">追求道的本質需要每天做減法，減少干擾、偏見、虛名與繁雜的手法。</div>
-                    </div>
-                    <div class="grid-item">
-                        <div class="grid-item-title">無為 (Wu-Wei / Non-action)</div>
-                        <div class="grid-item-desc">指「無心而為」——不帶有主觀私慾地強行干預，順應事物的自然規律。</div>
-                    </div>
-                    <div class="grid-item">
-                        <div class="grid-item-title">自然 (Ziran)</div>
-                        <div class="grid-item-desc">指「自己如此的狀態」，非指大自然，而是順應個體天性的自發狀態。</div>
-                    </div>
-                    <div class="grid-item">
-                        <div class="grid-item-title">守柔處下 (Fluid Adaptability)</div>
-                        <div class="grid-item-desc">像水一樣，甘居低處（處下）以卸下防衛虛心學習，姿態柔軟（守柔）以繞過頑石阻力。</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3. Mind Models -->
-        <div class="tab-pane" id="tab-frameworks">
-            <div class="card">
-                <h2><i class="fa-solid fa-brain"></i> 決策與學習三大心智模型</h2>
+                <h2><i class="fa-solid fa-scale-unbalanced"></i> 階段一延伸：老莊三書定位與觀念延伸深挖</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    理解傅佩榮教授所解讀的譯注本、經典講座本的互補關係，以及從老子（生存策略）到莊子（心靈自由）的層次躍升：
+                </p>
                 
-                <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: var(--accent);">模型一：為學與為道對比 (日益 vs 日損)</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 16px;">
-                    在個人成長中，需要理智地區分這兩種不同的心智路徑：
-                </p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>項目</th>
-                            <th>為學日益 (Daily Increase)</th>
-                            <th>為道日損 (Daily Diminishing)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="font-weight: 600;">核心特徵</td>
-                            <td>每天增加資訊、工具、知識與手段</td>
-                            <td>每天減少雜訊、偏見、成見與虛華手段</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: 600;">適用時期</td>
-                            <td>完全陌生的新領域「原始積累期」</td>
-                            <td>面臨決策、資源有限或思緒過載的「抉擇期」</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: 600;">目標方向</td>
-                            <td>向外開拓、獲取更多的相對事實</td>
-                            <td>向內脫水、鎖定唯一的第一性原理</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h3 style="border: none; padding-bottom: 0;">1. 傅佩榮老莊三書定位對比</h3>
+                <div style="overflow-x: auto; margin-bottom: 25px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>書籍名稱</th>
+                                <th>寫作形式</th>
+                                <th>核心功能與側重點</th>
+                                <th>適合閱讀情境</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>《老子思想的現代涵義》</strong></td>
+                                <td>逐章譯注與現代詮釋</td>
+                                <td>探討「道、德、無為」等術語在原文中的精確定義，學理底蘊深厚。</td>
+                                <td>需要精確考證某章原文，或理解老子概念的細節推導時。</td>
+                            </tr>
+                            <tr>
+                                <td><strong>《經典講座 老子》</strong></td>
+                                <td>專題式演講錄</td>
+                                <td>系統性建構老子的生存策略、決策減法與處世心態，實用性高。</td>
+                                <td>需要快速建立老子防禦性決策系統（Laozi-DDS）的全局地圖時。</td>
+                            </tr>
+                            <tr>
+                                <td><strong>《經典講座 莊子》</strong></td>
+                                <td>專題式演講錄</td>
+                                <td>從老子的「外在生存策略」延伸至「內在心靈自由」，擺脫焦慮。</td>
+                                <td>面臨巨大的體制壓力或精力焦慮，需要尋求內在安寧與心流體驗時。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                <h3 style="font-size: 1.25rem; font-weight: 700; margin-top: 30px; margin-bottom: 12px; color: var(--accent);">模型二：反者道之動的逆向轉化</h3>
-                <div style="background-color: var(--bg-tertiary); padding: 20px; border-radius: 12px; border: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.9rem;">
-                    1. 發展到頂峰 (物壯則老) <br>
-                    &nbsp;&nbsp;&nbsp;└── 2. 向相反方向轉化 (衰退/重整)<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── 3. 順應轉化、逆向避險 (知止不殆)<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── 4. 處於低谷、蓄積勢能 (以退為進)
+                <h3 style="border: none; padding-bottom: 0;">2. 從老子到莊子的觀念延伸與深化</h3>
+                <div class="grid-list">
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-circle-chevron-right"></i> 從「外在去重」到「內在空杯」</div>
+                        <div class="grid-item-desc">
+                            老子的「為道日損」聚焦於行動與資源的減法（主專案聚焦）；莊子的「心齋」則將減法推向大腦內部，主動卸載認知偏見與成見，回歸空杯如實接納新知。
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-circle-chevron-right"></i> 從「退讓避險」到「外化內不化」</div>
+                        <div class="grid-item-desc">
+                            老子的「守柔處下」主張像水流遇阻主動繞道、示弱請教；莊子的「外化而內不化」則升級為體制內生存的雙軌隔離（外部迎合標準答案以求生，內在自尊隔離分數評判的毒害）。
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-circle-chevron-right"></i> 從「無為順應」到「庖丁解牛心流」</div>
+                        <div class="grid-item-desc">
+                            老子的「無為自化」主張專注與發散交替（極限思考後放手讓潛意識背景網絡自發解題）；莊子的「庖丁解牛」則指出技能熟練後的直覺心流（官知止神行，忘掉規則順應客觀結構輸出）。
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-circle-chevron-right"></i> 從「知止不殆」到「無用之用」</div>
+                        <div class="grid-item-desc">
+                            老子的「知止」是戰術性踩煞車以守住基本盤；莊子的「無用之用」則強調非功利性知識（如讀歷史、哲學）的背景保護價值，防範個人被過度工具化，為創造力提供背景發酵池。
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- 4. Wisdom Stories -->
-        <div class="tab-pane" id="tab-stories">
             <div class="card">
-                <h2><i class="fa-solid fa-lightbulb"></i> 老子思想經典智慧故事</h2>
-                <p style="margin-bottom: 20px; color: var(--text-secondary);">
-                    以下故事深入剖析了人為智巧的偏離與回歸大道的智慧：
+                <h2><i class="fa-solid fa-book-open"></i> 延伸閱讀：傅佩榮國學與哲學思想系統</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.95rem;">
+                    老莊道家思想是傅佩榮教授國學與哲學體系的重要支柱。若想進一步完整安頓生命、理解命運與人性，建議點擊閱讀以下 Wiki 整合專頁：
                 </p>
                 <div class="grid-list">
-                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
-                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-arrows-split-up-and-left"></i> 故事一：楚王失弓與孔老格局對比</div>
-                        <div class="grid-item-desc" style="margin-bottom: 10px;">
-                            <strong>還原</strong>：楚王失弓，說「楚人失之，楚人得之」。孔子聽了說「人失之，人得之」。老子聽了說「失之，得之」。
+                    <div class="grid-item">
+                        <div class="grid-item-title">
+                            <i class="fa-solid fa-brain"></i> 
+                            <a href="wiki/synthesis/fu-peirong-philosophy-system.md" target="_blank" style="color: var(--accent); text-decoration: none; font-weight:700;">
+                                傅佩榮國學與哲學思想系統 ➔
+                            </a>
                         </div>
                         <div class="grid-item-desc">
-                            <strong>智慧機制</strong>：楚王局限於國家利益，孔子局限於人類中心，老子則突破了人為侷限，將失去與得到回歸到宇宙的整體（失之，得之），泯除得失心。
+                            系統性梳理《哲學與人生》、老莊道家、易經占卜、宗教哲學與孔孟儒家人性向善論的整合心智地圖。
                         </div>
                     </div>
-                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
-                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-gear"></i> 故事二：子貢與桔槔（機械、機事與機心）</div>
-                        <div class="grid-item-desc" style="margin-bottom: 10px;">
-                            <strong>還原</strong>：子貢勸抱甕灌溉的老人使用桔槔，老人怒道：「有機事者必有機心」。
+                    <div class="grid-item">
+                        <div class="grid-item-title">
+                            <i class="fa-solid fa-code-compare"></i>
+                            <a href="wiki/comparisons/laozi-zhuangzi-books-comparison.md" target="_blank" style="color: var(--accent); text-decoration: none; font-weight:700;">
+                                老莊三書：內容定位與觀念延伸 ➔
+                            </a>
                         </div>
                         <div class="grid-item-desc">
-                            <strong>智慧機制</strong>：過度依賴工具的便利，會使人心思變複雜、計較利益。這提醒我們在追求自動化與技術的同時，應警惕大腦的「機心」內耗。
-                        </div>
-                    </div>
-                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
-                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-wine-glass-empty"></i> 故事三：品酒兄弟與「雖小道必有可觀」</div>
-                        <div class="grid-item-desc" style="margin-bottom: 10px;">
-                            <strong>還原</strong>：品酒兄弟能喝出酒桶底有一條生鏽鐵環的皮帶；有人能吃出飯是用舊木材燒出的。
-                        </div>
-                        <div class="grid-item-desc">
-                            <strong>智慧機制</strong>：老子重視觀察「細節」，認為困難的事都是從細節開始的。但同時要警惕「多則惑」，不可在細節的小道中迷失了整體的道。
-                        </div>
-                    </div>
-                    <div class="grid-item" style="border-left: 4px solid var(--accent);">
-                        <div class="grid-item-title" style="color: var(--accent);"><i class="fa-solid fa-shield-halved"></i> 故事四：寧武子之愚與「愚不可及」</div>
-                        <div class="grid-item-desc" style="margin-bottom: 10px;">
-                            <strong>還原</strong>：孔子稱許寧武子：「邦有道則知，邦無道則愚。其知可及也，其愚不可及也。」
-                        </div>
-                        <div class="grid-item-desc">
-                            <strong>智慧機制</strong>：在亂世或不確定環境中，刻意表現聰明（有為、剛強）只會招致傷害。寧武子的愚並非真愚，而是「守柔不爭」、自我收斂的極高避險智慧。
+                            分析譯注本、經典講座本的互補關係，以及從老子（生存策略）到莊子（心靈自由）的層次躍升。
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 5. Action SOPs -->
-        <div class="tab-pane" id="tab-sop">
+        <!-- STEP 2: Master the Mindsets -->
+        <div class="tab-pane" id="step-2">
             <div class="card">
-                <h2><i class="fa-solid fa-list-check"></i> 可實作方法與引導步驟</h2>
-                <p style="margin-bottom: 20px; color: var(--text-secondary);">
-                    按照以下引導步驟實作。點擊步驟右側的「完成」按鈕可以標記進度：
-                </p>
+                <h2><i class="fa-solid fa-brain"></i> 階段二：理解老莊核心學習心智模型</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">學習不僅是累積資訊（為學日益），更是精煉心智的過程（為道日損）。請掌握以下核心工具：</p>
+                
+                <div class="grid-list">
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-filter"></i> 為道日損 (Subtractive Learning)</div>
+                        <div class="grid-item-desc"><strong>老子：</strong>拒絕囤積與焦慮，無情砍掉 50% 跟風專案與打卡，只留一條當下剛需的通道。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-wind"></i> 心齋虛待 (Mind Fasting)</div>
+                        <div class="grid-item-desc"><strong>莊子：</strong>不帶成見去學。清空「我已經懂了」的防衛，讓大腦像空杯一樣接納衝突的新概念。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-shield-halved"></i> 外化而內不化 (Conformity & Integrity)</div>
+                        <div class="grid-item-desc"><strong>莊子：</strong>外在用標準答案套路應考（外化），內在自尊對分數與批評完全免疫（內不化）。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-cow"></i> 庖丁解牛 (Intuitive Flow)</div>
+                        <div class="grid-item-desc"><strong>莊子：</strong>官知止神行。將基本功練到肌肉記憶後放空理智，順應事物結構去操作，游刃有餘。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-seedling"></i> 無用之用 (Usefulness of Uselessness)</div>
+                        <div class="grid-item-desc"><strong>莊子：</strong>保留 20% 精力讀哲學、科幻或去大自然漫遊，保護創造力防範大腦過度被功利榨乾。</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-rotate"></i> 無為自化 (Wu-wei Diffuse)</div>
+                        <div class="grid-item-desc"><strong>老子：</strong>大腦專注 45 分鐘極限後合上電腦（無為），給潛意識網絡發散處理Bug的發酵時間。</div>
+                    </div>
+                </div>
 
+                <div style="text-align: right; margin-top: 30px;">
+                    <button class="btn-primary" onclick="nextStep(3)">進入下一階段：日常學習實作 SOP <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: Actionable SOPs -->
+        <div class="tab-pane" id="step-3">
+            <div class="card">
+                <h2><i class="fa-solid fa-list-check"></i> 階段三：日常學習實作 SOP 指南</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">將抽象觀念落地。遇到以下場景時，請嚴格按照以下步驟操作：</p>
+                
                 <div class="sop-container">
-                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; color: var(--accent);">SOP 1：個人決策與知識的「減法脫水」SOP</h3>
-                    
-                    <div class="sop-step" id="step-1">
+                    <h3>SOP 1：學習前大腦的「心齋清空」SOP (解決自負、抗拒心態)</h3>
+                    <div class="sop-step" id="step-sop1-1">
                         <div class="sop-badge">1</div>
                         <div class="sop-step-title">
-                            原始積累（日益）
-                            <button class="sop-action-btn" onclick="completeStep('1')">完成步驟</button>
+                            <span>物理與干擾隔離</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop1-1')">已完成</button>
                         </div>
-                        <div class="sop-step-desc">列出你目前所有想做的事情、買的課程、進行中的專案或詳細筆記。</div>
+                        <div class="sop-step-desc">收走桌面上無關雜物，關閉所有通訊視窗，手機調靜音面朝下。</div>
                     </div>
-
-                    <div class="sop-step" id="step-2">
+                    <div class="sop-step" id="step-sop1-2">
                         <div class="sop-badge">2</div>
                         <div class="sop-step-title">
-                            動機核對（過濾名利）
-                            <button class="sop-action-btn" onclick="completeStep('2')">完成步驟</button>
+                            <span>深呼吸放鬆肌肉</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop1-2')">已完成</button>
                         </div>
-                        <div class="sop-step-desc">問自己：「這件事如果不去社群媒體打卡，沒人知道，我還願意默默做它嗎？」若否，直接劃掉（剔除有名執著）。</div>
+                        <div class="sop-step-desc">閉眼深呼吸三次，感覺肩膀放鬆，暫時切斷感官知覺（官知）。</div>
                     </div>
-
-                    <div class="sop-step" id="step-3">
+                    <div class="sop-step" id="step-sop1-3">
                         <div class="sop-badge">3</div>
                         <div class="sop-step-title">
-                            無情日損（硬性減半）
-                            <button class="sop-action-btn" onclick="completeStep('3')">完成步驟</button>
+                            <span>默念概念剝離口訣</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop1-3')">已完成</button>
                         </div>
-                        <div class="sop-step-desc">強迫自己將剩下的清單砍掉 50%。只留下生存剛需與最契合自身優勢（德）的單一核心項目。</div>
+                        <div class="sop-step-desc">在心中默念：「我對此時即將接觸的概念一無所知，我放下過去成見。我是一張白紙。」</div>
                     </div>
-
-                    <div class="sop-step" id="step-4">
+                    <div class="sop-step" id="step-sop1-4">
                         <div class="sop-badge">4</div>
                         <div class="sop-step-title">
-                            知止煞車點設定
-                            <button class="sop-action-btn" onclick="completeStep('4')">完成步驟</button>
+                            <span>如實接納與記錄</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop1-4')">已完成</button>
                         </div>
-                        <div class="sop-step-desc">為核心項目設定「最大虧損額」或「退出時間」（知止不殆），一旦觸及強制平倉。</div>
+                        <div class="sop-step-desc">睜眼閱讀。遇到衝突處不生氣抗拒，先將其記錄為「新觀點」，繼續如實讀完。</div>
+                    </div>
+                    
+                    <!-- 心齋計時器 -->
+                    <div class="timer-box" style="margin-top: 20px;">
+                        <div class="timer-circle">
+                            <div class="timer-progress" id="xinzai-progress"></div>
+                            <span id="xinzai-time">02:00</span>
+                        </div>
+                        <button class="timer-btn" id="xinzai-btn" onclick="toggleXinzaiTimer()">
+                            <i class="fa-solid fa-wind"></i> <span>啟動心齋清空</span>
+                        </button>
                     </div>
                 </div>
 
                 <div class="sop-container" style="margin-top: 40px;">
-                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; color: var(--accent);">SOP 2：難題卡點的「無為發散」解題 SOP</h3>
-                    
-                    <div class="sop-step" id="step-5">
-                        <div class="sop-badge">5</div>
+                    <h3>SOP 2：應對死板考核的「外化內不化」SOP (解決拖延與內耗)</h3>
+                    <div class="sop-step" id="step-sop2-1">
+                        <div class="sop-badge">1</div>
                         <div class="sop-step-title">
-                            極限施壓（有為專注）
-                            <button class="sop-action-btn" onclick="completeStep('5')">完成步驟</button>
+                            <span>考核規則脫水</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop2-1')">已完成</button>
                         </div>
-                        <div class="sop-step-desc">集中精力思考 45 分鐘，排除所有干擾，寫下所有嘗試過但失敗的途徑。</div>
+                        <div class="sop-step-desc">分析考試或KPI，提取出答題模板、評分關鍵字或老闆偏好的格式。</div>
                     </div>
-
-                    <div class="sop-step" id="step-6">
-                        <div class="sop-badge">6</div>
+                    <div class="sop-step" id="step-sop2-2">
+                        <div class="sop-badge">2</div>
                         <div class="sop-step-title">
-                            主動知止煞車
-                            <button class="sop-action-btn" onclick="completeStep('6')">完成步驟</button>
+                            <span>套路化機器人答題</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop2-2')">已完成</button>
                         </div>
-                        <div class="sop-step-desc">一旦 45 分鐘結束或思緒重覆打轉，立刻站起來、合上電腦螢幕。</div>
+                        <div class="sop-step-desc">完全拋棄個人情感，嚴格按照套路標準生產出答案，以此換取通行證（外化）。</div>
                     </div>
-
-                    <div class="sop-step" id="step-7">
-                        <div class="sop-badge">7</div>
+                    <div class="sop-step" id="step-sop2-3">
+                        <div class="sop-badge">3</div>
                         <div class="sop-step-title">
-                            順應自然（發散模式）
-                            <button class="sop-action-btn" onclick="completeStep('7')">完成步驟</button>
+                            <span>內在隔離自尊隔離</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop2-3')">已完成</button>
                         </div>
-                        <div class="sop-step-desc">散步 15 分鐘、洗熱水澡或小睡。不准看手機，溫和地將注意力移開，讓潛意識（自化）自動連結資訊。</div>
+                        <div class="sop-step-desc">面臨分數或批評時，在心中畫線：「這只是我用來外化的應試工具，它無法定義我真正的自我價值。」（內不化）</div>
+                    </div>
+                    <div class="sop-step" id="step-sop2-4">
+                        <div class="sop-badge">4</div>
+                        <div class="sop-step-title">
+                            <span>保留真實學習自留地</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop2-4')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">每天保留 1 小時，完全不受外界考核干擾，只為了內在真實興趣去學習、實作。</div>
                     </div>
                 </div>
 
-                <button class="sop-reset-btn" onclick="resetSop()"><i class="fa-solid fa-arrows-rotate"></i> 重設所有步驟</button>
+                <div class="sop-container" style="margin-top: 40px;">
+                    <h3>SOP 3：老子「無為自化」有為專注與無為發散交替法</h3>
+                    <div class="sop-step" id="step-sop3-1">
+                        <div class="sop-badge">1</div>
+                        <div class="sop-step-title">
+                            <span>極限思考 (有為專注 - 45分鐘)</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop3-1')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">集中大腦所有精力專注攻克當前的棘手難題或學習目標。</div>
+                    </div>
+                    <div class="sop-step" id="step-sop3-2">
+                        <div class="sop-badge">2</div>
+                        <div class="sop-step-title">
+                            <span>放手無為 (發散背景 - 15分鐘)</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop3-2')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">時間到即刻合上電腦、離開座位，去散步、喝水，完全不去思考Bug，讓背景網絡自動發酵整合。</div>
+                    </div>
+                    
+                    <!-- 無為自化雙軌計時器 -->
+                    <div class="timer-box" style="margin-top: 20px;">
+                        <div class="timer-circle" style="width: 140px; height: 140px;">
+                            <div class="timer-progress" id="wuwei-progress"></div>
+                            <span id="wuwei-time" style="font-size: 1.8rem;">45:00</span>
+                        </div>
+                        <div style="font-size: 0.85rem; font-weight:700; color: var(--accent); margin-bottom: 15px;" id="wuwei-mode">專注 (有為) 模式</div>
+                        <button class="timer-btn" id="wuwei-btn" onclick="toggleWuweiTimer()">
+                            <i class="fa-solid fa-play"></i> <span>啟動雙軌番茄鐘</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div style="text-align: right; margin-top: 20px;">
+                    <button class="sop-action-btn" onclick="resetSop()"><i class="fa-solid fa-rotate-left"></i> 重設所有 SOP 狀態</button>
+                    <button class="btn-primary" style="margin-top:0; margin-left:10px;" onclick="nextStep(4)">進入下一階段：避開分心誤區 <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
             </div>
         </div>
 
-        <!-- 6. Anti-patterns -->
-        <div class="tab-pane" id="tab-antipatterns">
+        <!-- STEP 4: Bypass the Pitfalls -->
+        <div class="tab-pane" id="step-4">
             <div class="card">
-                <h2><i class="fa-solid fa-triangle-exclamation"></i> 決策避坑指南（反模式）</h2>
+                <h2><i class="fa-solid fa-triangle-exclamation"></i> 階段四：識別與避開修行分心四大反模式</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">在實踐老莊智慧時，初學者極易掉入以下「小我」偽裝的偽道家陷阱：</p>
+                
                 <div class="grid-list">
                     <div class="grid-item" style="border-left: 4px solid var(--accent-error);">
-                        <div class="grid-item-title" style="color: var(--accent-error);">反模式一：無為＝擺爛空等</div>
-                        <div class="grid-item-desc" style="margin-bottom: 10px;">
-                            <strong>表現</strong>：在職涯或學習遇到挑戰時，直接雙手一攤，稱「順其自然，無為而治」。
-                        </div>
+                        <div class="grid-item-title" style="color: var(--accent-error);"><i class="fa-solid fa-circle-xmark"></i> 反模式一：無為＝擺爛空等</div>
                         <div class="grid-item-desc">
-                            <strong>代價</strong>：逃避努力，知識債越積越多。老子的無為是「為而不恃」，必須先極限努力（為），再放下對結果的強求。
+                            *誤用：* 遇到寫不出的代碼 Bug，合上電腦去睡覺，說「順其自然，無為而治」。<br>
+                            *正解：* 無為的前提是「為而不恃」（先極限鑽研過再放手），純粹躺平只是懶惰與逃避。
                         </div>
                     </div>
-
                     <div class="grid-item" style="border-left: 4px solid var(--accent-error);">
-                        <div class="grid-item-title" style="color: var(--accent-error);">反模式二：為學日益的資訊囤積</div>
-                        <div class="grid-item-desc" style="margin-bottom: 10px;">
-                            <strong>表現</strong>：硬碟裝滿了幾百G的教學資料、書架塞滿未讀書籍，心滿意足。
-                        </div>
+                        <div class="grid-item-title" style="color: var(--accent-error);"><i class="fa-solid fa-circle-xmark"></i> 反模式二：外化＝同流合污</div>
                         <div class="grid-item-desc">
-                            <strong>代價</strong>：用「收集資料的動作」來逃避「深入思考的焦慮」，大腦完全沒有進行知識脫水，面臨問題仍無決策能力。
+                            *誤用：* 為了迎合考試或主管喜好，徹底放棄自己的理性真理，變成只會背誦標準答案與迎合的機器人。<br>
+                            *正解：* 外部順應（外化）是防禦手段，內心必須保持清明與獨立的學術思考（內不化）。
                         </div>
                     </div>
-
                     <div class="grid-item" style="border-left: 4px solid var(--accent-error);">
-                        <div class="grid-item-title" style="color: var(--accent-error);">反模式三：剛強死磕的困獸之鬥</div>
-                        <div class="grid-item-desc" style="margin-bottom: 10px;">
-                            <strong>表現</strong>：不惜犧牲健康與睡眠，瘋狂加班、熬夜死磕難關。
-                        </div>
+                        <div class="grid-item-title" style="color: var(--accent-error);"><i class="fa-solid fa-circle-xmark"></i> 反模式三：日益的資訊囤積</div>
                         <div class="grid-item-desc">
-                            <strong>代價</strong>：違反大腦的生理規律，大腦緊繃時無法建立新的突觸連結，效率極低且出錯率飆升（剛強易折）。
+                            *誤用：* 硬碟塞滿幾百G學習資料，每天轉發收藏「先留著以後看」的網頁，曬打卡圖自我感動。<br>
+                            *正解：* 這是在執著外在名聲（有名）與相對評判，應該進行「為道日損」決策脫水。
                         </div>
                     </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent-error);">
+                        <div class="grid-item-title" style="color: var(--accent-error);"><i class="fa-solid fa-circle-xmark"></i> 反模式四：心齋＝發呆放空</div>
+                        <div class="grid-item-desc">
+                            *誤用：* 學習前閉眼打坐，腦子卻在想晚上吃什麼，或直接陷入半睡眠的昏沉發呆。<br>
+                            *正解：* 心齋本質是「虛而待物」——高度警覺、清明但無預設大腦概念的澄澈狀態。
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: right; margin-top: 30px;">
+                    <button class="btn-primary" onclick="nextStep(5)">進入下一階段：12週實踐計畫 <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
         </div>
 
-        <!-- 7. Quiz Panel -->
-        <div class="tab-pane" id="tab-quiz">
+        <!-- STEP 5: 12-Week Workshop Blueprint -->
+        <div class="tab-pane" id="step-5">
             <div class="card">
-                <h2><i class="fa-solid fa-square-poll-vertical"></i> DDS 決策自我評測</h2>
+                <h2><i class="fa-solid fa-calendar-days"></i> 階段五：傅佩榮「國學與生命哲學」12週實踐工作坊</h2>
                 <p style="margin-bottom: 20px; color: var(--text-secondary);">
-                    請點擊選項進行作答，檢查自己是否真正理解老子的決策思維：
+                    這是一套將國學智慧轉化為日常行為的心智鍛鍊計畫。每週包含閱讀、實作任務與沉思紀錄（文字內容將自動儲存於本機中）：
                 </p>
 
-                <div class="quiz-card">
-                    <div class="quiz-question">Q1. 面對職業轉型期時，何時該「日益」？何時該「日損」？</div>
-                    <div class="quiz-options">
-                        <button class="quiz-option" onclick="checkAnswer(this, 'q1', false)">A. 應該永遠只做日益，積累越多越安全</button>
-                        <button class="quiz-option" onclick="checkAnswer(this, 'q1', true)">B. 初期需大量吸收常識以「日益」；抉擇聚焦時需做減法以「日損」</button>
-                        <button class="quiz-option" onclick="checkAnswer(this, 'q1', false)">C. 轉型期一開始就應該「日損」不看任何資料</button>
+                <!-- Phase 1: Philosophy Base -->
+                <div class="sop-container" style="border-left: 2px solid var(--accent); padding-left: 20px; margin-bottom: 30px;">
+                    <h3 style="color: var(--accent); border: none; padding: 0; margin-bottom: 10px;"><i class="fa-solid fa-compass"></i> 第一階段：哲學奠基與心智重構 (第1-2週)</h3>
+                    
+                    <!-- Week 1 -->
+                    <div class="exercise-item" style="flex-direction: column; gap: 8px;">
+                        <div class="exercise-title">
+                            <label class="checkbox-container" style="font-size: 1rem; font-weight: 700; margin-bottom: 0;">
+                                <input type="checkbox" id="w1-check" onchange="saveProgress('w1-check')">
+                                <span class="checkmark" style="top: 0;"></span>
+                                第 1 週：愛好智慧的生活訓練
+                            </label>
+                        </div>
+                        <div class="exercise-desc" style="margin-left: 28px;">
+                            <strong>必讀：</strong>《哲學與人生》第一至三章。<br>
+                            <strong>任務【個人概念脫水】：</strong>寫下你目前最焦慮的 3 個詞彙（如：成功、焦慮、穩定），並用不超過 50 字重新為其定義，設定你的個人判斷標準。
+                        </div>
+                        <textarea id="w1-reflection" placeholder="本週沉思紀錄（例如你的詞彙定義）..." style="width: 100%; min-height: 60px; margin-left: 28px; background-color: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 8px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.88rem; resize: vertical;" oninput="saveText('w1-reflection')"></textarea>
                     </div>
-                    <div class="quiz-feedback" id="q1-feedback"></div>
+
+                    <!-- Week 2 -->
+                    <div class="exercise-item" style="flex-direction: column; gap: 8px;">
+                        <div class="exercise-title">
+                            <label class="checkbox-container" style="font-size: 1rem; font-weight: 700; margin-bottom: 0;">
+                                <input type="checkbox" id="w2-check" onchange="saveProgress('w2-check')">
+                                <span class="checkmark" style="top: 0;"></span>
+                                第 2 週：身心靈的三重光譜
+                            </label>
+                        </div>
+                        <div class="exercise-desc" style="margin-left: 28px;">
+                            <strong>必讀：</strong>《哲學與人生》第四章。<br>
+                            <strong>任務【身心靈能量審計】：</strong>連續 3 天記錄時間分配，寫下如何將 10% 用於「身」的精力轉移給用於「靈」（沉思、非功利漫遊）的修養。
+                        </div>
+                        <textarea id="w2-reflection" placeholder="本週沉思紀錄..." style="width: 100%; min-height: 60px; margin-left: 28px; background-color: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 8px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.88rem; resize: vertical;" oninput="saveText('w2-reflection')"></textarea>
+                    </div>
                 </div>
 
-                <div class="quiz-card">
-                    <div class="quiz-question">Q2. 小明焦慮時「天天睡4小時熬夜死磕，在網路上天天打卡曬筆記」，違反了老子的什麼原則？</div>
-                    <div class="quiz-options">
-                        <button class="quiz-option" onclick="checkAnswer(this, 'q2', true)">A. 剛強死磕違背了「守柔」，曬打卡屬於「著相有名」</button>
-                        <button class="quiz-option" onclick="checkAnswer(this, 'q2', false)">B. 小明做得對，勉強自己就是有志氣，符合「強行者有志」</button>
+                <!-- Phase 2: Daoist Defense -->
+                <div class="sop-container" style="border-left: 2px solid #10b981; padding-left: 20px; margin-bottom: 30px;">
+                    <h3 style="color: #10b981; border: none; padding: 0; margin-bottom: 10px;"><i class="fa-solid fa-shield-halved"></i> 第二階段：道家防禦與決策減法 (第3-5週)</h3>
+                    
+                    <!-- Week 3 -->
+                    <div class="exercise-item" style="flex-direction: column; gap: 8px;">
+                        <div class="exercise-title">
+                            <label class="checkbox-container" style="font-size: 1rem; font-weight: 700; margin-bottom: 0;">
+                                <input type="checkbox" id="w3-check" onchange="saveProgress('w3-check')">
+                                <span class="checkmark" style="top: 0;"></span>
+                                第 3 週：為道日損的減法決策
+                            </label>
+                        </div>
+                        <div class="exercise-desc" style="margin-left: 28px;">
+                            <strong>必讀：</strong>《經典講座 老子》第一、二講；《道德經老子思想的現代涵義》。<br>
+                            <strong>任務【資源脫水】：</strong>無情砍掉 50% 根本不會再看的收藏網頁與跟風訂閱，聚焦於 1 個主專案。
+                        </div>
+                        <textarea id="w3-reflection" placeholder="本週沉思紀錄..." style="width: 100%; min-height: 60px; margin-left: 28px; background-color: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 8px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.88rem; resize: vertical;" oninput="saveText('w3-reflection')"></textarea>
                     </div>
-                    <div class="quiz-feedback" id="q2-feedback"></div>
+
+                    <!-- Week 4 -->
+                    <div class="exercise-item" style="flex-direction: column; gap: 8px;">
+                        <div class="exercise-title">
+                            <label class="checkbox-container" style="font-size: 1rem; font-weight: 700; margin-bottom: 0;">
+                                <input type="checkbox" id="w4-check" onchange="saveProgress('w4-check')">
+                                <span class="checkmark" style="top: 0;"></span>
+                                第 4 週：心齋清空與外化內不化
+                            </label>
+                        </div>
+                        <div class="exercise-desc" style="margin-left: 28px;">
+                            <strong>必讀：</strong>《經典講座 莊子》第一至三講。<br>
+                            <strong>任務【雙軌生存】：</strong>外部交出完美的八股格式（外化），內心畫出隔離帶不為成敗毒害（內不化）。
+                        </div>
+                        <textarea id="w4-reflection" placeholder="本週沉思紀錄..." style="width: 100%; min-height: 60px; margin-left: 28px; background-color: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 8px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.88rem; resize: vertical;" oninput="saveText('w4-reflection')"></textarea>
+                    </div>
+
+                    <!-- Week 5 -->
+                    <div class="exercise-item" style="flex-direction: column; gap: 8px;">
+                        <div class="exercise-title">
+                            <label class="checkbox-container" style="font-size: 1rem; font-weight: 700; margin-bottom: 0;">
+                                <input type="checkbox" id="w5-check" onchange="saveProgress('w5-check')">
+                                <span class="checkmark" style="top: 0;"></span>
+                                第 5 週：庖丁解牛的心流技術
+                            </label>
+                        </div>
+                        <div class="exercise-desc" style="margin-left: 28px;">
+                            <strong>必讀：</strong>《經典講座 莊子》第四講。<br>
+                            <strong>任務【無意識輸出】：</strong>熟練後放空理智，順應事物結構（如力學骨架、資料流）進行 15 分鐘無停頓輸出。
+                        </div>
+                        <textarea id="w5-reflection" placeholder="本週沉思紀錄..." style="width: 100%; min-height: 60px; margin-left: 28px; background-color: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 8px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.88rem; resize: vertical;" oninput="saveText('w5-reflection')"></textarea>
+                    </div>
                 </div>
 
-                <div class="quiz-card">
-                    <div class="quiz-question">Q3. 「無為」是否意味著什麼都不做直接躺平？</div>
-                    <div class="quiz-options">
-                        <button class="quiz-option" onclick="checkAnswer(this, 'q3', false)">A. 是的，順其自然就是完全放任不作為</button>
-                        <button class="quiz-option" onclick="checkAnswer(this, 'q3', true)">B. 錯，無為是「無心而為」（為而不恃），反對的是刻意妄為</button>
+                <!-- Phase 3: Confucian Sincerity -->
+                <div class="sop-container" style="border-left: 2px solid #ef4444; padding-left: 20px; margin-bottom: 30px;">
+                    <h3 style="color: #ef4444; border: none; padding: 0; margin-bottom: 10px;"><i class="fa-solid fa-heart"></i> 第三階段：儒家發動與人性向善 (第6-7週)</h3>
+                    
+                    <!-- Week 6 -->
+                    <div class="exercise-item" style="flex-direction: column; gap: 8px;">
+                        <div class="exercise-title">
+                            <label class="checkbox-container" style="font-size: 1rem; font-weight: 700; margin-bottom: 0;">
+                                <input type="checkbox" id="w6-check" onchange="saveProgress('w6-check')">
+                                <span class="checkmark" style="top: 0;"></span>
+                                第 6 週：真誠發動與人性向善
+                            </label>
+                        </div>
+                        <div class="exercise-desc" style="margin-left: 28px;">
+                            <strong>必讀：</strong>《哲學與人生》儒家章節與人性論。<br>
+                            <strong>任務【真誠發動】：</strong>選擇一個敷衍對待的溝通對象，進行一次 100% 真誠且不設防的傾聽，主動承擔人倫責任。
+                        </div>
+                        <textarea id="w6-reflection" placeholder="本週沉思紀錄..." style="width: 100%; min-height: 60px; margin-left: 28px; background-color: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 8px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.88rem; resize: vertical;" oninput="saveText('w6-reflection')"></textarea>
                     </div>
-                    <div class="quiz-feedback" id="q3-feedback"></div>
+
+                    <!-- Week 7 -->
+                    <div class="exercise-item" style="flex-direction: column; gap: 8px;">
+                        <div class="exercise-title">
+                            <label class="checkbox-container" style="font-size: 1rem; font-weight: 700; margin-bottom: 0;">
+                                <input type="checkbox" id="w7-check" onchange="saveProgress('w7-check')">
+                                <span class="checkmark" style="top: 0;"></span>
+                                第 7 週：人倫關係的系統性重構
+                            </label>
+                        </div>
+                        <div class="exercise-desc" style="margin-left: 28px;">
+                            <strong>必讀：</strong>《哲學與人生》倫理學與社會關係。<br>
+                            <strong>任務【角色定位】：</strong>寫下你扮演的 3 個主要角色，釐清各自的核心義務與邊界，放下對他人的過度控制欲（順應天命）。
+                        </div>
+                        <textarea id="w7-reflection" placeholder="本週沉思紀錄..." style="width: 100%; min-height: 60px; margin-left: 28px; background-color: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 8px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.88rem; resize: vertical;" oninput="saveText('w7-reflection')"></textarea>
+                    </div>
+                </div>
+
+                <!-- Phase 4: I Ching Change -->
+                <div class="sop-container" style="border-left: 2px solid #eab308; padding-left: 20px; margin-bottom: 30px;">
+                    <h3 style="color: #eab308; border: none; padding: 0; margin-bottom: 10px;"><i class="fa-solid fa-spinner"></i> 第四階段：易經決策與變革管理 (第8-9週)</h3>
+                    
+                    <!-- Week 8 -->
+                    <div class="exercise-item" style="flex-direction: column; gap: 8px;">
+                        <div class="exercise-title">
+                            <label class="checkbox-container" style="font-size: 1rem; font-weight: 700; margin-bottom: 0;">
+                                <input type="checkbox" id="w8-check" onchange="saveProgress('w8-check')">
+                                <span class="checkmark" style="top: 0;"></span>
+                                第 8 週：時與位的客觀審計
+                            </label>
+                        </div>
+                        <div class="exercise-desc" style="margin-left: 28px;">
+                            <strong>必讀：</strong>《傅佩榮易經課》第一至三單元。<br>
+                            <strong>任務【時位審計】：</strong>針對卡關專案，分析外部時機（乾卦哪一爻？）與你所處的位置（是否當位/中庸？），調整欲望。
+                        </div>
+                        <textarea id="w8-reflection" placeholder="本週沉思紀錄..." style="width: 100%; min-height: 60px; margin-left: 28px; background-color: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 8px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.88rem; resize: vertical;" oninput="saveText('w8-reflection')"></textarea>
+                    </div>
+
+                    <!-- Week 9 -->
+                    <div class="exercise-item" style="flex-direction: column; gap: 8px;">
+                        <div class="exercise-title">
+                            <label class="checkbox-container" style="font-size: 1rem; font-weight: 700; margin-bottom: 0;">
+                                <input type="checkbox" id="w9-check" onchange="saveProgress('w9-check')">
+                                <span class="checkmark" style="top: 0;"></span>
+                                第 9 週：共時性占卦與德行自修
+                            </label>
+                        </div>
+                        <div class="exercise-desc" style="margin-left: 28px;">
+                            <strong>必讀：</strong>《傅佩榮易經課》占卦解卦。<br>
+                            <strong>任務【德行對治】：</strong>面臨兩難時進行數字起卦。不帶迷信，將卦爻辭當作客觀提示，寫下你需要在「謙、誠、敬」哪一方面進行德行改善。
+                        </div>
+                        <textarea id="w9-reflection" placeholder="本週沉思紀錄..." style="width: 100%; min-height: 60px; margin-left: 28px; background-color: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 8px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.88rem; resize: vertical;" oninput="saveText('w9-reflection')"></textarea>
+                    </div>
+                </div>
+
+                <!-- Phase 5: Transcendence -->
+                <div class="sop-container" style="border-left: 2px solid #a855f7; padding-left: 20px; margin-bottom: 30px;">
+                    <h3 style="color: #a855f7; border: none; padding: 0; margin-bottom: 10px;"><i class="fa-solid fa-moon"></i> 第五階段：超越界安頓與密契合一 (第10-12週)</h3>
+                    
+                    <!-- Week 10 -->
+                    <div class="exercise-item" style="flex-direction: column; gap: 8px;">
+                        <div class="exercise-title">
+                            <label class="checkbox-container" style="font-size: 1rem; font-weight: 700; margin-bottom: 0;">
+                                <input type="checkbox" id="w10-check" onchange="saveProgress('w10-check')">
+                                <span class="checkmark" style="top: 0;"></span>
+                                第 10 週：人與超越界的連結
+                            </label>
+                        </div>
+                        <div class="exercise-desc" style="margin-left: 28px;">
+                            <strong>必讀：</strong>《宗教哲學十四講》第一至四講。<br>
+                            <strong>任務【定義超越界】：</strong>寫下你的超越界（終極歸宿、大自然、道），並記錄你如何透過每日儀式（沉思、寫代碼、讀書）與它連結。
+                        </div>
+                        <textarea id="w10-reflection" placeholder="本週沉思紀錄..." style="width: 100%; min-height: 60px; margin-left: 28px; background-color: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 8px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.88rem; resize: vertical;" oninput="saveText('w10-reflection')"></textarea>
+                    </div>
+
+                    <!-- Week 11 -->
+                    <div class="exercise-item" style="flex-direction: column; gap: 8px;">
+                        <div class="exercise-title">
+                            <label class="checkbox-container" style="font-size: 1rem; font-weight: 700; margin-bottom: 0;">
+                                <input type="checkbox" id="w11-check" onchange="saveProgress('w11-check')">
+                                <span class="checkmark" style="top: 0;"></span>
+                                第 11 週：密契主義與精神整合
+                            </label>
+                        </div>
+                        <div class="exercise-desc" style="margin-left: 28px;">
+                            <strong>必讀：</strong>《宗教哲學十四講》第十一至十三講。<br>
+                            <strong>任務【無念禪修】：</strong>每天 15 分鐘專注呼吸，放手所有的心智噪音與標籤，感受靈魂底層的「無念間隙」。
+                        </div>
+                        <textarea id="w11-reflection" placeholder="本週沉思紀錄..." style="width: 100%; min-height: 60px; margin-left: 28px; background-color: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 8px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.88rem; resize: vertical;" oninput="saveText('w11-reflection')"></textarea>
+                    </div>
+
+                    <!-- Week 12 -->
+                    <div class="exercise-item" style="flex-direction: column; gap: 8px;">
+                        <div class="exercise-title">
+                            <label class="checkbox-container" style="font-size: 1rem; font-weight: 700; margin-bottom: 0;">
+                                <input type="checkbox" id="w12-check" onchange="saveProgress('w12-check')">
+                                <span class="checkmark" style="top: 0;"></span>
+                                第 12 週：畢業專案——建構個人哲學系統
+                            </label>
+                        </div>
+                        <div class="exercise-desc" style="margin-left: 28px;">
+                            <strong>必讀：</strong>全部已學概念。<br>
+                            <strong>任務【哲學白皮書】：</strong>寫下你的個人生命系統，回答：1. 宇宙的本源是什麼？我與其關係如何？2. 我判斷真假善惡的核心標準？3. 遇到危機我如何實操防禦決策？
+                        </div>
+                        <textarea id="w12-reflection" placeholder="本週沉思紀錄..." style="width: 100%; min-height: 80px; margin-left: 28px; background-color: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 8px; color: var(--text-primary); font-family: var(--font-sans); font-size: 0.88rem; resize: vertical;" oninput="saveText('w12-reflection')"></textarea>
+                    </div>
+                </div>
+
+                <div style="text-align: right; margin-top: 30px;">
+                    <button class="btn-primary" onclick="nextStep(6)">進入最後階段：心智檢測與練習本 <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
         </div>
 
-        <!-- 8. Action Exercises -->
-        <div class="tab-pane" id="tab-exercises">
+        <!-- STEP 6: Workbook & Quizzes -->
+        <div class="tab-pane" id="step-6">
+            <!-- Quizzes -->
             <div class="card">
-                <h2><i class="fa-solid fa-calendar-check"></i> 實作與習慣內化練習</h2>
-                <p style="margin-bottom: 20px; color: var(--text-secondary);">
-                    勾選你已開始執行的練習任務，進度將自動儲存於瀏覽器中：
-                </p>
+                <h2><i class="fa-solid fa-check-double"></i> 階段六：老莊學習系統自我檢測與練習本</h2>
+                
+                <div class="sop-container">
+                    <h3>1. 心智自檢測驗題 (請點擊答題驗證)</h3>
+                    
+                    <div class="quiz-card">
+                        <div class="quiz-question">Q1. 莊子提到「心齋」是「虛以待物」。這與老子的「為道日損」在學習方法上有何聯結與不同？</div>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-quiz="q1" onclick="checkAnswer(this, 'q1', true)">A. 兩者都主張減法。聯結在於都反對囤積；不同在於老子是在外在項目與資訊量上做減法，莊子是在內在大腦概念偏見上做減法（空杯）。</button>
+                            <button class="quiz-option" data-quiz="q1" onclick="checkAnswer(this, 'q1', false)">B. 沒有關係。老子主張什麼都不學，莊子主張把以前學的全部忘光。</button>
+                        </div>
+                        <div class="quiz-feedback" id="q1-feedback"></div>
+                    </div>
 
-                <div class="exercise-item">
-                    <label class="checkbox-container">
-                        <input type="checkbox" id="ex-laozi-1" onchange="saveProgress('ex-laozi-1')">
-                        <span class="checkmark"></span>
-                    </label>
-                    <div class="exercise-details">
-                        <div class="exercise-title">任務一：學習與專案清單「決策脫水」 (1次性)</div>
-                        <div class="exercise-desc">盤點目前進行中的副業/專案，硬性劃掉 50% 屬於跟風焦慮項目，鎖定唯一個核心並設定知止煞車點。</div>
+                    <div class="quiz-card">
+                        <div class="quiz-question">Q2. 小華討厭某門八股的必修課，選擇交白卷抗議，導致被迫重修。他違反了什麼原則？</div>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-quiz="q2" onclick="checkAnswer(this, 'q2', false)">A. 違反了「無為自化」，他應該直接去學校主管處投訴，不應該放棄抗議。</button>
+                            <button class="quiz-option" data-quiz="q2" onclick="checkAnswer(this, 'q2', true)">B. 違反了「外化而內不化」。他應外部順應答題通關以換取生存（外化），內在心靈不為其所動（內不化），正面抗拒只會帶來重大磨損。</button>
+                        </div>
+                        <div class="quiz-feedback" id="q2-feedback"></div>
+                    </div>
+
+                    <div class="quiz-card">
+                        <div class="quiz-question">Q3. 在準備考試時，小李每天在朋友圈打卡曬單字進度截圖，結果因為打卡中斷而焦慮退群。這在老莊中被稱為什麼？</div>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-quiz="q3" onclick="checkAnswer(this, 'q3', true)">A. 「著相有名」的炫耀學習。執著於外界相對評判，動機偏離了學習本體的「無名」狀態，因此易碎。</button>
+                            <button class="quiz-option" data-quiz="q3" onclick="checkAnswer(this, 'q3', false)">B. 正確的學習激勵。這符合老子的「為學日益」，只要堅持就一定能背完。</button>
+                        </div>
+                        <div class="quiz-feedback" id="q3-feedback"></div>
                     </div>
                 </div>
 
-                <div class="exercise-item">
-                    <label class="checkbox-container">
-                        <input type="checkbox" id="ex-laozi-2" onchange="saveProgress('ex-laozi-2')">
-                        <span class="checkmark"></span>
-                    </label>
-                    <div class="exercise-details">
-                        <div class="exercise-title">任務二：難題卡點的「無為散步」實驗 (每次卡關時)</div>
-                        <div class="exercise-desc">卡卡超過 30 分鐘，強制合上螢幕出門散步 15 分鐘，不准攜帶手機，感受大腦發散模式的靈感湧現。</div>
+                <!-- Action Exercises -->
+                <div class="sop-container" style="margin-top: 40px;">
+                    <h3>2. 習慣實作與打卡 (請勾選已執行的任務)</h3>
+                    
+                    <div class="exercise-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="ex-laozi-1" onchange="saveProgress('ex-laozi-1')">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="exercise-details">
+                            <div class="exercise-title">任務一：學習資源「減法脫水」 (1次性)</div>
+                            <div class="exercise-desc">清理瀏覽器收藏夾與硬碟，無情劃掉或封存 80%「以後會看」的跟風資料。只准留下 1 個最契合當下生存剛需的學習通道。</div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="ex-laozi-2" onchange="saveProgress('ex-laozi-2')">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="exercise-details">
+                            <div class="exercise-title">任務二：學習前的「心齋脫水」實驗 (每次學習前)</div>
+                            <div class="exercise-desc">在閱讀高難度文獻前，閉眼做三次深呼吸，在心中默念口訣清空過去的所有成見，不帶評判地以空杯姿態閱讀 20 分鐘。</div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="ex-laozi-3" onchange="saveProgress('ex-laozi-3')">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="exercise-details">
+                            <div class="exercise-title">任務三：死板科目的「外化套路通關」 (3天內)</div>
+                            <div class="exercise-desc">針對你討厭但必須通過的考試，花 30 分鐘整理其標準評分模板與關鍵字套路。以機器人姿態答題，內心超然不受分數評斷。</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="exercise-item">
-                    <label class="checkbox-container">
-                        <input type="checkbox" id="ex-laozi-3" onchange="saveProgress('ex-laozi-3')">
-                        <span class="checkmark"></span>
-                    </label>
-                    <div class="exercise-details">
-                        <div class="exercise-title">任務三：溝通「處下示弱」實驗 (3天內)</div>
-                        <div class="exercise-desc">在交談中遇到不懂的專業詞彙時，不偽裝裝懂，真誠地說：「這個我不太清楚，你可以教我一下嗎？」</div>
+                <!-- Daily Cards -->
+                <div class="sop-container" style="margin-top: 40px;">
+                    <h3>3. 日常應用轉換小卡</h3>
+                    <div class="grid-list">
+                        <div class="exercise-item" style="margin-bottom:0;">
+                            <div class="exercise-details">
+                                <div class="exercise-title"><i class="fa-solid fa-lightbulb"></i> 轉換卡 1：戰勝學習焦慮</div>
+                                <div class="exercise-desc">停止在收藏夾囤積學習影片。每天清理一次未讀書籤，退訂 5 個無用公眾號，將資源集中於主航道。</div>
+                            </div>
+                        </div>
+                        <div class="exercise-item" style="margin-bottom:0;">
+                            <div class="exercise-details">
+                                <div class="exercise-title"><i class="fa-solid fa-comments"></i> 轉換卡 2：戰勝溝通爭吵</div>
+                                <div class="exercise-desc">當主管或合作夥伴批評報告格式不對時，大方點頭承認並改進（外化）；內心完全不懷疑自我價值（內不化）。</div>
+                            </div>
+                        </div>
+                        <div class="exercise-item" style="margin-bottom:0;">
+                            <div class="exercise-details">
+                                <div class="exercise-title"><i class="fa-solid fa-shield"></i> 轉換卡 3：克服工作倦怠</div>
+                                <div class="exercise-desc">每晚睡前 20 分鐘，絕對不看任何工作技術手冊或手機，只讀 5 頁《莊子》寓言故事，保護大腦認知彈性。</div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn-primary" onclick="resetAllProgress()"><i class="fa-solid fa-rotate-left"></i> 重設所有階段進度與測驗</button>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- Modal overlay for zooming the map -->
+    <!-- Zoom modal overlay -->
     <div id="zoom-modal" class="zoom-modal">
         <span class="close-modal" id="close-modal">&times;</span>
         <div class="zoom-modal-content" id="zoom-modal-content"></div>
         <div class="zoom-controls">
-            <button id="zoom-in-btn" title="放大"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
-            <button id="zoom-out-btn" title="縮小"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
-            <button id="zoom-reset-btn" title="重設"><i class="fa-solid fa-arrows-rotate"></i></button>
+            <button id="zoom-in-btn" title="放大"><i class="fa-solid fa-magnifying-glass-plus"></i> 放大</button>
+            <button id="zoom-out-btn" title="縮小"><i class="fa-solid fa-magnifying-glass-minus"></i> 縮小</button>
+            <button id="zoom-reset-btn" title="重設"><i class="fa-solid fa-arrows-rotate"></i> 重設</button>
         </div>
     </div>
 
     <script>
+        // Progress calculator
+        function updateOverallProgress() {
+            const totalItems = 26; // 8 SOP steps, 3 quizzes, 3 habits, 12 weeks checks
+            let completedItems = 0;
+
+            // Check SOP steps
+            const sops = ['sop1-1', 'sop1-2', 'sop1-3', 'sop1-4', 'sop2-1', 'sop2-2', 'sop2-3', 'sop2-4'];
+            sops.forEach(id => {
+                if (localStorage.getItem('sop-laozi-step-' + id) === 'completed') {
+                    completedItems++;
+                }
+            });
+
+            // Check Quizzes
+            const quizzes = ['q1', 'q2', 'q3'];
+            quizzes.forEach(id => {
+                if (localStorage.getItem('quiz-laozi-' + id) === 'correct') {
+                    completedItems++;
+                }
+            });
+
+            // Check Habits
+            const habits = ['ex-laozi-1', 'ex-laozi-2', 'ex-laozi-3'];
+            habits.forEach(id => {
+                if (localStorage.getItem(id) === 'true') {
+                    completedItems++;
+                }
+            });
+
+            // Check Weeks
+            for (let i = 1; i <= 12; i++) {
+                if (localStorage.getItem('w' + i + '-check') === 'true') {
+                    completedItems++;
+                }
+            }
+
+            const percentage = Math.round((completedItems / totalItems) * 100);
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            document.getElementById('progress-text').innerText = percentage + '%';
+        }
+
         // Tab Navigation
-        const tabs = document.querySelectorAll('.tab-btn');
+        const stepButtons = document.querySelectorAll('.step-nav-btn');
         const panes = document.querySelectorAll('.tab-pane');
 
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = tab.dataset.tab;
-                
-                tabs.forEach(t => t.classList.remove('active'));
-                panes.forEach(p => p.classList.remove('active'));
+        function changeStep(stepNum) {
+            stepButtons.forEach(btn => btn.classList.remove('active'));
+            panes.forEach(pane => pane.classList.remove('active'));
 
-                tab.classList.add('active');
-                document.getElementById(target).classList.add('active');
-            });
-        });
+            const activeBtn = document.querySelector(`.step-nav-btn[data-tab="step-${stepNum}"]`);
+            const activePane = document.getElementById(`step-${stepNum}`);
+
+            if (activeBtn && activePane) {
+                activeBtn.classList.add('active');
+                activePane.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function nextStep(stepNum) {
+            changeStep(stepNum);
+        }
 
         // Theme Toggle Logic
         const themeToggle = document.getElementById('theme-toggle');
@@ -1114,6 +1684,7 @@ flowchart TD
             if (stepElement) {
                 stepElement.classList.add('completed');
                 localStorage.setItem('sop-laozi-step-' + stepId, 'completed');
+                updateOverallProgress();
             }
         }
 
@@ -1123,6 +1694,7 @@ flowchart TD
                 const stepId = step.id.replace('step-', '');
                 localStorage.removeItem('sop-laozi-step-' + stepId);
             });
+            updateOverallProgress();
         }
 
         function loadSopProgress() {
@@ -1146,18 +1718,53 @@ flowchart TD
 
             if (isCorrect) {
                 element.classList.add('correct');
+                localStorage.setItem('quiz-laozi-' + quizId, 'correct');
                 if (quizId === 'q1') {
-                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！在初期吸收期需要「日益」增加儲備；但到了核心抉擇與解題階段，則需要「日損」剔除干擾、聚焦唯一的底層核心。';
+                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！老莊的減法不同：老子的「為道日損」是排除外在的冗餘資訊與焦慮項目；莊子的「心齋」則是清理內在大腦的想法偏見與經驗成見，確保如實吸收。';
                 } else if (quizId === 'q2') {
-                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！天天少睡死磕是典型的硬碰硬（違背守柔），而炫耀式打卡則是追求外在相對價值評價（有名），容易招致內耗折損。';
+                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！小華交白卷正面抗拒體制，導致重修，這造成了重大磨損。正確做法是「外化而內不化」——外在按照評分標準答題通關，內心不因此受挫折或被同化。';
                 } else if (quizId === 'q3') {
-                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！無為反對的是「主觀妄為與執著控制」，而不是不做準備。「為而不恃」是先努力做好一切準備，然後放手順應規律。';
+                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！在社交媒體曬打卡是執著於外界相對評價的「著相有名」，學習動機一旦偏離了知識本身（無名），遇到阻礙便容易崩塌。';
                 }
                 feedback.className = 'quiz-feedback success';
             } else {
                 element.classList.add('incorrect');
-                feedback.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> 回答錯誤。請重新思考老子關於「有為/無為」及「日損/日益」在不同情境下的對比。';
+                localStorage.setItem('quiz-laozi-' + quizId, 'incorrect');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> 回答錯誤。請重新體會老莊思想中，關於為道日損、外化內不化以及有名無名的核心教益。';
                 feedback.className = 'quiz-feedback error';
+            }
+            updateOverallProgress();
+        }
+
+        function loadQuizProgress() {
+            const quizzes = ['q1', 'q2', 'q3'];
+            quizzes.forEach(id => {
+                const status = localStorage.getItem('quiz-laozi-' + id);
+                if (status === 'correct') {
+                    const quizOptions = document.querySelectorAll(`.quiz-option[data-quiz="${id}"]`);
+                    quizOptions.forEach(opt => {
+                        opt.style.pointerEvents = 'none';
+                    });
+                    const correctOpt = Array.from(quizOptions).find(opt => opt.innerHTML.includes('A. 兩者都主張減法') || opt.innerHTML.includes('B. 違反了「外化而內不化」') || opt.innerHTML.includes('A. 「著相有名」的炫耀學習'));
+                    if (correctOpt) {
+                        correctOpt.classList.add('correct');
+                    }
+                    const feedback = document.getElementById(id + '-feedback');
+                    if (feedback) {
+                        feedback.className = 'quiz-feedback success';
+                        if (id === 'q1') feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 之前已回答正確！老子「為道日損」是外在去重，莊子「心齋」是內在大腦空杯。';
+                        if (id === 'q2') feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 之前已回答正確！應試時應採行「外化而內不化」策略避免內耗。';
+                        if (id === 'q3') feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 之前已回答正確！打卡炫耀是「著相有名」的學習，動機容易崩塌。';
+                    }
+                }
+            });
+        }
+
+        // Textarea persistence
+        function saveText(id) {
+            const textarea = document.getElementById(id);
+            if (textarea) {
+                localStorage.setItem(id, textarea.value);
             }
         }
 
@@ -1165,17 +1772,80 @@ flowchart TD
         function saveProgress(id) {
             const checkbox = document.getElementById(id);
             localStorage.setItem(id, checkbox.checked);
+            updateOverallProgress();
         }
 
         function loadProgress() {
+            // Load standard habits
             ['ex-laozi-1', 'ex-laozi-2', 'ex-laozi-3'].forEach(id => {
                 const checked = localStorage.getItem(id) === 'true';
                 const checkbox = document.getElementById(id);
-                if (checkbox) {
-                    checkbox.checked = checked;
+                if (checkbox) checkbox.checked = checked;
+            });
+
+            // Load weekly checks & textareas
+            for (let i = 1; i <= 12; i++) {
+                const checkId = 'w' + i + '-check';
+                const checked = localStorage.getItem(checkId) === 'true';
+                const checkbox = document.getElementById(checkId);
+                if (checkbox) checkbox.checked = checked;
+
+                const textId = 'w' + i + '-reflection';
+                const textValue = localStorage.getItem(textId) || '';
+                const textarea = document.getElementById(textId);
+                if (textarea) textarea.value = textValue;
+            }
+
+            loadSopProgress();
+            loadQuizProgress();
+            updateOverallProgress();
+        }
+
+        function resetAllProgress() {
+            // Reset local storage keys for habits
+            ['ex-laozi-1', 'ex-laozi-2', 'ex-laozi-3'].forEach(id => {
+                localStorage.removeItem(id);
+                const cb = document.getElementById(id);
+                if (cb) cb.checked = false;
+            });
+
+            // Reset Weeks
+            for (let i = 1; i <= 12; i++) {
+                localStorage.removeItem('w' + i + '-check');
+                localStorage.removeItem('w' + i + '-reflection');
+                const cb = document.getElementById('w' + i + '-check');
+                if (cb) cb.checked = false;
+                const ta = document.getElementById('w' + i + '-reflection');
+                if (ta) ta.value = '';
+            }
+
+            // Reset SOPs
+            const sops = ['sop1-1', 'sop1-2', 'sop1-3', 'sop1-4', 'sop2-1', 'sop2-2', 'sop2-3', 'sop2-4'];
+            sops.forEach(id => {
+                localStorage.removeItem('sop-laozi-step-' + id);
+            });
+            document.querySelectorAll('.sop-step').forEach(step => {
+                step.classList.remove('completed');
+            });
+
+            // Reset Quizzes
+            const quizzes = ['q1', 'q2', 'q3'];
+            quizzes.forEach(id => {
+                localStorage.removeItem('quiz-laozi-' + id);
+                const feedback = document.getElementById(id + '-feedback');
+                if (feedback) {
+                    feedback.style.display = 'none';
+                    feedback.className = 'quiz-feedback';
                 }
             });
-            loadSopProgress();
+
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                opt.style.pointerEvents = 'auto';
+            });
+
+            updateOverallProgress();
+            changeStep(1);
         }
 
         // Zoom Modal Logic for Mermaid diagram
@@ -1273,6 +1943,174 @@ flowchart TD
         window.addEventListener('touchend', () => {
             isDragging = false;
         });
+
+        // Audio Chime Synthesis (Web Audio API)
+        function playChime() {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+            const ctx = new AudioContext();
+            
+            // Core frequencies of a singing bowl (beating overtones)
+            const baseFreq = 180; // Low calming F3/G3 hum
+            const partials = [
+                { freq: baseFreq, gain: 0.5, decay: 6.0 },
+                { freq: baseFreq * 1.005, gain: 0.3, decay: 5.0 }, // Beating frequency for warm vibrato
+                { freq: baseFreq * 2.81, gain: 0.25, decay: 3.5 }, // Metallic overtone 1
+                { freq: baseFreq * 2.83, gain: 0.15, decay: 3.0 }, // Beating overtone 1
+                { freq: baseFreq * 5.0, gain: 0.1, decay: 2.0 },   // High overtone
+                { freq: baseFreq * 6.1, gain: 0.05, decay: 1.2 }   // Initial strike chime
+            ];
+            
+            const masterGain = ctx.createGain();
+            masterGain.connect(ctx.destination);
+            masterGain.gain.setValueAtTime(0.001, ctx.currentTime);
+            // Gentle attack (soft mallet strike)
+            masterGain.gain.linearRampToValueAtTime(0.8, ctx.currentTime + 0.08);
+            masterGain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 6.0);
+            
+            partials.forEach(p => {
+                const osc = ctx.createOscillator();
+                const gainNode = ctx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(p.freq, ctx.currentTime);
+                
+                gainNode.gain.setValueAtTime(p.gain, ctx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + p.decay);
+                
+                osc.connect(gainNode);
+                gainNode.connect(masterGain);
+                
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + Math.max(6.0, p.decay));
+            });
+        }
+
+        // Timer 1: Xinzai (心齋)
+        let xinzaiInterval;
+        let xinzaiRunning = false;
+        let xinzaiTime = 120; // 2 minutes
+
+        function toggleXinzaiTimer() {
+            const btn = document.getElementById('xinzai-btn');
+            const timeDisplay = document.getElementById('xinzai-time');
+            const progress = document.getElementById('xinzai-progress');
+
+            if (xinzaiRunning) {
+                clearInterval(xinzaiInterval);
+                xinzaiRunning = false;
+                btn.innerHTML = '<i class="fa-solid fa-play"></i> <span>恢復心齋清空</span>';
+            } else {
+                playChime();
+                xinzaiRunning = true;
+                btn.innerHTML = '<i class="fa-solid fa-pause"></i> <span>暫停定錨</span>';
+                
+                xinzaiInterval = setInterval(() => {
+                    if (xinzaiTime <= 0) {
+                        clearInterval(xinzaiInterval);
+                        playChime();
+                        xinzaiRunning = false;
+                        btn.innerHTML = '<i class="fa-solid fa-rotate-left"></i> <span>重設</span>';
+                        btn.onclick = resetXinzaiTimer;
+                        return;
+                    }
+                    xinzaiTime--;
+                    
+                    const min = Math.floor(xinzaiTime / 60).toString().padStart(2, '0');
+                    const sec = (xinzaiTime % 60).toString().padStart(2, '0');
+                    timeDisplay.innerText = `${min}:${sec}`;
+                    
+                    const deg = ((120 - xinzaiTime) / 120) * 360;
+                    progress.style.transform = `rotate(${deg}deg)`;
+                }, 1000);
+            }
+        }
+
+        function resetXinzaiTimer() {
+            clearInterval(xinzaiInterval);
+            xinzaiTime = 120;
+            xinzaiRunning = false;
+            document.getElementById('xinzai-time').innerText = "02:00";
+            document.getElementById('xinzai-progress').style.transform = "rotate(0deg)";
+            const btn = document.getElementById('xinzai-btn');
+            btn.innerHTML = '<i class="fa-solid fa-wind"></i> <span>啟動心齋清空</span>';
+            btn.onclick = toggleXinzaiTimer;
+        }
+
+        // Timer 2: Wuwei (無為自化)
+        let wuweiInterval;
+        let wuweiRunning = false;
+        let wuweiTime = 2700; // 45 minutes
+        let isFocusMode = true; // true: focus, false: diffuse
+
+        function toggleWuweiTimer() {
+            const btn = document.getElementById('wuwei-btn');
+            const timeDisplay = document.getElementById('wuwei-time');
+            const progress = document.getElementById('wuwei-progress');
+            const modeLabel = document.getElementById('wuwei-mode');
+
+            if (wuweiRunning) {
+                clearInterval(wuweiInterval);
+                wuweiRunning = false;
+                btn.innerHTML = '<i class="fa-solid fa-play"></i> <span>恢復雙軌計時</span>';
+            } else {
+                playChime();
+                wuweiRunning = true;
+                btn.innerHTML = '<i class="fa-solid fa-pause"></i> <span>暫停計時</span>';
+                
+                wuweiInterval = setInterval(() => {
+                    if (wuweiTime <= 0) {
+                        clearInterval(wuweiInterval);
+                        playChime();
+                        wuweiRunning = false;
+                        
+                        if (isFocusMode) {
+                            isFocusMode = false;
+                            wuweiTime = 900; // 15 mins diffuse
+                            timeDisplay.innerText = "15:00";
+                            modeLabel.innerText = "發散 (無為) 模式";
+                            modeLabel.style.color = "var(--accent-success)";
+                            progress.style.borderTopColor = "var(--accent-success)";
+                        } else {
+                            isFocusMode = true;
+                            wuweiTime = 2700; // 45 mins focus
+                            timeDisplay.innerText = "45:00";
+                            modeLabel.innerText = "專注 (有為) 模式";
+                            modeLabel.style.color = "var(--accent)";
+                            progress.style.borderTopColor = "var(--accent)";
+                        }
+                        
+                        btn.innerHTML = '<i class="fa-solid fa-rotate-left"></i> <span>重新啟動</span>';
+                        btn.onclick = resetWuweiTimer;
+                        return;
+                    }
+                    wuweiTime--;
+                    
+                    const min = Math.floor(wuweiTime / 60).toString().padStart(2, '0');
+                    const sec = (wuweiTime % 60).toString().padStart(2, '0');
+                    timeDisplay.innerText = `${min}:${sec}`;
+                    
+                    const totalSec = isFocusMode ? 2700 : 900;
+                    const deg = ((totalSec - wuweiTime) / totalSec) * 360;
+                    progress.style.transform = `rotate(${deg}deg)`;
+                }, 1000);
+            }
+        }
+
+        function resetWuweiTimer() {
+            clearInterval(wuweiInterval);
+            wuweiTime = 2700;
+            wuweiRunning = false;
+            isFocusMode = true;
+            document.getElementById('wuwei-time').innerText = "45:00";
+            document.getElementById('wuwei-progress').style.transform = "rotate(0deg)";
+            document.getElementById('wuwei-progress').style.borderTopColor = "var(--accent)";
+            document.getElementById('wuwei-mode').innerText = "專注 (有為) 模式";
+            document.getElementById('wuwei-mode').style.color = "var(--accent)";
+            const btn = document.getElementById('wuwei-btn');
+            btn.innerHTML = '<i class="fa-solid fa-play"></i> <span>啟動雙軌番茄鐘</span>';
+            btn.onclick = toggleWuweiTimer;
+        }
 
         window.onload = loadProgress;
     </script>
