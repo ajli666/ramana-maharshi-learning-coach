@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宗薩蔣揚欽哲：正見與心智重塑系統</title>
+    <!-- Google Fonts: Inter & Outfit & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Mermaid.js for flowcharts -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useWidth: true, htmlLabels: true }
+        });
+    </script>
+    <style>
+        :root {
+            --bg-primary: #0d0b09; /* Deep mahogany black */
+            --bg-secondary: #171310; /* Dark chocolate wood */
+            --bg-tertiary: #241d18; /* Rich walnut wood */
+            --accent: #d4af37; /* Tibetan Gold */
+            --accent-glow: rgba(212, 175, 55, 0.15);
+            --accent-red: #8b2623; /* Buddhist Maroon */
+            --accent-success: #10b981;
+            --accent-error: #ef4444;
+            --text-primary: #f5f2eb; /* Warm parchment */
+            --text-secondary: #c7beaf; /* Muted sand */
+            --text-muted: #8c8273;
+            --border: #3d3128;
+            --shadow: rgba(0, 0, 0, 0.6);
+            --font-sans: 'Inter', 'Outfit', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #fcfbfa;
+            --bg-secondary: #f4f0e6;
+            --bg-tertiary: #e9e2d3;
+            --accent: #b59023;
+            --accent-glow: rgba(181, 144, 35, 0.1);
+            --accent-red: #721c1a;
+            --accent-success: #059669;
+            --accent-error: #dc2626;
+            --text-primary: #2d261e;
+            --text-secondary: #5c5043;
+            --text-muted: #9c8e7e;
+            --border: #d5c8b5;
+            --shadow: rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            transition: var(--transition);
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 50px 0 30px 0;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .header-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .category-tag {
+            background-color: var(--accent-glow);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin-top: 10px;
+        }
+
+        /* Syllabus Progress Bar */
+        .progress-container {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar-wrapper {
+            flex-grow: 1;
+            height: 8px;
+            background-color: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background-color: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+            transition: width 0.5s ease;
+        }
+
+        .progress-percentage {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent);
+            min-width: 40px;
+            text-align: right;
+        }
+
+        /* 6-Step Navigation */
+        .steps-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 10px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .steps-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .step-nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            border-radius: 12px;
+            transition: var(--transition);
+            flex: 1;
+            min-width: 130px;
+            text-align: center;
+        }
+
+        .step-nav-btn span.step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .step-nav-btn:hover {
+            color: var(--text-primary);
+            background-color: var(--bg-tertiary);
+        }
+
+        .step-nav-btn.active {
+            color: var(--accent);
+            background-color: var(--accent-glow);
+        }
+
+        .step-nav-btn.active span.step-number {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-primary);
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.05);
+        }
+
+        h2 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
+        }
+
+        h2 i {
+            color: var(--accent);
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            border-bottom: 1px dashed var(--border);
+            padding-bottom: 8px;
+        }
+
+        .grid-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-list {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .grid-item {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .grid-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .grid-item-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .grid-item-title i {
+            color: var(--accent);
+        }
+
+        .grid-item-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        tr:hover td {
+            color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .mermaid-container {
+            background-color: #080605;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            cursor: zoom-in;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .mermaid-container:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .highlight-box {
+            border-left: 4px solid var(--accent);
+            background-color: var(--bg-tertiary);
+            padding: 16px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        /* SOP Steps */
+        .sop-container {
+            margin: 20px 0;
+        }
+
+        .sop-step {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 24px;
+        }
+
+        .sop-step::before {
+            content: '';
+            position: absolute;
+            left: 17px;
+            top: 28px;
+            bottom: -22px;
+            width: 2px;
+            background-color: var(--border);
+            z-index: 1;
+        }
+
+        .sop-step:last-child::before {
+            display: none;
+        }
+
+        .sop-badge {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--bg-tertiary);
+            border: 2px solid var(--border);
+            color: var(--text-secondary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        .sop-step.completed .sop-badge {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .sop-step-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sop-step-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .sop-action-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sop-action-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Timers styling */
+        .timer-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            padding: 25px;
+            background-color: var(--bg-tertiary);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            width: 100%;
+        }
+
+        .timer-circle {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--bg-secondary) 60%, transparent 61%);
+            border: 4px solid var(--border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .timer-progress {
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top-color: var(--accent);
+            transform: rotate(0deg);
+            pointer-events: none;
+            transition: transform 1s linear;
+        }
+
+        .timer-btn {
+            background-color: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px var(--accent-glow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timer-btn:hover {
+            background-color: #f7d263;
+            transform: translateY(-1px);
+        }
+
+        .timer-btn:active {
+            transform: translateY(0);
+        }
+
+        .timer-prompt-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 18px;
+            margin-top: 15px;
+            font-size: 0.92rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Checkbox lists */
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .check-item:hover {
+            border-color: var(--accent);
+        }
+
+        .check-input {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent);
+            cursor: pointer;
+            margin-top: 2px;
+        }
+
+        .check-label {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        .check-label strong {
+            color: var(--accent);
+        }
+
+        /* Quiz Styling */
+        .quiz-card {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-question {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.92rem;
+            transition: var(--transition);
+        }
+
+        .quiz-option:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        .quiz-option.correct {
+            background-color: rgba(16, 185, 129, 0.15);
+            border-color: var(--accent-success);
+            color: #d1fae5;
+        }
+
+        .quiz-option.incorrect {
+            background-color: rgba(239, 68, 68, 0.15);
+            border-color: var(--accent-error);
+            color: #fee2e2;
+        }
+
+        .quiz-feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: none;
+            line-height: 1.5;
+        }
+
+        .quiz-feedback.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--accent-success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .quiz-feedback.error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--accent-error);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        /* Reflection text area */
+        .reflection-textarea {
+            width: 100%;
+            min-height: 80px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            resize: vertical;
+            margin-top: 10px;
+            transition: var(--transition);
+        }
+
+        .reflection-textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        /* Zoom modal styling */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(13, 11, 9, 0.95);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .zoom-modal-content {
+            width: 90%;
+            height: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .zoom-modal-content svg {
+            max-width: 100%;
+            max-height: 100%;
+            transition: transform 0.1s ease;
+            cursor: grab;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: var(--text-secondary);
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+        }
+
+        .zoom-controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .zoom-controls button {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .zoom-controls button:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background-color: var(--accent-glow);
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .btn-primary:hover {
+            background-color: #f7d263;
+            box-shadow: 0 0 12px var(--accent-glow);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-meta">
+                <span class="category-tag">Dzongsar Ingest Coach</span>
+                <button class="theme-toggle" id="theme-toggle" title="切換主題">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+            <h1>宗薩蔣揚欽哲：正見與心智重塑系統</h1>
+            <div class="subtitle">將《正見》與《八萬四千問》轉化為日常認知的解脫防禦工具。</div>
+        </header>
+
+        <!-- Progressive Progress Bar -->
+        <div class="progress-container">
+            <span class="progress-label"><i class="fa-solid fa-graduation-cap"></i> 7日修心計畫進度：</span>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar-fill" id="progress-bar"></div>
+            </div>
+            <span class="progress-percentage" id="progress-text">0%</span>
+        </div>
+
+        <!-- 6-Step Progressive Navigation -->
+        <nav class="steps-nav">
+            <button class="step-nav-btn active" data-tab="step-1" onclick="changeStep(1)">
+                <span class="step-number">1</span>
+                正見心智圖
+            </button>
+            <button class="step-nav-btn" data-tab="step-2" onclick="changeStep(2)">
+                <span class="step-number">2</span>
+                共同與獨特框架
+            </button>
+            <button class="step-nav-btn" data-tab="step-3" onclick="changeStep(3)">
+                <span class="step-number">3</span>
+                日常實作 SOP
+            </button>
+            <button class="step-nav-btn" data-tab="step-4" onclick="changeStep(4)">
+                <span class="step-number">4</span>
+                避開修行反模式
+            </button>
+            <button class="step-nav-btn" data-tab="step-5" onclick="changeStep(5)">
+                <span class="step-number">5</span>
+                7日修心計畫
+            </button>
+            <button class="step-nav-btn" data-tab="step-6" onclick="changeStep(6)">
+                <span class="step-number">6</span>
+                自我檢測與練習
+            </button>
+        </nav>
+
+        <!-- STEP 1: Mind Map -->
+        <div class="tab-pane active" id="step-1">
+            <div class="card">
+                <h2><i class="fa-solid fa-diagram-project"></i> 階段一：建立「正見與解脫」認知心智圖</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    理清佛陀最純粹的哲學見地，破除世俗常見執著與精神物質主義。點擊下方 Mermaid 流程圖可放大並拖曳檢視：
+                </p>
+                <div class="mermaid-container" id="mermaid-flowchart">
+                    <pre class="mermaid">
+graph TD
+    A["宗薩欽哲：正見與解脫系統"] --> B["《正見》：四法印地基"]
+    A --> C["《八萬四千問》：日常應用與防禦"]
+    
+    B --> B1["諸行無常<br>一切和合事物皆隨因緣解體"]
+    B --> B2["諸漏皆苦<br>一切情緒背後皆是我執與期望恐懼"]
+    B --> B3["諸法無我<br>事物皆無獨立自性，緣起性空"]
+    B --> B4["涅槃寂靜<br>解脫是放下標籤，超越概念與恐懼"]
+    
+    C --> C1["二諦生活<br>外在世俗諦精準答題，內在勝義諦超然無懼"]
+    C --> C2["我執去實體化<br>切斷心智故事，直接凝視情緒生理能量"]
+    C --> C3["精神物質主義防範<br>警惕用佛法包裝小我與靈性優越感"]
+    
+    style A fill:#7a1f1d,stroke:#d4af37,stroke-width:2px,color:#fff
+    style B fill:#241d18,stroke:#3d3128,color:#fff
+    style C fill:#1e293b,stroke:#d4af37,color:#fff
+                    </pre>
+                </div>
+                <div style="text-align: right;">
+                    <button class="btn-primary" onclick="nextStep(2)">進入下一階段：共同與獨特框架 <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2: Frameworks -->
+        <div class="tab-pane" id="step-2">
+            <div class="card">
+                <h2><i class="fa-solid fa-scale-balanced"></i> 階段二：跨書共同框架與獨特貢獻</h2>
+                <h3 style="margin-top: 10px;">1. 跨書共同核心框架</h3>
+                <div class="grid-list" style="margin-bottom: 25px;">
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-yin-yang"></i> 二諦並存 (The Two Truths)</div>
+                        <div class="grid-item-desc">
+                            **世俗諦**（相對真理）指出世俗規律如常運作，我們應盡職責；**勝義諦**（絕對真理）指出萬事萬物空無自性。修行人應當外在演好世俗角色，內在超然於得失。
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title"><i class="fa-solid fa-circle-minus"></i> 減法去魅 (Subtractive Decategorization)</div>
+                        <div class="grid-item-desc">
+                            佛法不是「加上」道德與儀式，而是「減去」大腦的標籤與預設概念。涅槃即是概念被徹底洗淨後的自由狀態。
+                        </div>
+                    </div>
+                </div>
+
+                <h3>2. 各書獨特貢獻</h3>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>書名</th>
+                                <th>獨特貢獻</th>
+                                <th>不可取代的解惑情境</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>《正見：佛陀的證悟》</strong></td>
+                                <td>從根本上剝離「文化外衣」，還原「四法印」為不可動搖的認知底層代碼。</td>
+                                <td>當自己陷入形式主義（吃素、燒香即修行）的自滿與焦慮時。</td>
+                            </tr>
+                            <tr>
+                                <td><strong>《八萬四千問》</strong></td>
+                                <td>提供極具批判性的活佛體制、上師防禦界線、親密關係我執剖析。</td>
+                                <td>當在親密關係中陷入索求與控制內耗，或對修行建制感到迷茫時。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="text-align: right; margin-top: 20px;">
+                    <button class="btn-primary" onclick="nextStep(3)">進入下一階段：日常實作 SOP <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: Actionable SOPs -->
+        <div class="tab-pane" id="step-3">
+            <div class="card">
+                <h2><i class="fa-solid fa-circle-play"></i> 階段三：正見實作 SOP 與防禦定錨</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">將抽象佛理轉化為具體操作。遇到困境時請依序執行：</p>
+
+                <div class="sop-container">
+                    <h3>SOP 1：「四法印」每日心智定錨（解決存在性焦慮與挫折）</h3>
+                    <div class="sop-step" id="step-sop1-1">
+                        <div class="sop-badge">1</div>
+                        <div class="sop-step-title">
+                            <span>開啟正見引導計時器</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop1-1')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">點擊下方計時器。在 4 分鐘內，每分鐘將注意力聚焦於一個特定的正見提示。</div>
+                    </div>
+                    
+                    <!-- 四法印定錨計時器 -->
+                    <div class="timer-box">
+                        <div class="timer-circle">
+                            <div class="timer-progress" id="seal-progress"></div>
+                            <span id="seal-time">04:00</span>
+                        </div>
+                        <div class="timer-prompt-card" id="seal-prompt">準備進入正念思維...</div>
+                        <button class="timer-btn" style="margin-top: 15px;" id="seal-btn" onclick="toggleSealTimer()">
+                            <i class="fa-solid fa-bell"></i> <span>啟動正見定錨</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sop-container" style="margin-top: 40px;">
+                    <h3>SOP 2：「我執與煩惱去實體化」拆彈 SOP（解決情緒內耗）</h3>
+                    <div class="sop-step" id="step-sop2-1">
+                        <div class="sop-badge">1</div>
+                        <div class="sop-step-title">
+                            <span>切斷故事線 (Cut the Story)</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop2-1')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">當強烈憤怒或受挫感生起時，立刻打斷腦海中「都是他的錯」、「我太差勁」的劇本播放。</div>
+                    </div>
+                    <div class="sop-step" id="step-sop2-2">
+                        <div class="sop-badge">2</div>
+                        <div class="sop-step-title">
+                            <span>定位生理能量場 (Locate Energy)</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop2-2')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">閉上眼睛，將注意力轉向體內：感受心跳加速、胸口緊繃或發熱等純粹物理反應。</div>
+                    </div>
+                    <div class="sop-step" id="step-sop2-3">
+                        <div class="sop-badge">3</div>
+                        <div class="sop-step-title">
+                            <span>不帶評判直接凝視 (Direct Watch)</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop2-3')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">如看著一個肥皂泡般看著這股生理能量，不要壓抑，也不要試圖消滅，只是靜靜注視。</div>
+                    </div>
+                    <div class="sop-step" id="step-sop2-4">
+                        <div class="sop-badge">4</div>
+                        <div class="sop-step-title">
+                            <span>體證無我與消散 (Dissolve)</span>
+                            <button class="sop-action-btn" onclick="completeStep('sop2-4')">已完成</button>
+                        </div>
+                        <div class="sop-step-desc">隨著不帶故事的注視，我執無法為情緒「進食」，這股生理緊繃會在 2-3 分鐘內自然消退。</div>
+                    </div>
+                </div>
+
+                <div style="text-align: right; margin-top: 20px;">
+                    <button class="sop-action-btn" onclick="resetSop()"><i class="fa-solid fa-rotate-left"></i> 重設所有 SOP 狀態</button>
+                    <button class="btn-primary" style="margin-top:0; margin-left:10px;" onclick="nextStep(4)">進入下一階段：避開修行反模式 <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 4: Anti-patterns -->
+        <div class="tab-pane" id="step-4">
+            <div class="card">
+                <h2><i class="fa-solid fa-circle-exclamation"></i> 階段四：識別並避開修行三大反模式</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">宗薩仁波切特別警惕的偽修行行為，請自我檢測是否落入以下圈套：</p>
+
+                <div class="grid-list">
+                    <div class="grid-item" style="border-left: 4px solid var(--accent-red);">
+                        <div class="grid-item-title" style="color: var(--accent-red);"><i class="fa-solid fa-circle-xmark"></i> 反模式一：精神物質主義 (Spiritual Materialism)</div>
+                        <div class="grid-item-desc">
+                            *表現*：將修持形式（如法器收集、打坐時數、法會打卡、茹素標準）當作彰顯自我優越感（小我）的工具，看不起不修行的人。<br>
+                            *修正*：真正的修行應使「自我防衛牆」越來越薄，越修越感到自己的無知與傲慢。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent-red);">
+                        <div class="grid-item-title" style="color: var(--accent-red);"><i class="fa-solid fa-circle-xmark"></i> 反模式二：文化教條崇拜 (Cultural Obsession)</div>
+                        <div class="grid-item-desc">
+                            *表現*：極度熱衷於藏傳風俗、藏文服飾、藏地儀軌，以為穿得像喇嘛就是佛教徒。<br>
+                            *修正*：佛法是心智運作的本質。穿牛仔褲、吃肯德基，只要接受並思維四法印，就是完全的佛教徒。
+                        </div>
+                    </div>
+                    <div class="grid-item" style="border-left: 4px solid var(--accent-red);">
+                        <div class="grid-item-title" style="color: var(--accent-red);"><i class="fa-solid fa-circle-xmark"></i> 反模式三：關係中的我執投射 (Ego Projection)</div>
+                        <div class="grid-item-desc">
+                            *表現*：在愛情或婚姻中，強烈要求伴侶完美契合自己的期望，稍有不符便感到受挫或試圖控制對方。<br>
+                            *修正*：認清「你因為孤單想要伴侶，又因為自私想要空間」的底層矛盾。接受伴侶如其所是的無常本相。
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: right; margin-top: 30px;">
+                    <button class="btn-primary" onclick="nextStep(5)">進入下一階段：7日修心計畫 <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 5: 7-Day Mind Training -->
+        <div class="tab-pane" id="step-5">
+            <div class="card">
+                <h2><i class="fa-solid fa-calendar-days"></i> 階段五：7日正見修心實踐指南</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                    每週循環執行的心智訓練任務，完成後請勾選以累積進度。可在此紀錄當日反思筆記：
+                </p>
+
+                <div class="check-item">
+                    <input type="checkbox" class="check-input syllabus-check" id="d1-check" onchange="updateProgress('d1-check')">
+                    <div class="check-label">
+                        <strong>【第一天】一日無常因緣觀察</strong>：在今天遇到計劃變更或事物損壞時，列出其背後的多重不可控因緣，練習對事實說「是」。
+                    </div>
+                </div>
+                <div class="check-item">
+                    <input type="checkbox" class="check-input syllabus-check" id="d2-check" onchange="updateProgress('d2-check')">
+                    <div class="check-label">
+                        <strong>【第二天】親密關係投射回收</strong>：當對伴侶或家人感到憤怒時，反思：「我是真的為他好，還是在強加我對他的完美設定？」
+                    </div>
+                </div>
+                <div class="check-item">
+                    <input type="checkbox" class="check-input syllabus-check" id="d3-check" onchange="updateProgress('d3-check')">
+                    <div class="check-label">
+                        <strong>【第三天】小我防衛動機脫水</strong>：在準備與他人爭辯誰對誰錯時，停下10秒，誠實解構：「我是想解決問題，還是想防禦我的自尊與面子？」
+                    </div>
+                </div>
+                <div class="check-item">
+                    <input type="checkbox" class="check-input syllabus-check" id="d4-check" onchange="updateProgress('d4-check')">
+                    <div class="check-label">
+                        <strong>【第四天】消費決策去魅實驗</strong>：在決定購買某件非生活剛需的物品前，問自己：「這個物品是為了解決實際問題，還是小我用來標榜身分的裝飾？」
+                    </div>
+                </div>
+                <div class="check-item">
+                    <input type="checkbox" class="check-input syllabus-check" id="d5-check" onchange="updateProgress('d5-check')">
+                    <div class="check-label">
+                        <strong>【第五天】「不知道（Not Knowing）」修行</strong>：面對未知的項目或卡關，坦然向自己與團隊承認「我現在不知道」，放鬆心智，以空杯心態傾聽不同因緣的意見。
+                    </div>
+                </div>
+                <div class="check-item">
+                    <input type="checkbox" class="check-input syllabus-check" id="d6-check" onchange="updateProgress('d6-check')">
+                    <div class="check-label">
+                        <strong>【第六天】世俗演戲與勝義超然</strong>：將今天的重要工作匯報或面試視為「一場拿了片酬的演出」，盡全力完美扮演（世俗諦），但內心對成敗與評價完全隔離（勝義諦）。
+                    </div>
+                </div>
+                <div class="check-item">
+                    <input type="checkbox" class="check-input syllabus-check" id="d7-check" onchange="updateProgress('d7-check')">
+                    <div class="check-label">
+                        <strong>【第七天】去實體化打坐觀照</strong>：睡前進行 5 分鐘坐禪，不給念頭編織故事，純粹注視身體感受的升起與消散。
+                    </div>
+                </div>
+
+                <div style="margin-top: 25px;">
+                    <h3>今日修心筆記與反思</h3>
+                    <textarea class="reflection-textarea" id="dzongsar-reflection" placeholder="在此記錄您的無常體會或我執觀察筆記，內容會自動保存於瀏覽器中..." oninput="saveReflection()"></textarea>
+                </div>
+
+                <div style="text-align: right; margin-top: 20px;">
+                    <button class="btn-primary" onclick="nextStep(6)">進入下一階段：自我檢測與練習 <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 6: Quiz -->
+        <div class="tab-pane" id="step-6">
+            <div class="card">
+                <h2><i class="fa-solid fa-clipboard-question"></i> 階段六：正見認知自我測驗</h2>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">請檢測您是否已精確掌握宗薩仁波切的智慧系統：</p>
+
+                <!-- Q1 -->
+                <div class="quiz-card">
+                    <div class="quiz-question">Q1. 專案因為突發的政策變動而夭折。小明認為這是倒楣、是惡意阻撓，感到極度痛苦。他落入了何種認知偏差？</div>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-quiz="q1" onclick="checkAnswer(this, 'q1', false)">A. 違反了「諸法無我」，他應該用更強的意志力去突破障礙。</button>
+                        <button class="quiz-option" data-quiz="q1" onclick="checkAnswer(this, 'q1', true)">B. 落入了「常見」偏見。專案是無數因緣和合的產物，因緣一變必然解體，無常是其本然屬性，並非針對個人。</button>
+                    </div>
+                    <div class="quiz-feedback" id="q1-feedback"></div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="quiz-card">
+                    <div class="quiz-question">Q2. 小李打坐五年，吃素、做法會，並常在社群炫耀法會打卡，嚴厲譴責吃肉的人。仁波切對此的評價會是什麼？</div>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-quiz="q2" onclick="checkAnswer(this, 'q2', true)">A. 這是典型的「精神物質主義」。他利用修行形式來餵養小我的優越感，反而加厚了自我防衛牆。</button>
+                        <button class="quiz-option" data-quiz="q2" onclick="checkAnswer(this, 'q2', false)">B. 這是非常精進的修行。只要形式正確，心態可以慢慢調整。</button>
+                    </div>
+                    <div class="quiz-feedback" id="q2-feedback"></div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="quiz-card">
+                    <div class="quiz-question">Q3. 面對繁重的KPI與死板的升遷制度，一個具有佛法正見的「雙軌行者」應如何定位？</div>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-quiz="q3" onclick="checkAnswer(this, 'q3', false)">A. 因為萬事皆空，所以擺爛逃避，不去配合死板考核（斷見）。</button>
+                        <button class="quiz-option" data-quiz="q3" onclick="checkAnswer(this, 'q3', true)">B. 世俗諦上如專業演員般精準答題，負起責任；勝義諦上將其視為一場遊戲，內在價值對評價完全免疫。</button>
+                    </div>
+                    <div class="quiz-feedback" id="q3-feedback"></div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn-primary" onclick="resetAllProgress()"><i class="fa-solid fa-arrows-rotate"></i> 重設所有進度與測驗</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zoom Modal Lightbox for Mermaid -->
+    <div id="zoom-modal" class="zoom-modal">
+        <span class="close-modal" id="close-modal">&times;</span>
+        <div class="zoom-modal-content" id="zoom-modal-content"></div>
+        <div class="zoom-controls">
+            <button id="zoom-in-btn" title="放大"><i class="fa-solid fa-magnifying-glass-plus"></i> 放大</button>
+            <button id="zoom-out-btn" title="縮小"><i class="fa-solid fa-magnifying-glass-minus"></i> 縮小</button>
+            <button id="zoom-reset-btn" title="重設"><i class="fa-solid fa-arrows-rotate"></i> 重設</button>
+        </div>
+    </div>
+
+    <script>
+        // Progress Calculator
+        function updateOverallProgress() {
+            const checks = document.querySelectorAll('.syllabus-check');
+            let completed = 0;
+            checks.forEach(chk => {
+                if (chk.checked) completed++;
+            });
+
+            // Count quizzes
+            const quizzes = ['q1', 'q2', 'q3'];
+            quizzes.forEach(id => {
+                if (localStorage.getItem('quiz-dzongsar-' + id) === 'correct') {
+                    completed++;
+                }
+            });
+
+            const total = checks.length + quizzes.length;
+            const percent = Math.round((completed / total) * 100);
+            
+            document.getElementById('progress-bar').style.width = percent + '%';
+            document.getElementById('progress-text').innerText = percent + '%';
+        }
+
+        // Tab switching logic
+        const stepButtons = document.querySelectorAll('.step-nav-btn');
+        const panes = document.querySelectorAll('.tab-pane');
+
+        function changeStep(stepNum) {
+            stepButtons.forEach(btn => btn.classList.remove('active'));
+            panes.forEach(pane => pane.classList.remove('active'));
+
+            const activeBtn = document.querySelector(`.step-nav-btn[data-tab="step-${stepNum}"]`);
+            const activePane = document.getElementById(`step-${stepNum}`);
+
+            if (activeBtn && activePane) {
+                activeBtn.classList.add('active');
+                activePane.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function nextStep(stepNum) {
+            changeStep(stepNum);
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = root.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                root.removeAttribute('data-theme');
+                themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            } else {
+                root.setAttribute('data-theme', 'light');
+                themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            }
+        });
+
+        // SOP checklist logic
+        function completeStep(stepId) {
+            const stepElement = document.getElementById('step-' + stepId);
+            if (stepElement) {
+                stepElement.classList.add('completed');
+                localStorage.setItem('sop-dzongsar-step-' + stepId, 'completed');
+                updateOverallProgress();
+            }
+        }
+
+        function resetSop() {
+            document.querySelectorAll('.sop-step').forEach(step => {
+                step.classList.remove('completed');
+                const stepId = step.id.replace('step-', '');
+                localStorage.removeItem('sop-dzongsar-step-' + stepId);
+            });
+            resetSealTimer();
+            updateOverallProgress();
+        }
+
+        function loadSopProgress() {
+            document.querySelectorAll('.sop-step').forEach(step => {
+                const stepId = step.id.replace('step-', '');
+                if (localStorage.getItem('sop-dzongsar-step-' + stepId) === 'completed') {
+                    step.classList.add('completed');
+                }
+            });
+        }
+
+        // Audio Chime Synthesis (Web Audio API)
+        function playChime() {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+            const ctx = new AudioContext();
+            
+            const baseFreq = 180; // Calming mahogany F3/G3 tone
+            const partials = [
+                { freq: baseFreq, gain: 0.5, decay: 6.0 },
+                { freq: baseFreq * 1.005, gain: 0.3, decay: 5.0 }, // Beating warm vibrato
+                { freq: baseFreq * 2.81, gain: 0.25, decay: 3.5 }, // Metallic overtone 1
+                { freq: baseFreq * 2.83, gain: 0.15, decay: 3.0 },
+                { freq: baseFreq * 5.0, gain: 0.1, decay: 2.0 },
+                { freq: baseFreq * 6.1, gain: 0.05, decay: 1.2 }
+            ];
+            
+            const masterGain = ctx.createGain();
+            masterGain.connect(ctx.destination);
+            masterGain.gain.setValueAtTime(0.001, ctx.currentTime);
+            masterGain.gain.linearRampToValueAtTime(0.8, ctx.currentTime + 0.08); // Gentle attack mallet strike
+            masterGain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 6.0);
+            
+            partials.forEach(p => {
+                const osc = ctx.createOscillator();
+                const gainNode = ctx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(p.freq, ctx.currentTime);
+                
+                gainNode.gain.setValueAtTime(p.gain, ctx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + p.decay);
+                
+                osc.connect(gainNode);
+                gainNode.connect(masterGain);
+                
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + Math.max(6.0, p.decay));
+            });
+        }
+
+        // Timer 1: Four Seals Meditation (四法印定錨)
+        let sealInterval;
+        let sealRunning = false;
+        let sealTime = 240; // 4 minutes (60s per seal)
+
+        const prompts = [
+            { start: 180, end: 240, txt: "【諸行無常】深呼吸。觀照一切和合事物（專案、感情、身體）的變化無常，接受生滅物理規律。" },
+            { start: 120, end: 180, txt: "【諸漏皆苦】吸氣。察覺腦海中的期望與恐懼，凝視這些情緒背後對「我」的執著，學習放下控制欲。" },
+            { start: 60, end: 120, txt: "【諸法無我】吐氣。觀察自我形象、名聲與物質，皆無獨立自性，不過是因緣的聚合物，本質為空。" },
+            { start: 0, end: 60, txt: "【涅槃寂靜】安住。卸下大腦所有定義與概念標籤，體驗沒有批判、高度明覺與全然自由的寂靜。" }
+        ];
+
+        function toggleSealTimer() {
+            const btn = document.getElementById('seal-btn');
+            const timeDisplay = document.getElementById('seal-time');
+            const progress = document.getElementById('seal-progress');
+            const promptBox = document.getElementById('seal-prompt');
+
+            if (sealRunning) {
+                clearInterval(sealInterval);
+                sealRunning = false;
+                btn.innerHTML = '<i class="fa-solid fa-play"></i> <span>恢復正見定錨</span>';
+            } else {
+                playChime();
+                sealRunning = true;
+                btn.innerHTML = '<i class="fa-solid fa-pause"></i> <span>暫停定錨</span>';
+                
+                sealInterval = setInterval(() => {
+                    if (sealTime <= 0) {
+                        clearInterval(sealInterval);
+                        playChime();
+                        sealRunning = false;
+                        btn.innerHTML = '<i class="fa-solid fa-rotate-left"></i> <span>重設</span>';
+                        btn.onclick = resetSealTimer;
+                        promptBox.innerText = "定錨完成。帶著這份清明正見回到世俗的工作與生活。";
+                        return;
+                    }
+                    sealTime--;
+                    
+                    const min = Math.floor(sealTime / 60).toString().padStart(2, '0');
+                    const sec = (sealTime % 60).toString().padStart(2, '0');
+                    timeDisplay.innerText = `${min}:${sec}`;
+                    
+                    // Display specific prompt based on current time bracket
+                    const activePrompt = prompts.find(p => sealTime >= p.start && sealTime < p.end);
+                    if (activePrompt) {
+                        promptBox.innerText = activePrompt.txt;
+                    }
+                    
+                    const deg = ((240 - sealTime) / 240) * 360;
+                    progress.style.transform = `rotate(${deg}deg)`;
+                }, 1000);
+            }
+        }
+
+        function resetSealTimer() {
+            clearInterval(sealInterval);
+            sealTime = 240;
+            sealRunning = false;
+            document.getElementById('seal-time').innerText = "04:00";
+            document.getElementById('seal-progress').style.transform = "rotate(0deg)";
+            document.getElementById('seal-prompt').innerText = "準備進入正念思維...";
+            const btn = document.getElementById('seal-btn');
+            btn.innerHTML = '<i class="fa-solid fa-bell"></i> <span>啟動正見定錨</span>';
+            btn.onclick = toggleSealTimer;
+        }
+
+        // Quiz checking logic
+        function checkAnswer(element, quizId, isCorrect) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                opt.style.pointerEvents = 'none'; // Lock selections
+            });
+
+            const feedback = document.getElementById(quizId + '-feedback');
+
+            if (isCorrect) {
+                element.classList.add('correct');
+                localStorage.setItem('quiz-dzongsar-' + quizId, 'correct');
+                if (quizId === 'q1') {
+                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！這違反了「諸行無常」。專案本質上是諸多因緣的聚合，既然是拼湊而成，它的變化與解體便是必然。接受無常，才能擺脫無效的憤怒。';
+                } else if (quizId === 'q2') {
+                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！這是經典的「精神物質主義」。拿修行的外在形式標榜自我，反而在小我之外又建立了一座「傲慢的靈性長城」，背離了解脫的本意。';
+                } else if (quizId === 'q3') {
+                    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 回答正確！這即是「二諦並存」的生存藝術。外在扮演好角色以示尊重，內在超然以安頓心靈。';
+                }
+                feedback.className = 'quiz-feedback success';
+            } else {
+                element.classList.add('incorrect');
+                localStorage.setItem('quiz-dzongsar-' + quizId, 'incorrect');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> 回答錯誤。請重新體會宗薩仁波切關於無常、我執以及精神物質主義的底層思考。';
+                feedback.className = 'quiz-feedback error';
+            }
+            feedback.style.display = 'block';
+            updateOverallProgress();
+        }
+
+        function loadQuizProgress() {
+            const quizzes = ['q1', 'q2', 'q3'];
+            quizzes.forEach(id => {
+                const status = localStorage.getItem('quiz-dzongsar-' + id);
+                if (status === 'correct') {
+                    const quizOptions = document.querySelectorAll(`.quiz-option[data-quiz="${id}"]`);
+                    quizOptions.forEach(opt => {
+                        opt.style.pointerEvents = 'none';
+                    });
+                    const correctOpt = Array.from(quizOptions).find(opt => opt.innerHTML.includes('B. 落入了') || opt.innerHTML.includes('A. 這是典型的') || opt.innerHTML.includes('B. 世俗諦上如專業'));
+                    if (correctOpt) {
+                        correctOpt.classList.add('correct');
+                    }
+                    const feedback = document.getElementById(id + '-feedback');
+                    if (feedback) {
+                        feedback.className = 'quiz-feedback success';
+                        feedback.style.display = 'block';
+                        if (id === 'q1') feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 之前已回答正確！專案解體是由於因緣改變，強求不變即是違反諸行無常。';
+                        if (id === 'q2') feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 之前已回答正確！拿修行彰顯優越感是精神物質主義，會餵養小我。';
+                        if (id === 'q3') feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> 之前已回答正確！二諦並存即是外在認真演戲，內在超然無懼。';
+                    }
+                }
+            });
+        }
+
+        // Checklist states persistence
+        function updateProgress(id) {
+            const checkbox = document.getElementById(id);
+            localStorage.setItem('syllabus-dzongsar-' + id, checkbox.checked);
+            updateOverallProgress();
+        }
+
+        function loadProgress() {
+            const checks = ['d1-check', 'd2-check', 'd3-check', 'd4-check', 'd5-check', 'd6-check', 'd7-check'];
+            checks.forEach(id => {
+                const checked = localStorage.getItem('syllabus-dzongsar-' + id) === 'true';
+                const checkbox = document.getElementById(id);
+                if (checkbox) checkbox.checked = checked;
+            });
+
+            const savedReflection = localStorage.getItem('dzongsar_reflection') || '';
+            const textarea = document.getElementById('dzongsar-reflection');
+            if (textarea) textarea.value = savedReflection;
+
+            loadSopProgress();
+            loadQuizProgress();
+            updateOverallProgress();
+        }
+
+        function saveReflection() {
+            const text = document.getElementById('dzongsar-reflection').value;
+            localStorage.setItem('dzongsar_reflection', text);
+        }
+
+        function resetAllProgress() {
+            const checks = ['d1-check', 'd2-check', 'd3-check', 'd4-check', 'd5-check', 'd6-check', 'd7-check'];
+            checks.forEach(id => {
+                localStorage.removeItem('syllabus-dzongsar-' + id);
+                const checkbox = document.getElementById(id);
+                if (checkbox) checkbox.checked = false;
+            });
+
+            localStorage.removeItem('dzongsar_reflection');
+            const textarea = document.getElementById('dzongsar-reflection');
+            if (textarea) textarea.value = '';
+
+            const sops = ['sop1-1', 'sop2-1', 'sop2-2', 'sop2-3', 'sop2-4'];
+            sops.forEach(id => {
+                localStorage.removeItem('sop-dzongsar-step-' + id);
+            });
+            document.querySelectorAll('.sop-step').forEach(step => {
+                step.classList.remove('completed');
+            });
+
+            const quizzes = ['q1', 'q2', 'q3'];
+            quizzes.forEach(id => {
+                localStorage.removeItem('quiz-dzongsar-' + id);
+                const feedback = document.getElementById(id + '-feedback');
+                if (feedback) {
+                    feedback.style.display = 'none';
+                    feedback.className = 'quiz-feedback';
+                }
+            });
+
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                opt.style.pointerEvents = 'auto';
+            });
+
+            resetSealTimer();
+            updateOverallProgress();
+            changeStep(1);
+        }
+
+        // Zoom Modal Logic for Mermaid diagram
+        const zoomModal = document.getElementById('zoom-modal');
+        const zoomContent = document.getElementById('zoom-modal-content');
+        const closeModal = document.getElementById('close-modal');
+        const zoomFlowchart = document.getElementById('mermaid-flowchart');
+        
+        let currentScale = 1.0;
+        let isDragging = false;
+        let startX = 0, startY = 0, translateX = 0, translateY = 0;
+
+        if (zoomFlowchart) {
+            zoomFlowchart.addEventListener('click', () => {
+                const svgElement = zoomFlowchart.querySelector('svg');
+                if (svgElement) {
+                    zoomContent.innerHTML = svgElement.outerHTML;
+                    zoomModal.style.display = 'flex';
+                    currentScale = 1.0;
+                    translateX = 0;
+                    translateY = 0;
+                    updateTransform();
+                }
+            });
+        }
+
+        closeModal.addEventListener('click', () => {
+            zoomModal.style.display = 'none';
+        });
+
+        zoomModal.addEventListener('click', (e) => {
+            if (e.target === zoomModal || e.target === zoomContent) {
+                zoomModal.style.display = 'none';
+            }
+        });
+
+        document.getElementById('zoom-in-btn').addEventListener('click', () => {
+            currentScale *= 1.2;
+            updateTransform();
+        });
+
+        document.getElementById('zoom-out-btn').addEventListener('click', () => {
+            currentScale *= 0.8;
+            updateTransform();
+        });
+
+        document.getElementById('zoom-reset-btn').addEventListener('click', () => {
+            currentScale = 1.0;
+            translateX = 0;
+            translateY = 0;
+            updateTransform();
+        });
+
+        function updateTransform() {
+            const svg = zoomContent.querySelector('svg');
+            if (svg) {
+                svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+            }
+        }
+
+        zoomContent.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX - translateX;
+            startY = e.clientY - translateY;
+            zoomContent.style.cursor = 'grabbing';
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            zoomContent.style.cursor = 'grab';
+        });
+
+        zoomContent.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX - translateX;
+                startY = e.touches[0].clientY - translateY;
+            }
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging || e.touches.length !== 1) return;
+            translateX = e.touches[0].clientX - startX;
+            translateY = e.touches[0].clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        window.onload = loadProgress;
+    </script>
+</body>
+</html>
